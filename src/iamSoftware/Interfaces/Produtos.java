@@ -5,10 +5,17 @@
  */
 package iamSoftware.Interfaces;
 
+import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.ProdutosData;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +28,11 @@ public class Produtos extends javax.swing.JFrame {
      */
     public Produtos() {
         initComponents();
+        try {
+            PreencherTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -48,7 +60,7 @@ public class Produtos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -77,7 +89,7 @@ public class Produtos extends javax.swing.JFrame {
 
         jLabel7.setText("Consulta e Alteração de Produtos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -100,7 +112,7 @@ public class Produtos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblProdutos);
 
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +244,7 @@ public class Produtos extends javax.swing.JFrame {
         
         try {
             produtos.Cadastrar();
+            PreencherTabela();
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -271,6 +284,34 @@ public class Produtos extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    public void PreencherTabela() throws SQLException{
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        
+        tabela.setRowCount(0);
+        
+        String sql = "SELECT * FROM `produtos`";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[6];
+            dados[0] = rs.getString("nome");
+            dados[1] = rs.getString("codigo");
+            dados[2] = rs.getDouble("valorCompra");
+            dados[3] = rs.getDouble("valorVenda");
+            dados[4] = rs.getDouble("quantidade");            
+            dados[5] = rs.getString("medida");
+            
+            tabela.addRow(dados);
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
@@ -291,6 +332,6 @@ public class Produtos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
 }
