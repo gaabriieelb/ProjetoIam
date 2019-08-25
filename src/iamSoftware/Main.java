@@ -5,6 +5,7 @@
  */
 package iamSoftware;
 
+import iamSoftware.Interfaces.Inicial;
 import iamSoftware.Interfaces.Login;
 import iamSoftware.Interfaces.PDVCaixa;
 import java.sql.Connection;
@@ -23,8 +24,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main( String[] args ) throws SQLException {
+        
+        Inicial inicial = new Inicial();
+        inicial.setVisible(true);
+        /*
+        
         //create connection for a server installed in localhost, with a user "root" with no password
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/", "root",null)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/", "root", null)) {
             // create a Statement
             try (Statement stmt = conn.createStatement()) {
                 //execute query
@@ -35,6 +41,8 @@ public class Main {
                 }
             }
         }
+
+           */
     }       
 }
     

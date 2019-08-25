@@ -5,6 +5,11 @@
  */
 package iamSoftware.Interfaces;
 
+import iamSoftware.Classes.ProdutosData;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ga_br
@@ -53,7 +58,7 @@ public class Produtos extends javax.swing.JFrame {
 
         jLabel2.setText("Nome:");
 
-        jLabel3.setText("Código:");
+        jLabel3.setText("CÃ³digo:");
 
         jLabel4.setText("Quant.:");
 
@@ -64,15 +69,20 @@ public class Produtos extends javax.swing.JFrame {
         jLabel6.setText("Valor de Venda:");
 
         buttonCadastrar.setText("Cadastrar");
+        buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCadastrarActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("Consulta e Alteração de Produtos");
+        jLabel7.setText("Consulta e AlteraÃ§Ã£o de Produtos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome", "Código", "Valor de Compra", "Valor de Venda", "Quantidade", "Unidade de Medida"
+                "Nome", "CÃ³digo", "Valor de Compra", "Valor de Venda", "Quantidade", "Unidade de Medida"
             }
         ) {
             Class[] types = new Class [] {
@@ -201,6 +211,31 @@ public class Produtos extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+        
+        String nome = fieldNome.getText();
+        String codigo = fieldCod.getText();
+        double valorCompra = Double.parseDouble(fieldValorCompra.getText());
+        double valorVenda = Double.parseDouble(fieldValorVenda.getText());
+        double quantidade = Double.parseDouble(fieldQtd.getText());
+        String unidade = (String) comboUnidades.getSelectedItem();
+        
+        ProdutosData produtos = new ProdutosData();
+               
+        produtos.setCod(codigo);
+        produtos.setNome(nome);
+        produtos.setQuantidade(quantidade);
+        produtos.setUnidade(unidade);
+        produtos.setValorCompra(valorCompra);
+        produtos.setValorVenda(valorVenda);
+        
+        try {
+            produtos.Cadastrar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
