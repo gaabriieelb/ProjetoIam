@@ -5,14 +5,19 @@
  */
 package iamSoftware.Interfaces;
 
+
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author ga_br
  */
 public class PDVCaixa extends javax.swing.JFrame {
-
+    
+   
     /**
      * Creates new form PDVCaixa
      */
@@ -35,7 +40,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        mainTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
@@ -48,34 +53,70 @@ public class PDVCaixa extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
+        getContentPane().setLayout(null);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jButton1.setText("Mapa de Caixa");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(214, 28, 103, 23);
 
         jButton2.setText("Sangria");
+        getContentPane().add(jButton2);
+        jButton2.setBounds(323, 28, 103, 23);
 
         jButton3.setText("Suprimento");
+        getContentPane().add(jButton3);
+        jButton3.setBounds(432, 28, 103, 23);
 
         jLabel1.setText("Produto:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(201, 96, 42, 14);
+
+        mainTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainTextFieldActionPerformed(evt);
+            }
+        });
+        mainTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mainTextFieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                mainTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                mainTextFieldKeyTyped(evt);
+            }
+        });
+        getContentPane().add(mainTextField);
+        mainTextField.setBounds(250, 90, 255, 20);
 
         jLabel2.setText("Quant.:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(512, 96, 38, 14);
+        getContentPane().add(jTextField2);
+        jTextField2.setBounds(554, 93, 40, 20);
 
         jButton4.setText("Inserir");
+        getContentPane().add(jButton4);
+        jButton4.setBounds(604, 92, 63, 23);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Item", "Cód.", "Produto", "Quant.", "Valor Unit.", "Valor Total"
+                "Item", "Cód.", "Produto", "Quant.", "Valor Unit.", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -93,102 +134,69 @@ public class PDVCaixa extends javax.swing.JFrame {
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(7);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(7);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setPreferredWidth(13);
             jTable1.getColumnModel().getColumn(5).setPreferredWidth(13);
         }
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(201, 133, 617, 263);
+
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque", "Convenio" }));
+        getContentPane().add(jComboBox1);
+        jComboBox1.setBounds(317, 519, 135, 20);
 
         jLabel3.setText("Método de Pagamento:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(201, 522, 112, 14);
 
         jButton5.setText("Finalizar Venda");
+        getContentPane().add(jButton5);
+        jButton5.setBounds(613, 518, 105, 23);
 
         jButton6.setText("Cancelar Venda");
+        getContentPane().add(jButton6);
+        jButton6.setBounds(500, 518, 107, 23);
 
         jButton7.setText("Fechar Caixa");
+        getContentPane().add(jButton7);
+        jButton7.setBounds(724, 518, 95, 23);
 
         jLabel4.setText("Total R$:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(740, 477, 44, 14);
 
         jLabel5.setText("00,00");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(790, 477, 28, 14);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel5))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addGap(33, 33, 33))
-        );
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(250, 110, 255, 130);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mainTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainTextFieldActionPerformed
+        
+    
+    }//GEN-LAST:event_mainTextFieldActionPerformed
+
+    private void mainTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mainTextFieldKeyPressed
+    }//GEN-LAST:event_mainTextFieldKeyPressed
+
+    private void mainTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mainTextFieldKeyReleased
+   
+    }//GEN-LAST:event_mainTextFieldKeyReleased
+
+    private void mainTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mainTextFieldKeyTyped
+   
+    }//GEN-LAST:event_mainTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -239,9 +247,11 @@ public class PDVCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField mainTextField;
     // End of variables declaration//GEN-END:variables
 }
