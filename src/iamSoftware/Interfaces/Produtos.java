@@ -29,7 +29,7 @@ public class Produtos extends javax.swing.JFrame {
      */
     public Produtos() {
         initComponents();
-        this.getContentPane().setBackground(Color.white);
+        //this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         
         try {
@@ -69,7 +69,6 @@ public class Produtos extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Cadastro de Produtos");
@@ -272,7 +271,19 @@ public class Produtos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+               
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int row = tblProdutos.getSelectedRow();
+        int id = (int) tabela.getValueAt(row, 0);
+        String nome = (String) tabela.getValueAt(row, 1);
+        String codigo = (String) tabela.getValueAt(row, 2);
+        double valorCompra = (double) tabela.getValueAt(row, 3);
+        double valorVenda = (double) tabela.getValueAt(row, 4);
+        double quantidade = (double) tabela.getValueAt(row, 5);
+        String unidade = (String) tabela.getValueAt(row, 6);
+              
+        ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorCompra, valorVenda, quantidade, unidade, id);
+        produtosalterar.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed

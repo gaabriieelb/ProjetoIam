@@ -210,5 +210,14 @@ public class ClientesData {
         //ConexaoBD.Fechar(conn);
         
     }
+    
+    public void Remover(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        PreparedStatement stmt = null;
+        stmt = conn.prepareStatement("DELETE FROM clientes WHERE id="+id);
+        stmt.executeUpdate();
+        stmt.close();
+    
+    }
    
 }

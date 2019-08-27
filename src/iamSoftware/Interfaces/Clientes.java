@@ -5,6 +5,19 @@
  */
 package iamSoftware.Interfaces;
 
+import iamSoftware.Classes.ClientesData;
+import iamSoftware.Classes.ConexaoBD;
+import iamSoftware.Classes.ProdutosData;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ga_br
@@ -16,6 +29,12 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
+        
+        try {
+            PreencherTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -28,7 +47,7 @@ public class Clientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -37,19 +56,19 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "CPF/CNPJ"
+                "ID", "Nome", "CPF/CNPJ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -60,13 +79,22 @@ public class Clientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblClientes);
+        if (tblClientes.getColumnModel().getColumnCount() > 0) {
+            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
 
         jButton1.setText("Visualizar Cadastro");
 
         jButton2.setText("Editar Cadastro");
 
         jButton3.setText("Excluir Cadastro");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Novo Cadastro");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +148,20 @@ public class Clientes extends javax.swing.JFrame {
         cadastrocliente.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ClientesData clientesdata = new ClientesData();
+        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+        int row = tblClientes.getSelectedRow();
+        int id = (int) tabela.getValueAt(row, 0);
+         
+        try {
+            clientesdata.Remover(id);
+            PreencherTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -154,6 +196,31 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void PreencherTabela() throws SQLException{
+        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+        
+        tabela.setRowCount(0);
+        
+        String sql = "SELECT * FROM `clientes`";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[4];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("nome");
+            dados[2] = rs.getString("cpfcnpj");        
+            
+            
+            tabela.addRow(dados);
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -162,6 +229,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }

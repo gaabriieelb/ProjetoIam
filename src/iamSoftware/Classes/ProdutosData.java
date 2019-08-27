@@ -93,10 +93,25 @@ public class ProdutosData {
     }
     
     public void Remover(int id) throws SQLException{
-    Connection conn = ConexaoBD.Conectar();    
-    PreparedStatement stmt = null;
-    stmt = conn.prepareStatement("DELETE FROM produtos WHERE id="+id);
-    stmt.executeUpdate();
-    stmt.close();
+        Connection conn = ConexaoBD.Conectar();    
+        PreparedStatement stmt = null;
+        stmt = conn.prepareStatement("DELETE FROM produtos WHERE id="+id);
+        stmt.executeUpdate();
+        stmt.close();
+    
+    }
+    
+    public void Alterar(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/iamsoftware", "root", null);
+        
+        PreparedStatement stmt = null;
+        
+        stmt = conn.prepareStatement("UPDATE produtos SET nome='"+getNome()+"',codigo='"+getCod()+"',valorCompra='"+getValorCompra()+"',valorVenda='"+getValorVenda()+
+                                      "',quantidade='"+getQuantidade()+"',medida='"+getUnidade()+"' WHERE id='"+id+"'");
+               
+        stmt.executeUpdate();
+        stmt.close();
+        //ConexaoBD.Fechar(conn);       
     }
 }

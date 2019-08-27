@@ -26,7 +26,7 @@ public class Inicial extends javax.swing.JFrame {
     public Inicial() {
         initComponents();
         //this.getContentPane().setBackground(new Color(0,0,128));
-        this.getContentPane().setBackground(new Color(255,255,255));
+        //this.getContentPane().setBackground(new Color(255,255,255));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
