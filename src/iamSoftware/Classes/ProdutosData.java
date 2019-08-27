@@ -88,8 +88,15 @@ public class ProdutosData {
         stmt.setString(6,getUnidade());
         
         stmt.executeUpdate();
-        
-        //ConexaoBD.Fechar(conn);
-        
+        stmt.close();
+        //ConexaoBD.Fechar(conn);       
+    }
+    
+    public void Remover(int id) throws SQLException{
+    Connection conn = ConexaoBD.Conectar();    
+    PreparedStatement stmt = null;
+    stmt = conn.prepareStatement("DELETE FROM produtos WHERE id="+id);
+    stmt.executeUpdate();
+    stmt.close();
     }
 }
