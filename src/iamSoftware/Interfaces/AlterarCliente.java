@@ -6,6 +6,10 @@
 package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.ClientesData;
+import iamSoftware.Classes.ConexaoBD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,13 +18,48 @@ import java.util.logging.Logger;
  *
  * @author ga_br
  */
-public class CadastroCliente extends javax.swing.JFrame {
+public class AlterarCliente extends javax.swing.JFrame {
 
+    int id; 
     /**
      * Creates new form CadastroCliente
      */
-    public CadastroCliente() {
+    public AlterarCliente(int id) throws SQLException {
         initComponents();
+        
+        this.id = id;
+        String sql = "SELECT * FROM `clientes` WHERE id='"+id+"'";
+        System.out.println(sql);
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            fieldNome.setText(rs.getString("nome"));
+            fieldCPF.setText(rs.getString("cpfcnpj"));
+            fieldRua.setText(rs.getString("rua"));
+            fieldBairro.setText(rs.getString("bairro"));
+            fieldNum.setText(rs.getString("numero"));
+            fieldCidade.setText(rs.getString("cidade"));
+            fieldCEP.setText(rs.getString("cep"));
+            fieldEmail.setText(rs.getString("email"));
+            fieldTelefone.setText(rs.getString("telefone"));
+            fieldCelular.setText(rs.getString("celular"));
+            fieldWhats.setText(rs.getString("whats"));
+            fieldPrazo.setText(rs.getString("prazo"));
+            fieldLimiteCred.setText(rs.getString("limitecredito"));
+            fieldEmpresa.setText(rs.getString("empresa"));
+            fieldCNPJ.setText(rs.getString("cnpjempresa"));
+            fieldAdmissao.setText(rs.getString("datadmissao"));
+            fieldAutorizacao.setText(rs.getString("autorizacao"));
+        }
+        
+    }
+    
+    public AlterarCliente() {
+        initComponents();       
+        
     }
 
     /**
@@ -107,7 +146,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jLabel13.setText("Limite de Crédito:");
 
-        jButton2.setText("Finalizar Cadastro");
+        jButton2.setText("Finalizar Alteração");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -346,7 +385,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     cliente.setAutorizacao(autorizacao);
     
     try {
-            cliente.Cadastrar();
+            cliente.Alterar(id);
             
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
@@ -371,20 +410,21 @@ public class CadastroCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroCliente().setVisible(true);
+                new AlterarCliente().setVisible(true);
             }
         });
     }

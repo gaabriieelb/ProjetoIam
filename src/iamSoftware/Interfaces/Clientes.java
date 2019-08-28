@@ -82,12 +82,22 @@ public class Clientes extends javax.swing.JFrame {
         tblClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblClientes);
         if (tblClientes.getColumnModel().getColumnCount() > 0) {
-            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblClientes.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
         jButton1.setText("Visualizar Cadastro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar Cadastro");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Excluir Cadastro");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +147,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,6 +171,23 @@ public class Clientes extends javax.swing.JFrame {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+            int row = tblClientes.getSelectedRow();
+            int id = (int) tabela.getValueAt(row, 0);
+            
+            AlterarCliente alterarcliente = new AlterarCliente(id);
+            alterarcliente.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

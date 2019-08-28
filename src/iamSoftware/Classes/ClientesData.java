@@ -219,5 +219,18 @@ public class ClientesData {
         stmt.close();
     
     }
+    
+    public void Alterar(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/iamsoftware", "root", null);
+        
+        PreparedStatement stmt = null;
+        
+        stmt = conn.prepareStatement("UPDATE clientes SET nome='"+getNome()+"',cpfcnpj='"+getCpf_cnpj()+"',rua='"+getRua()+"',bairro='"+getBairro()+"',numero='"+getNumero()+"',cidade='"+getCidade()+"',cep='"+getCep()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',celular='"+getCelular()+"',whats='"+getWhats()+"',prazo='"+getPrazo()+"',limitecredito='"+getLimiteCred()+"',empresa='"+getEmpresa()+"',cnpjempresa='"+getCnpj()+"',datadmissao='"+getDataAdmissao()+"',autorizacao='"+getAutorizacao()+"'WHERE id='"+id+"'");
+               
+        stmt.executeUpdate();
+        stmt.close();
+        //ConexaoBD.Fechar(conn);       
+    }
    
 }
