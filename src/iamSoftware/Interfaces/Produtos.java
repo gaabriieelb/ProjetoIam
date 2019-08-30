@@ -337,6 +337,9 @@ public class Produtos extends javax.swing.JFrame {
         try {
             produtos.Remover(id);
             PreencherTabela();
+            String msg = "Registro Excluido com Sucesso!";
+            Mensagem mensagem = new Mensagem(msg);
+            mensagem.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
