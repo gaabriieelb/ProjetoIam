@@ -45,8 +45,7 @@ public class AlterarCliente extends javax.swing.JFrame {
             fieldCEP.setText(rs.getString("cep"));
             fieldEmail.setText(rs.getString("email"));
             fieldTelefone.setText(rs.getString("telefone"));
-            fieldCelular.setText(rs.getString("celular"));
-            fieldWhats.setText(rs.getString("whats"));
+            fieldCelular.setText(rs.getString("celular"));            
             fieldPrazo.setText(rs.getString("prazo"));
             fieldLimiteCred.setText(rs.getString("limitecredito"));
             fieldEmpresa.setText(rs.getString("empresa"));
@@ -91,8 +90,6 @@ public class AlterarCliente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         fieldCelular = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        fieldWhats = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         fieldPrazo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -139,8 +136,6 @@ public class AlterarCliente extends javax.swing.JFrame {
         jLabel9.setText("Telefone:");
 
         jLabel10.setText("Celular:");
-
-        jLabel11.setText("Whats:");
 
         jLabel12.setText("Prazo(dias):");
 
@@ -189,7 +184,6 @@ public class AlterarCliente extends javax.swing.JFrame {
                                         .addComponent(jLabel5)
                                         .addComponent(jLabel7)
                                         .addComponent(jLabel9)
-                                        .addComponent(jLabel11)
                                         .addComponent(jLabel12)
                                         .addComponent(jLabel13))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -206,9 +200,7 @@ public class AlterarCliente extends javax.swing.JFrame {
                                                     .addGap(18, 18, 18)
                                                     .addComponent(jLabel6))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(fieldWhats)
-                                                        .addComponent(fieldTelefone))
+                                                    .addComponent(fieldTelefone)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(jLabel10))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -279,28 +271,24 @@ public class AlterarCliente extends javax.swing.JFrame {
                     .addComponent(fieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(fieldNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 22, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 22, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(fieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(fieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(fieldWhats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -325,7 +313,7 @@ public class AlterarCliente extends javax.swing.JFrame {
                     .addComponent(fieldAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
                     .addComponent(fieldAutorizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 28, Short.MAX_VALUE)
+                .addGap(18, 27, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,7 +341,6 @@ public class AlterarCliente extends javax.swing.JFrame {
     String email = fieldEmail.getText();
     String telefone = fieldTelefone.getText();
     String celular = fieldCelular.getText();
-    String whats = fieldWhats.getText();
     String prazo = fieldPrazo.getText();
     String limiteCred = fieldLimiteCred.getText();
     
@@ -374,8 +361,7 @@ public class AlterarCliente extends javax.swing.JFrame {
     cliente.setCep(cep);
     cliente.setEmail(email);
     cliente.setTelefone(telefone);
-    cliente.setCelular(celular);
-    cliente.setWhats(whats);
+    cliente.setCelular(celular);    
     cliente.setPrazo(prazo);
     cliente.setLimiteCred(limiteCred);
     
@@ -446,12 +432,10 @@ public class AlterarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField fieldPrazo;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JTextField fieldTelefone;
-    private javax.swing.JTextField fieldWhats;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

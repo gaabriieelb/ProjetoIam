@@ -51,8 +51,7 @@ public class VisualizarCliente extends javax.swing.JFrame {
             lblCEP.setText(rs.getString("cep"));
             lblEmail.setText(rs.getString("email"));
             lblTelefone.setText(rs.getString("telefone"));
-            lblCelular.setText(rs.getString("celular"));
-            lblWhats.setText(rs.getString("whats"));
+            lblCelular.setText(rs.getString("celular"));           
             lblPrazo.setText(rs.getString("prazo"));
             lblLimite.setText(rs.getString("limitecredito"));
             lblEmpresa.setText(rs.getString("empresa"));
@@ -82,12 +81,10 @@ public class VisualizarCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblCPF = new javax.swing.JLabel();
         lblTelefone = new javax.swing.JLabel();
         lblCelular = new javax.swing.JLabel();
-        lblWhats = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -188,9 +185,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Celular:");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel8.setText("Whats:");
-
         jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel9.setText("E-mail:");
 
@@ -202,9 +196,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
 
         lblCelular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblCelular.setText("lblNome");
-
-        lblWhats.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblWhats.setText("lblNome");
 
         lblEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblEmail.setText("lblNome");
@@ -341,7 +332,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(jLabel21)
                             .addComponent(jLabel23)
@@ -354,7 +344,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
                             .addComponent(lblCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,11 +412,7 @@ public class VisualizarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblCelular))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(lblWhats))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(lblEmail))
@@ -551,7 +536,6 @@ public class VisualizarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -575,6 +559,5 @@ public class VisualizarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrazo;
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JLabel lblWhats;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,8 +29,7 @@ public class ClientesData {
     String cep;
     String email;
     String telefone;
-    String celular;
-    String whats;
+    String celular;    
     String prazo;
     String limiteCred;
     
@@ -120,14 +119,6 @@ public class ClientesData {
         this.celular = celular;
     }
 
-    public String getWhats() {
-        return whats;
-    }
-
-    public void setWhats(String whats) {
-        this.whats = whats;
-    }
-
     public String getPrazo() {
         return prazo;
     }
@@ -183,8 +174,8 @@ public class ClientesData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO clientes (nome,cpfcnpj,rua,bairro,numero,cidade,cep,email,telefone,celular,whats,"
-                                     + "prazo,limitecredito,empresa,cnpjempresa,datadmissao,autorizacao)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO clientes (nome,cpfcnpj,rua,bairro,numero,cidade,cep,email,telefone,celular,"
+                                     + "prazo,limitecredito,empresa,cnpjempresa,datadmissao,autorizacao)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         
         stmt.setString(1,getNome());
         stmt.setString(2,getCpf_cnpj());
@@ -195,14 +186,13 @@ public class ClientesData {
         stmt.setString(7,getCep());
         stmt.setString(8,getEmail());
         stmt.setString(9,getTelefone());
-        stmt.setString(10,getCelular());
-        stmt.setString(11,getWhats());
-        stmt.setString(12,getPrazo());
-        stmt.setString(13,getLimiteCred());
-        stmt.setString(14,getEmpresa());
-        stmt.setString(15,getCnpj());
-        stmt.setString(16,getDataAdmissao());
-        stmt.setString(17,getAutorizacao());
+        stmt.setString(10,getCelular());        
+        stmt.setString(11,getPrazo());
+        stmt.setString(12,getLimiteCred());
+        stmt.setString(13,getEmpresa());
+        stmt.setString(14,getCnpj());
+        stmt.setString(15,getDataAdmissao());
+        stmt.setString(16,getAutorizacao());
         
         
         stmt.executeUpdate();
@@ -226,7 +216,7 @@ public class ClientesData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("UPDATE clientes SET nome='"+getNome()+"',cpfcnpj='"+getCpf_cnpj()+"',rua='"+getRua()+"',bairro='"+getBairro()+"',numero='"+getNumero()+"',cidade='"+getCidade()+"',cep='"+getCep()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',celular='"+getCelular()+"',whats='"+getWhats()+"',prazo='"+getPrazo()+"',limitecredito='"+getLimiteCred()+"',empresa='"+getEmpresa()+"',cnpjempresa='"+getCnpj()+"',datadmissao='"+getDataAdmissao()+"',autorizacao='"+getAutorizacao()+"'WHERE id='"+id+"'");
+        stmt = conn.prepareStatement("UPDATE clientes SET nome='"+getNome()+"',cpfcnpj='"+getCpf_cnpj()+"',rua='"+getRua()+"',bairro='"+getBairro()+"',numero='"+getNumero()+"',cidade='"+getCidade()+"',cep='"+getCep()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',celular='"+getCelular()+"',prazo='"+getPrazo()+"',limitecredito='"+getLimiteCred()+"',empresa='"+getEmpresa()+"',cnpjempresa='"+getCnpj()+"',datadmissao='"+getDataAdmissao()+"',autorizacao='"+getAutorizacao()+"'WHERE id='"+id+"'");
                
         stmt.executeUpdate();
         stmt.close();
