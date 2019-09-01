@@ -23,22 +23,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ga_br
  */
-public class Clientes extends javax.swing.JFrame {
+public class Fornecedores extends javax.swing.JFrame {
 
     /**
      * Creates new form Clientes
      */
-    public Clientes() {
+    public Fornecedores() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         jScrollPane1.getViewport().setBackground(Color.white);
-        tblClientes.setBackground(Color.white);
+        tblFornecedores.setBackground(Color.white);
         
         try {
             PreencherTabela();
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -52,7 +52,7 @@ public class Clientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tblFornecedores = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         buttonCadastrar = new javax.swing.JButton();
@@ -64,13 +64,13 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tblClientes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblFornecedores.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "CPF/CNPJ"
+                "ID", "Nome", "CNPJ"
             }
         ) {
             Class[] types = new Class [] {
@@ -88,11 +88,11 @@ public class Clientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblClientes.setGridColor(new java.awt.Color(0, 0, 0));
-        tblClientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblClientes);
-        if (tblClientes.getColumnModel().getColumnCount() > 0) {
-            tblClientes.getColumnModel().getColumn(0).setMaxWidth(50);
+        tblFornecedores.setGridColor(new java.awt.Color(0, 0, 0));
+        tblFornecedores.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblFornecedores);
+        if (tblFornecedores.getColumnModel().getColumnCount() > 0) {
+            tblFornecedores.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -118,7 +118,7 @@ public class Clientes extends javax.swing.JFrame {
         buttonCadastrar.setBackground(new java.awt.Color(255, 255, 255));
         buttonCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         buttonCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
-        buttonCadastrar.setText("Cadastrar Cliente");
+        buttonCadastrar.setText("Cadastrar");
         buttonCadastrar.setFocusPainted(false);
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +131,7 @@ public class Clientes extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Cadastro de Cliente");
+        jLabel9.setText("Cadastro de Fornecedor");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -232,21 +232,21 @@ public class Clientes extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
          try {
-            DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
-            int row = tblClientes.getSelectedRow();
+            DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+            int row = tblFornecedores.getSelectedRow();
             int id = (int) tabela.getValueAt(row, 0);
             
             AlterarCliente alterarcliente = new AlterarCliente(id);
             alterarcliente.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         ClientesData clientesdata = new ClientesData();
-        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
-        int row = tblClientes.getSelectedRow();
+        ClientesData clientesdata = new ClientesData();
+        DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+        int row = tblFornecedores.getSelectedRow();
         int id = (int) tabela.getValueAt(row, 0);
          
         try {
@@ -264,14 +264,14 @@ public class Clientes extends javax.swing.JFrame {
 
     private void buttonCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrar1ActionPerformed
          try {
-            DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
-            int row = tblClientes.getSelectedRow();
+            DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+            int row = tblFornecedores.getSelectedRow();
             int id = (int) tabela.getValueAt(row, 0);
             
             VisualizarCliente visualizarcliente = new VisualizarCliente(id);
             visualizarcliente.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonCadastrar1ActionPerformed
 
@@ -296,30 +296,31 @@ public class Clientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fornecedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fornecedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fornecedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fornecedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clientes().setVisible(true);
+                new Fornecedores().setVisible(true);
             }
         });
     }
     
     public void PreencherTabela() throws SQLException{
-        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
         
         tabela.setRowCount(0);
         
-        String sql = "SELECT * FROM `clientes`";
+        String sql = "SELECT * FROM `fornecedores`";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -349,6 +350,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tblFornecedores;
     // End of variables declaration//GEN-END:variables
 }

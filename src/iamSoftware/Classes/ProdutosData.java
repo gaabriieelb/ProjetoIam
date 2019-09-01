@@ -17,14 +17,23 @@ import java.sql.Statement;
  * @author ga_br
  */
 public class ProdutosData {
-
+    
+    int id;
     String nome;
     String cod;
     double valorCompra;
     double valorVenda;
     double quantidade;
     String unidade;
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+        
     public String getNome() {
         return nome;
     }
