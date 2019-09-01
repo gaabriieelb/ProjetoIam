@@ -41,7 +41,7 @@ public class PesquisaProduto extends javax.swing.JFrame {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
-        radioIgual.setSelected(true);        
+        radioContem.setSelected(true);        
     }
     
     
@@ -236,10 +236,10 @@ public class PesquisaProduto extends javax.swing.JFrame {
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(radioContem)
                             .addGap(18, 18, 18)
                             .addComponent(radioIgual)
-                            .addGap(18, 18, 18)
-                            .addComponent(radioContem)
                             .addGap(18, 18, 18)
                             .addComponent(radioInicio)
                             .addGap(18, 18, 18)
@@ -418,7 +418,7 @@ public class PesquisaProduto extends javax.swing.JFrame {
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("codigo");
             dados[2] = rs.getString("nome");            
-            dados[3] = rs.getDouble("valorCompra");
+            dados[3] = rs.getDouble("valorVenda");
             
             tabela.addRow(dados);
         }
