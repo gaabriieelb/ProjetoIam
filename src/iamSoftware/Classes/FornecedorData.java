@@ -130,8 +130,8 @@ public class FornecedorData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO clientes (nome,cpfcnpj,rua,bairro,numero,cidade,cep,email,telefone,celular,"
-                                     + "prazo,limitecredito,ramo)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO fornecedores (nome,cpfcnpj,rua,bairro,numero,cidade,cep,email,"
+                                    + "telefone,celular,ramoatividade)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         
         stmt.setString(1,getNome());
         stmt.setString(2,getCpf_cnpj());

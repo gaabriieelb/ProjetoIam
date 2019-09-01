@@ -258,8 +258,8 @@ public class Fornecedores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
-        CadastroCliente cadastrocliente = new CadastroCliente();
-        cadastrocliente.setVisible(true);        
+        CadastroFornecedor cadastrofornecedor = new CadastroFornecedor();
+        cadastrofornecedor.setVisible(true);        
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void buttonCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrar1ActionPerformed

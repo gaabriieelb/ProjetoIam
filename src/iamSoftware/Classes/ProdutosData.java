@@ -20,10 +20,8 @@ public class ProdutosData {
     
     int id;
     String nome;
-    String cod;
-    double valorCompra;
-    double valorVenda;
-    double quantidade;
+    String cod;    
+    double valorVenda;  
     String unidade;
 
     public int getId() {
@@ -50,13 +48,7 @@ public class ProdutosData {
         this.cod = cod;
     }
 
-    public double getValorCompra() {
-        return valorCompra;
-    }
-
-    public void setValorCompra(double valorCompra) {
-        this.valorCompra = valorCompra;
-    }
+    
 
     public double getValorVenda() {
         return valorVenda;
@@ -66,13 +58,7 @@ public class ProdutosData {
         this.valorVenda = valorVenda;
     }
 
-    public double getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(double quantidade) {
-        this.quantidade = quantidade;
-    }
+    
 
     public String getUnidade() {
         return unidade;
@@ -88,13 +74,11 @@ public class ProdutosData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO produtos (nome,codigo,valorCompra,valorVenda,quantidade,medida)VALUES(?,?,?,?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO produtos (nome,codigo,valorVenda,medida)VALUES(?,?,?,?)");
         stmt.setString(1,getNome());
-        stmt.setString(2,getCod());
-        stmt.setDouble(3,getValorCompra());
-        stmt.setDouble(4,getValorVenda());
-        stmt.setDouble(5,getQuantidade());
-        stmt.setString(6,getUnidade());
+        stmt.setString(2,getCod());        
+        stmt.setDouble(3,getValorVenda());       
+        stmt.setString(4,getUnidade());
         
         stmt.executeUpdate();
         stmt.close();
@@ -116,8 +100,8 @@ public class ProdutosData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("UPDATE produtos SET nome='"+getNome()+"',codigo='"+getCod()+"',valorCompra='"+getValorCompra()+"',valorVenda='"+getValorVenda()+
-                                      "',quantidade='"+getQuantidade()+"',medida='"+getUnidade()+"' WHERE id='"+id+"'");
+        stmt = conn.prepareStatement("UPDATE produtos SET nome='"+getNome()+"',codigo='"+getCod()+"',valorVenda='"+getValorVenda()+
+                                      "',medida='"+getUnidade()+"' WHERE id='"+id+"'");
                
         stmt.executeUpdate();
         stmt.close();
