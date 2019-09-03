@@ -167,7 +167,7 @@ public class FornecedorData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("UPDATE fornecedores SET nome='"+getNome()+"',cpfcnpj='"+getCpf_cnpj()+"',rua='"+getRua()+"',bairro='"+getBairro()+"',numero='"+getNumero()+"',cidade='"+getCidade()+"',cep='"+getCep()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',celular='"+getCelular()+"',ramo='"+getRamo()+"'WHERE id='"+id+"'");
+        stmt = conn.prepareStatement("UPDATE fornecedores SET nome='"+getNome()+"',cpfcnpj='"+getCpf_cnpj()+"',rua='"+getRua()+"',bairro='"+getBairro()+"',numero='"+getNumero()+"',cidade='"+getCidade()+"',cep='"+getCep()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',celular='"+getCelular()+"',ramoatividade='"+getRamo()+"'WHERE id='"+id+"'");
                
         stmt.executeUpdate();
         stmt.close();

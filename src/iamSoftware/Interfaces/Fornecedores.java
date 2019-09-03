@@ -7,6 +7,7 @@ package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.ConexaoBD;
+import iamSoftware.Classes.FornecedorData;
 import iamSoftware.Classes.ProdutosData;
 import java.awt.Color;
 import java.sql.Connection;
@@ -236,21 +237,21 @@ public class Fornecedores extends javax.swing.JFrame {
             int row = tblFornecedores.getSelectedRow();
             int id = (int) tabela.getValueAt(row, 0);
             
-            AlterarCliente alterarcliente = new AlterarCliente(id);
-            alterarcliente.setVisible(true);
+            AlterarFornecedor alterarfornecedor = new AlterarFornecedor(id);
+            alterarfornecedor.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        ClientesData clientesdata = new ClientesData();
+        FornecedorData fornecedordata = new FornecedorData();
         DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
         int row = tblFornecedores.getSelectedRow();
         int id = (int) tabela.getValueAt(row, 0);
          
         try {
-            clientesdata.Remover(id);
+            fornecedordata.Remover(id);
             PreencherTabela();
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
@@ -268,8 +269,8 @@ public class Fornecedores extends javax.swing.JFrame {
             int row = tblFornecedores.getSelectedRow();
             int id = (int) tabela.getValueAt(row, 0);
             
-            VisualizarCliente visualizarcliente = new VisualizarCliente(id);
-            visualizarcliente.setVisible(true);
+            VisualizarFornecedor visualizarfornecedor = new VisualizarFornecedor(id);
+            visualizarfornecedor.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Fornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }

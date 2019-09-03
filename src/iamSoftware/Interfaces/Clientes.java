@@ -244,7 +244,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         ClientesData clientesdata = new ClientesData();
+        ClientesData clientesdata = new ClientesData();
         DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
         int row = tblClientes.getSelectedRow();
         int id = (int) tabela.getValueAt(row, 0);

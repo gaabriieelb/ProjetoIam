@@ -28,6 +28,8 @@ public class Inicial extends javax.swing.JFrame {
      */
     public Inicial() {
         initComponents();
+        
+        System.out.println(jButton1.getSize());
            
         //this.getContentPane().setBackground(new Color(0,0,128));
         this.getContentPane().setBackground(new Color(255,255,255));
@@ -114,8 +116,9 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1.setText("Vendas");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(95, 189, 197));
         jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basket.png"))); // NOI18N
         jButton1.setText("PDV-Caixa");
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -128,8 +131,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setBackground(new java.awt.Color(242, 173, 82));
         jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/notepad.png"))); // NOI18N
         jButton2.setText("PDV-Comanda");
         jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -142,8 +146,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setBackground(new java.awt.Color(95, 189, 197));
         jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         jButton3.setText("Pesq. de Vendas");
         jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -157,8 +162,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setBackground(new java.awt.Color(95, 189, 197));
         jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receipt.png"))); // NOI18N
         jButton4.setText("Entrada NF");
         jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -166,8 +172,9 @@ public class Inicial extends javax.swing.JFrame {
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setBackground(new java.awt.Color(242, 173, 82));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loss.png"))); // NOI18N
         jButton5.setText("Contas a Pagar");
         jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -179,8 +186,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setBackground(new java.awt.Color(95, 189, 197));
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/revenue.png"))); // NOI18N
         jButton6.setText("Contas a Receber");
         jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -198,8 +206,9 @@ public class Inicial extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Financeiro");
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setBackground(new java.awt.Color(95, 189, 197));
         jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delivery-truck.png"))); // NOI18N
         jButton7.setText("Fornecedor");
         jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -212,8 +221,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setBackground(new java.awt.Color(242, 173, 82));
         jButton8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/network.png"))); // NOI18N
         jButton8.setText("Cliente");
         jButton8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -226,8 +236,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setBackground(new java.awt.Color(95, 189, 197));
         jButton9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/barcode.png"))); // NOI18N
         jButton9.setText("Produtos");
         jButton9.setBorderPainted(false);
@@ -244,8 +255,9 @@ public class Inicial extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Cadastro");
 
-        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setBackground(new java.awt.Color(95, 189, 197));
         jButton11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventory.png"))); // NOI18N
         jButton11.setText("Inventário");
         jButton11.setBorderPainted(false);
@@ -258,8 +270,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setBackground(new java.awt.Color(95, 189, 197));
         jButton12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customer-service.png"))); // NOI18N
         jButton12.setText("Suporte");
         jButton12.setBorderPainted(false);
@@ -276,8 +289,9 @@ public class Inicial extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Gestão");
 
-        jButton13.setBackground(new java.awt.Color(255, 255, 255));
+        jButton13.setBackground(new java.awt.Color(95, 189, 197));
         jButton13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
         jButton13.setText("Configuração");
         jButton13.setBorderPainted(false);
@@ -288,8 +302,9 @@ public class Inicial extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Operacional");
 
-        jButton16.setBackground(new java.awt.Color(255, 255, 255));
+        jButton16.setBackground(new java.awt.Color(95, 189, 197));
         jButton16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton16.setForeground(new java.awt.Color(255, 255, 255));
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/report.png"))); // NOI18N
         jButton16.setText("Relatório");
         jButton16.setBorderPainted(false);
@@ -302,8 +317,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton17.setBackground(new java.awt.Color(255, 255, 255));
+        jButton17.setBackground(new java.awt.Color(242, 173, 82));
         jButton17.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton17.setForeground(new java.awt.Color(255, 255, 255));
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/diary.png"))); // NOI18N
         jButton17.setText("Agenda");
         jButton17.setBorderPainted(false);
@@ -317,8 +333,9 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton18.setBackground(new java.awt.Color(255, 255, 255));
+        jButton18.setBackground(new java.awt.Color(242, 173, 82));
         jButton18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton18.setForeground(new java.awt.Color(255, 255, 255));
         jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
         jButton18.setText("Gráfico");
         jButton18.setBorderPainted(false);
@@ -332,7 +349,7 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(79, 129, 199));
+        jPanel1.setBackground(new java.awt.Color(60, 65, 103));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -419,7 +436,7 @@ public class Inicial extends javax.swing.JFrame {
                 .addComponent(jLabel8))
         );
 
-        jPanel5.setBackground(new java.awt.Color(79, 129, 199));
+        jPanel5.setBackground(new java.awt.Color(60, 65, 103));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -459,7 +476,7 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel7.setBackground(new java.awt.Color(79, 129, 199));
+        jPanel7.setBackground(new java.awt.Color(60, 65, 103));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -519,7 +536,7 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel10.setBackground(new java.awt.Color(79, 129, 199));
+        jPanel10.setBackground(new java.awt.Color(60, 65, 103));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -559,7 +576,7 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel12.setBackground(new java.awt.Color(79, 129, 199));
+        jPanel12.setBackground(new java.awt.Color(60, 65, 103));
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
