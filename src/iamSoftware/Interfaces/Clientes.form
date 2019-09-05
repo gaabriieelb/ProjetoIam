@@ -33,9 +33,10 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jButton6" max="32767" attributes="0"/>
                           <Component id="jButton5" max="32767" attributes="0"/>
-                          <Component id="buttonCadastrar" alignment="0" pref="202" max="32767" attributes="0"/>
+                          <Component id="buttonCadastrar" alignment="0" max="32767" attributes="0"/>
                           <Component id="buttonCadastrar1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton7" max="32767" attributes="0"/>
+                          <Component id="buttonCadastrar2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
@@ -58,6 +59,8 @@
                       <Component id="buttonCadastrar1" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buttonCadastrar" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="buttonCadastrar2" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton5" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -269,6 +272,24 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonCadastrar2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/employee.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Empresas Conveniadas"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCadastrar2ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

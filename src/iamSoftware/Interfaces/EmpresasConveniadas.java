@@ -302,7 +302,7 @@ public class EmpresasConveniadas extends javax.swing.JFrame {
         String cnpj = (String) tabela.getValueAt(row, 2);       
         
         
-        EmpresaConveniadaAlterar empresasconveniadasalterar = new EmpresaConveniadaAlterar();
+        EmpresaConveniadaAlterar empresasconveniadasalterar = new EmpresaConveniadaAlterar(nome,cnpj,id);
         empresasconveniadasalterar.setVisible(true);
         
         

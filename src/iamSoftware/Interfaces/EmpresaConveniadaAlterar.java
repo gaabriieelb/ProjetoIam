@@ -31,8 +31,7 @@ public class EmpresaConveniadaAlterar extends javax.swing.JFrame {
      */
     public EmpresaConveniadaAlterar(String nome, String cnpj, int id) {
        
-        initComponents();
-        this.setLocationRelativeTo(null);
+        initComponents();    
         
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
