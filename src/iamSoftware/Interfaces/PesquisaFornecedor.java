@@ -30,29 +30,18 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author ga_br
  */
-public class PesquisarProduto extends javax.swing.JFrame {
+public class PesquisaFornecedor extends javax.swing.JFrame {
     
     
     
     /**
      * Creates new form PDVCaixa
      */
-    public PesquisarProduto() {
+    public PesquisaFornecedor() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
-        radioContem.setSelected(true);
-        radioID.setSelected(true);
-    }
-    
-    public PesquisarProduto(String tela) {
-        initComponents();
-        this.getContentPane().setBackground(Color.white);
-        this.setLocationRelativeTo(null);
-        radioContem.setSelected(true);
-        radioID.setSelected(true);
-        
-        
+        radioContem.setSelected(true);        
     }
     
     
@@ -80,11 +69,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
         radioInicio = new javax.swing.JRadioButton();
         radioFim = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        radioNome = new javax.swing.JRadioButton();
-        radioCodigo = new javax.swing.JRadioButton();
-        radioID = new javax.swing.JRadioButton();
-        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -95,14 +79,14 @@ public class PesquisarProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Produto", "Cód.", "Valor Unit.", "Medida"
+                "ID", "Nome", "CNPJ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,13 +100,12 @@ public class PesquisarProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblProdutos);
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
             tblProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(13);
         }
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
-        jButton5.setText("Excluir Produto");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
+        jButton5.setText("Confirmar Seleção");
         jButton5.setFocusPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +115,8 @@ public class PesquisarProduto extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shuffle.png"))); // NOI18N
-        jButton6.setText("Alterar Produto");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
+        jButton6.setText("Cancelar Seleção");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -145,7 +128,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Pesquisa de Produto");
+        jLabel7.setText("Seleção da Empresa Convêniada");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,7 +161,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Palavra Chave:");
+        jLabel1.setText("Nome:");
 
         fieldNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -234,49 +217,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Forma de Busca:");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setText("Campo de Busca:");
-
-        radioNome.setBackground(new java.awt.Color(255, 255, 255));
-        radioNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        radioNome.setText("Nome");
-        radioNome.setFocusPainted(false);
-        radioNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioNomeActionPerformed(evt);
-            }
-        });
-
-        radioCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        radioCodigo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        radioCodigo.setText("Código");
-        radioCodigo.setFocusPainted(false);
-        radioCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioCodigoActionPerformed(evt);
-            }
-        });
-
-        radioID.setBackground(new java.awt.Color(255, 255, 255));
-        radioID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        radioID.setText("ID");
-        radioID.setFocusPainted(false);
-        radioID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioIDActionPerformed(evt);
-            }
-        });
-
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        jButton7.setText("Fechar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,43 +224,31 @@ public class PesquisarProduto extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(radioContem)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioIgual)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioFim))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(radioID)
-                                .addGap(62, 62, 62)
-                                .addComponent(radioCodigo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioNome))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(radioContem)
+                            .addGap(18, 18, 18)
+                            .addComponent(radioIgual)
+                            .addGap(18, 18, 18)
+                            .addComponent(radioInicio)
+                            .addGap(18, 18, 18)
+                            .addComponent(radioFim))))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,13 +256,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioCodigo)
-                    .addComponent(radioNome)
-                    .addComponent(radioID)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioIgual)
                     .addComponent(radioContem)
@@ -347,12 +269,11 @@ public class PesquisarProduto extends javax.swing.JFrame {
                     .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -385,110 +306,47 @@ public class PesquisarProduto extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         String sql ="";
-        String nome = fieldNome.getText();
-        String campo = "";
+        String nome = "";
         
-        if(radioID.isSelected()){
-            campo = "id";
-        }
-        if(radioCodigo.isSelected()){
-            campo = "codigo";
-        }
-        if(radioNome.isSelected()){
-            campo = "nome";
-        }
-               
+        nome = fieldNome.getText();
         
         if(radioIgual.isSelected()){
-            if(campo.equals("nome")){
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE '"+nome+"'";
-            }else{
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE "+nome+"";
-            }           
+           sql = "SELECT * FROM fornecedores WHERE nome LIKE '"+nome+"'";
         }
         if(radioContem.isSelected()){
-            if(campo.equals("nome")){
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE '%"+nome+"%'";
-            }else{
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE CONCAT('%',"+nome+",'%')";
-            }           
+           sql = "SELECT * FROM fornecedores WHERE nome LIKE '%"+nome+"%'";
         }
         if(radioInicio.isSelected()){
-            if(campo.equals("nome")){
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE '"+nome+"%'";
-            }else{
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE CONCAT("+nome+",'%')";
-            }            
+            sql = "SELECT * FROM fornecedores WHERE nome LIKE '"+nome+"%'";
         }
         if(radioFim.isSelected()){
-            if(campo.equals("nome")){
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE '%"+nome+"'";
-            }else{
-                sql = "SELECT * FROM produtos WHERE "+campo+" LIKE CONCAT('%',"+nome+")";
-            }        
+           sql = "SELECT * FROM fornecedores WHERE nome LIKE '%"+nome+"'";
         }
         
         try {
             PreencherTabela(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisarProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PesquisaFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ProdutosData produtos = new ProdutosData();
+        
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         int row = tblProdutos.getSelectedRow();
-        int id = (int) tabela.getValueAt(row, 0);
-
-        try {
-            produtos.Remover(id);
-            PreencherTabela();
-            String msg = "Registro Excluido com Sucesso!";
-            Mensagem mensagem = new Mensagem(msg);
-            mensagem.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String nome = (String) tabela.getValueAt(row, 1);
+        String cnpj = (String) tabela.getValueAt(row, 2);
+         
+        CadastroNotaFiscal.fieldNomeFornecedor.setText(nome);
+        CadastroNotaFiscal.fieldCNPJ.setText(cnpj);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-        int row = tblProdutos.getSelectedRow();
-        int id = (int) tabela.getValueAt(row, 0);
-        String nome = (String) tabela.getValueAt(row, 1);
-        String codigo = (String) tabela.getValueAt(row, 2);       
-        double valorVenda = (double) tabela.getValueAt(row, 3);        
-        String unidade = (String) tabela.getValueAt(row, 4);
-
-        ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorVenda, unidade, id);
-        produtosalterar.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void radioNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNomeActionPerformed
-        radioID.setSelected(false);
-        radioCodigo.setSelected(false);
-    }//GEN-LAST:event_radioNomeActionPerformed
-
-    private void radioCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCodigoActionPerformed
-        radioID.setSelected(false);
-        radioNome.setSelected(false);
-    }//GEN-LAST:event_radioCodigoActionPerformed
-
-    private void radioIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIDActionPerformed
-        radioCodigo.setSelected(false);
-        radioNome.setSelected(false);
-    }//GEN-LAST:event_radioIDActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-            Produtos.atualizar();
-        } catch (SQLException ex) {
-            Logger.getLogger(PesquisarProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
         this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButton6ActionPerformed
         
     
     
@@ -510,14 +368,18 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -526,7 +388,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PesquisarProduto().setVisible(true);
+                new PesquisaFornecedor().setVisible(true);
             }
         });
         
@@ -537,22 +399,17 @@ public class PesquisarProduto extends javax.swing.JFrame {
     public javax.swing.JTextField fieldNome;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton radioCodigo;
     private javax.swing.JRadioButton radioContem;
     private javax.swing.JRadioButton radioFim;
-    private javax.swing.JRadioButton radioID;
     private javax.swing.JRadioButton radioIgual;
     private javax.swing.JRadioButton radioInicio;
-    private javax.swing.JRadioButton radioNome;
     private javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
     
@@ -571,39 +428,12 @@ public class PesquisarProduto extends javax.swing.JFrame {
         List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
 
         while (rs.next()) {
-            Object[] dados = new Object[5];
-            dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("codigo");
-            dados[2] = rs.getString("nome");            
-            dados[3] = rs.getDouble("valorVenda");
-            dados[4] = rs.getString("medida");
-            
-            tabela.addRow(dados);
-        }
-
-    }
-    
-    public void PreencherTabela() throws SQLException {
-        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-
-        tabela.setRowCount(0);
-
-        String sql = "SELECT * FROM `produtos`";
-
-        Connection conn = ConexaoBD.Conectar();
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-
-        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
-
-        while (rs.next()) {
-            Object[] dados = new Object[5];
+            Object[] dados = new Object[3];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("nome");
-            dados[2] = rs.getString("codigo");            
-            dados[3] = rs.getDouble("valorVenda");           
-            dados[4] = rs.getString("medida");
-
+            dados[2] = rs.getString("cpfcnpj");            
+           
+            
             tabela.addRow(dados);
         }
 

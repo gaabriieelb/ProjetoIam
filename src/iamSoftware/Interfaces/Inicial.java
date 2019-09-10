@@ -31,7 +31,7 @@ public class Inicial extends javax.swing.JFrame {
         
         System.out.println(jButton1.getSize());
            
-        //this.getContentPane().setBackground(new Color(0,0,128));
+        //this.getContentPane().setBackground(new Color(60,65,103));
         this.getContentPane().setBackground(new Color(255,255,255));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
@@ -171,6 +171,11 @@ public class Inicial extends javax.swing.JFrame {
         jButton4.setFocusPainted(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(242, 173, 82));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -802,6 +807,11 @@ public class Inicial extends javax.swing.JFrame {
         Fornecedores fornecedores = new Fornecedores();
         fornecedores.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        NotaFiscal notafiscal = new NotaFiscal();
+        notafiscal.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

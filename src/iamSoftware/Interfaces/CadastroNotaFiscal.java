@@ -6,6 +6,7 @@
 package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.ClientesData;
+import iamSoftware.Classes.NotaFiscalData;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -64,8 +65,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         fieldDataRegistro = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         fieldValorCompra = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        fieldCEP3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -237,15 +236,9 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         fieldDataRegistro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel10.setText("Valor de Compra:");
+        jLabel10.setText("Valor de Compra (Unidade):");
 
         fieldValorCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel14.setText("Valor Total:");
-
-        fieldCEP3.setEditable(false);
-        fieldCEP3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,11 +277,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel10)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jLabel14)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(fieldCEP3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel8)
@@ -362,10 +351,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(fieldCEP3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,25 +367,42 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldDataEmissaoActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-    String nome = fieldNumNota.getText();
-   
-   
+    String numNota = fieldNumNota.getText();
+    String dataEmissao = fieldDataEmissao.getText();
+    String dataRegistro = fieldDataRegistro.getText();
+    String nomeFornecedor = fieldNomeFornecedor.getText();
+    String cnpj = fieldCNPJ.getText();
+    String nomeProduto = fieldProduto.getText();
+    String quantidade = fieldQuantidade.getText();
+    String valorCompra = fieldValorCompra.getText();  
     
     
-
+    NotaFiscalData nota = new NotaFiscalData();
     
-           
-            
-      
-        
+    nota.setNumNota(numNota);
+    nota.setDataEmissao(dataEmissao);
+    nota.setDataRegistro(dataRegistro);
+    nota.setNomeFornecedor(nomeFornecedor);
+    nota.setCnpj(cnpj);
+    nota.setNomeProduto(nomeProduto);
+    nota.setQuantidade(quantidade);
+    nota.setValorCompra(valorCompra);
+    
+        try {
+            nota.Cadastrar();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroNotaFiscal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+       PesquisaFornecedor pesquisafornecedor = new PesquisaFornecedor();
+       pesquisafornecedor.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        PesquisaProduto pesquisaproduto = new PesquisaProduto("notafiscal");
+        pesquisaproduto.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -439,13 +442,12 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField fieldCEP3;
-    private javax.swing.JTextField fieldCNPJ;
+    public static javax.swing.JTextField fieldCNPJ;
     private javax.swing.JTextField fieldDataEmissao;
     private javax.swing.JTextField fieldDataRegistro;
-    private javax.swing.JTextField fieldNomeFornecedor;
+    public static javax.swing.JTextField fieldNomeFornecedor;
     private javax.swing.JTextField fieldNumNota;
-    private javax.swing.JTextField fieldProduto;
+    public static javax.swing.JTextField fieldProduto;
     private javax.swing.JTextField fieldQuantidade;
     private javax.swing.JTextField fieldValorCompra;
     private javax.swing.JButton jButton5;
@@ -455,7 +457,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
