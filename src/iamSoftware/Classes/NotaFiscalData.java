@@ -16,6 +16,7 @@ import java.sql.SQLException;
  * @author ga_br
  */
 public class NotaFiscalData {
+    
     String numNota;
     String dataEmissao;
     String dataRegistro;
@@ -106,6 +107,24 @@ public class NotaFiscalData {
         stmt.setString(7,getQuantidade());
         stmt.setString(8,getValorCompra());
                
+        stmt.executeUpdate();
+        stmt.close();
+        //ConexaoBD.Fechar(conn);
+        
+    }
+    
+    
+    public void Alterar(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/iamsoftware", "root", null);
+        
+        PreparedStatement stmt = null;
+        String item = String.valueOf(id);
+       
+        stmt = conn.prepareStatement("UPDATE notas SET numeronota='"+getNumNota()+"',dataemissao ='"+getDataEmissao()+"',dataregistro='"+getDataRegistro()+"', "
+                                    + "nomefornecedor='"+getNomeFornecedor()+"', cnpj = '"+getCnpj()+"', nomeproduto ='"+getNomeProduto()+"'"
+                                    + ",quantidade='"+getQuantidade()+"',valorcompra='"+getValorCompra()+"'");
+           
         stmt.executeUpdate();
         stmt.close();
         //ConexaoBD.Fechar(conn);

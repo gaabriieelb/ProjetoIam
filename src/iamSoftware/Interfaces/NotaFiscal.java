@@ -232,16 +232,11 @@ public class NotaFiscal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         try {
-            DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
-            int row = tblFornecedores.getSelectedRow();
-            int id = (int) tabela.getValueAt(row, 0);
-            
-            AlterarFornecedor alterarfornecedor = new AlterarFornecedor(id);
-            alterarfornecedor.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(NotaFiscal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+        int row = tblFornecedores.getSelectedRow();
+        int id = (int) tabela.getValueAt(row, 0);
+        AlterarNotaFiscal alterarnotafiscal = new AlterarNotaFiscal(id);
+        alterarnotafiscal.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

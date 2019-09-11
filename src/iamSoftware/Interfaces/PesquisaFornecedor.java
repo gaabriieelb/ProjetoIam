@@ -32,7 +32,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class PesquisaFornecedor extends javax.swing.JFrame {
     
-    
+    String tela; 
     
     /**
      * Creates new form PDVCaixa
@@ -42,6 +42,14 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         radioContem.setSelected(true);        
+    }
+    
+    public PesquisaFornecedor(String tela) {
+        initComponents();
+        this.getContentPane().setBackground(Color.white);
+        this.setLocationRelativeTo(null);
+        radioContem.setSelected(true);
+        this.tela = tela;
     }
     
     
@@ -337,9 +345,14 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         int row = tblProdutos.getSelectedRow();
         String nome = (String) tabela.getValueAt(row, 1);
         String cnpj = (String) tabela.getValueAt(row, 2);
-         
-        CadastroNotaFiscal.fieldNomeFornecedor.setText(nome);
-        CadastroNotaFiscal.fieldCNPJ.setText(cnpj);
+        
+        if(tela.equals("alterarnotafiscal")){
+            AlterarNotaFiscal.fieldNomeFornecedor.setText(nome);
+            AlterarNotaFiscal.fieldCNPJ.setText(cnpj);
+        }else{
+            CadastroNotaFiscal.fieldNomeFornecedor.setText(nome);
+            CadastroNotaFiscal.fieldCNPJ.setText(cnpj);
+        }
         
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed

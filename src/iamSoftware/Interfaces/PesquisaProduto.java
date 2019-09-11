@@ -355,6 +355,9 @@ public class PesquisaProduto extends javax.swing.JFrame {
         }
         if(tela.equals("notafiscal")){
             CadastroNotaFiscal.fieldProduto.setText(nome);
+        }        
+        if(tela.equals("alterarnotafiscal")){
+            AlterarNotaFiscal.fieldProduto.setText(nome);
         }
         
         
