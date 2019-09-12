@@ -176,7 +176,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldNumNota">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
@@ -184,7 +183,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldDataEmissao">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
@@ -476,7 +474,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldQuantidade">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>
@@ -516,7 +513,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="fieldValorCompra">
       <Properties>
-        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="0"/>
         </Property>

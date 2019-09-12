@@ -71,10 +71,8 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("N° da Nota Fiscal:");
 
-        fieldNumNota.setEditable(false);
         fieldNumNota.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        fieldDataEmissao.setEditable(false);
         fieldDataEmissao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         fieldDataEmissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +224,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Produto:");
 
-        fieldQuantidade.setEditable(false);
         fieldQuantidade.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -241,7 +238,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Valor de Compra (Unidade):");
 
-        fieldValorCompra.setEditable(false);
         fieldValorCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
