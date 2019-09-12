@@ -349,7 +349,8 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         if(tela.equals("alterarnotafiscal")){
             AlterarNotaFiscal.fieldNomeFornecedor.setText(nome);
             AlterarNotaFiscal.fieldCNPJ.setText(cnpj);
-        }else{
+        }
+        if(tela.equals("cadastronotafiscal")){
             CadastroNotaFiscal.fieldNomeFornecedor.setText(nome);
             CadastroNotaFiscal.fieldCNPJ.setText(cnpj);
         }

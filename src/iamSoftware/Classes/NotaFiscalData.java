@@ -130,4 +130,14 @@ public class NotaFiscalData {
         //ConexaoBD.Fechar(conn);
         
     }
+    
+    public void Remover(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        PreparedStatement stmt = null;
+        stmt = conn.prepareStatement("DELETE FROM notas WHERE id="+id);
+        stmt.executeUpdate();
+        stmt.close();
+    
+    }
+    
 }
