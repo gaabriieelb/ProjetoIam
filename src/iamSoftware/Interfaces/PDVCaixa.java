@@ -409,7 +409,7 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        PesquisaProduto pesquisaproduto = new PesquisaProduto();
+        PesquisaProduto pesquisaproduto = new PesquisaProduto("");
         pesquisaproduto.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
