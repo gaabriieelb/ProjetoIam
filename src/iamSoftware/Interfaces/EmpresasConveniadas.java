@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EmpresasConveniadas extends javax.swing.JFrame {
 
+    public static DefaultTableModel tblstatic;
     /**
      * Creates new form Produtos
      */
@@ -321,10 +322,12 @@ public class EmpresasConveniadas extends javax.swing.JFrame {
         try {
             empresasconveniadas.Cadastrar();
             PreencherTabela();
-
+                
             fieldNome.setText("");
             fieldCod.setText("");            
-                 
+            
+            Mensagem msg = new Mensagem("Empresa cadastrada com sucesso!");
+            msg.setVisible(true);
 
         } catch (SQLException ex) {
             Logger.getLogger(EmpresasConveniadas.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,6 +394,31 @@ public class EmpresasConveniadas extends javax.swing.JFrame {
         }
 
     }
+    
+    public static void Atualizar() throws SQLException {
+        tblstatic = (DefaultTableModel) tblProdutos.getModel();
+
+       tblstatic.setRowCount(0);
+
+        String sql = "SELECT * FROM `empresasconveniadas`";
+
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+
+        while (rs.next()) {
+            Object[] dados = new Object[5];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("nome");
+            dados[2] = rs.getString("cnpj");            
+           
+
+            tblstatic.addRow(dados);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
@@ -407,6 +435,6 @@ public class EmpresasConveniadas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblProdutos;
+    public static javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
 }

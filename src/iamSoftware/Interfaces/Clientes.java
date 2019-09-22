@@ -8,6 +8,7 @@ package iamSoftware.Interfaces;
 import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.ProdutosData;
+import static iamSoftware.Interfaces.Produtos.tblstatic;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,7 +61,6 @@ public class Clientes extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         buttonCadastrar1 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         buttonCadastrar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -100,6 +100,7 @@ public class Clientes extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shuffle.png"))); // NOI18N
         jButton5.setText("Alterar");
+        jButton5.setFocusPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -110,6 +111,7 @@ public class Clientes extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
         jButton6.setText("Excluir");
+        jButton6.setFocusPainted(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -175,16 +177,6 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        jButton7.setText("Fechar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         buttonCadastrar2.setBackground(new java.awt.Color(255, 255, 255));
         buttonCadastrar2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         buttonCadastrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/employee.png"))); // NOI18N
@@ -212,7 +204,6 @@ public class Clientes extends javax.swing.JFrame {
                             .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonCadastrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonCadastrar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,7 +216,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,9 +227,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );
 
@@ -267,6 +256,8 @@ public class Clientes extends javax.swing.JFrame {
         try {
             clientesdata.Remover(id);
             PreencherTabela();
+            Mensagem msg = new Mensagem("Cliente excluido com sucesso!");
+            msg.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -289,10 +280,6 @@ public class Clientes extends javax.swing.JFrame {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonCadastrar1ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void buttonCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrar2ActionPerformed
         EmpresasConveniadas empresasConveniadas = new EmpresasConveniadas();
@@ -358,6 +345,31 @@ public class Clientes extends javax.swing.JFrame {
         }
         
     }
+    
+    public static void Atualizar() throws SQLException{
+        tblstatic = (DefaultTableModel) tblClientes.getModel();
+        
+        tblstatic.setRowCount(0);
+        
+        String sql = "SELECT * FROM `clientes`";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[4];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("nome");
+            dados[2] = rs.getString("cpfcnpj");        
+            
+            
+            tblstatic.addRow(dados);
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
@@ -365,11 +377,10 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton buttonCadastrar2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblClientes;
+    public static javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }

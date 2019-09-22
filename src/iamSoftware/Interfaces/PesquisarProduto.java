@@ -6,6 +6,8 @@
 package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.*;
+import static iamSoftware.Interfaces.Produtos.tblProdutos;
+import static iamSoftware.Interfaces.Produtos.tblstatic;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +86,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
         radioNome = new javax.swing.JRadioButton();
         radioCodigo = new javax.swing.JRadioButton();
         radioID = new javax.swing.JRadioButton();
-        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -267,16 +268,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        jButton7.setText("Fechar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,11 +306,9 @@ public class PesquisarProduto extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -351,8 +340,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -448,6 +436,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
             String msg = "Registro Excluido com Sucesso!";
             Mensagem mensagem = new Mensagem(msg);
             mensagem.setVisible(true);
+            Produtos.atualizar();
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -462,7 +451,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         double valorVenda = (double) tabela.getValueAt(row, 3);        
         String unidade = (String) tabela.getValueAt(row, 4);
 
-        ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorVenda, unidade, id);
+        ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorVenda, unidade, id, "pesquisarprodutos");
         produtosalterar.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -480,15 +469,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
         radioCodigo.setSelected(false);
         radioNome.setSelected(false);
     }//GEN-LAST:event_radioIDActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-            Produtos.atualizar();
-        } catch (SQLException ex) {
-            Logger.getLogger(PesquisarProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
         
     
     
@@ -537,7 +517,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
     public javax.swing.JTextField fieldNome;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -553,7 +532,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioIgual;
     private javax.swing.JRadioButton radioInicio;
     private javax.swing.JRadioButton radioNome;
-    private javax.swing.JTable tblProdutos;
+    public static javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
     
    
@@ -573,8 +552,8 @@ public class PesquisarProduto extends javax.swing.JFrame {
         while (rs.next()) {
             Object[] dados = new Object[5];
             dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("codigo");
-            dados[2] = rs.getString("nome");            
+            dados[1] = rs.getString("nome");
+            dados[2] = rs.getString("codigo");                        
             dados[3] = rs.getDouble("valorVenda");
             dados[4] = rs.getString("medida");
             
@@ -607,6 +586,31 @@ public class PesquisarProduto extends javax.swing.JFrame {
             tabela.addRow(dados);
         }
 
+    }
+    
+    public static void atualizar() throws SQLException{
+        tblstatic = (DefaultTableModel) tblProdutos.getModel();
+
+        tblstatic.setRowCount(0);
+
+        String sql = "SELECT * FROM `produtos`";
+
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+
+        while (rs.next()) {
+            Object[] dados = new Object[5];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("nome");
+            dados[2] = rs.getString("codigo");            
+            dados[3] = rs.getDouble("valorVenda");           
+            dados[4] = rs.getString("medida");
+
+            tblstatic.addRow(dados);
+        }
     }
 
 }

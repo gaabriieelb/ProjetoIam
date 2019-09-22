@@ -198,7 +198,10 @@ public class EmpresaConveniadaAlterar extends javax.swing.JFrame {
         
         try {
             empresas.Alterar(id);
-                      
+            EmpresasConveniadas.Atualizar();
+            Mensagem msg = new Mensagem("Empresa alterada com sucesso!");
+            msg.setVisible(true);
+            this.dispose();
             
         } catch (SQLException ex) {
             Logger.getLogger(EmpresaConveniadaAlterar.class.getName()).log(Level.SEVERE, null, ex);

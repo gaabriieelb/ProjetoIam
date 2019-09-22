@@ -475,7 +475,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldCPFActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-            String nome = fieldNome.getText();
+    String nome = fieldNome.getText();
     String cpf_cnpj = fieldCPF.getText();
     String rua = fieldRua.getText();
     String bairro = fieldBairro.getText();
@@ -516,6 +516,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     
     try {
             cliente.Cadastrar();
+            Clientes.Atualizar();
+            Mensagem msg = new Mensagem("Cliente cadastrado com sucesso!");
+            msg.setVisible(true);            
+            this.dispose();
             
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
@@ -523,7 +527,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        PesquisaEmpresaConveniada pesquisaempresa = new PesquisaEmpresaConveniada();
+        PesquisaEmpresaConveniada pesquisaempresa = new PesquisaEmpresaConveniada("cadastrarcliente");
         pesquisaempresa.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 

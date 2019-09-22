@@ -25,10 +25,11 @@ import javax.swing.table.DefaultTableModel;
 public class ProdutosAlterar extends javax.swing.JFrame {
 
     int id;
+    String tela;
     /**
      * Creates new form Produtos
      */
-    public ProdutosAlterar(String nome, String codigo,  double valorVenda, String unidade, int id) {
+    public ProdutosAlterar(String nome, String codigo,  double valorVenda, String unidade, int id, String tela) {
        
         initComponents();
         this.setLocationRelativeTo(null);
@@ -41,6 +42,7 @@ public class ProdutosAlterar extends javax.swing.JFrame {
         fieldCod.setText(codigo);       
         fieldValorVenda.setText(String.valueOf(valorVenda));             
         this.id = id;
+        this.tela = tela;
         
         int qt = comboUnidades.getItemCount();
         for (int i = 0; i < qt; i++){
@@ -245,7 +247,18 @@ public class ProdutosAlterar extends javax.swing.JFrame {
         
         try {
             produtos.Alterar(id);
-                      
+            
+            if(tela.equals("produtos")){
+                Produtos.atualizar();
+            }
+            if(tela.equals("pesquisarprodutos")){
+                PesquisarProduto.atualizar();
+                Produtos.atualizar();
+            }
+            Mensagem mensagem = new Mensagem("Produto alterado com sucesso!");
+            mensagem.setVisible(true);
+            this.dispose();
+           
             
         } catch (SQLException ex) {
             Logger.getLogger(ProdutosAlterar.class.getName()).log(Level.SEVERE, null, ex);

@@ -96,7 +96,7 @@ public class Produtos extends javax.swing.JFrame {
         jLabel3.setText("Código:");
 
         comboUnidades.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unidade", "Caixa", "Litro" }));
+        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kg", "Lt", "Ún", "Cx", "Ct" }));
         comboUnidades.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -374,7 +374,7 @@ public class Produtos extends javax.swing.JFrame {
             double valorVenda = (double) tabela.getValueAt(row, 3);        
             String unidade = (String) tabela.getValueAt(row, 4);
 
-            ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorVenda, unidade, id);
+            ProdutosAlterar produtosalterar = new ProdutosAlterar(nome, codigo, valorVenda, unidade, id, "produtos");
             produtosalterar.setVisible(true);
         } 
         catch (Exception e)
@@ -416,7 +416,8 @@ public class Produtos extends javax.swing.JFrame {
 
                 fieldNome.setText("");
                 fieldCod.setText("");            
-                fieldValorVenda.setText(""); 
+                fieldValorVenda.setText("0");
+                
                 
                 Mensagem mensagem = new Mensagem("Produto cadastrado com sucesso!");
                 mensagem.setVisible(true);

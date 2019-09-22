@@ -32,17 +32,27 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class PesquisaEmpresaConveniada extends javax.swing.JFrame {
     
+    String tela;
     
     
     /**
      * Creates new form PDVCaixa
      */
+    public PesquisaEmpresaConveniada(String tela) {
+        initComponents();
+        this.getContentPane().setBackground(Color.white);
+        this.setLocationRelativeTo(null);
+        radioContem.setSelected(true);
+        this.tela = tela;
+    }
+    
     public PesquisaEmpresaConveniada() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         radioContem.setSelected(true);        
     }
+    
     
     
     /**
@@ -337,10 +347,15 @@ public class PesquisaEmpresaConveniada extends javax.swing.JFrame {
         int row = tblProdutos.getSelectedRow();
         String nome = (String) tabela.getValueAt(row, 1);
         String cnpj = (String) tabela.getValueAt(row, 2);
-                
-        CadastroCliente.fieldEmpresa.setText(nome);
-        CadastroCliente.fieldCNPJ.setText(cnpj);
         
+        if(tela.equals("alterarcliente")){
+            AlterarCliente.fieldEmpresa.setText(nome);
+            AlterarCliente.fieldCNPJ.setText(cnpj);
+        }
+        if(tela.equals("cadastrarcliente")){
+            CadastroCliente.fieldEmpresa.setText(nome);
+            CadastroCliente.fieldCNPJ.setText(cnpj);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
