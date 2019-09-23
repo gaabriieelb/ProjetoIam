@@ -398,6 +398,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     
     try {
             fornecedor.Cadastrar();
+            Fornecedores.Atualizar();
+            Mensagem msg = new Mensagem("Fornecedor cadastrado com sucesso!");
+            msg.setVisible(true);
+            this.dispose();
             
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);

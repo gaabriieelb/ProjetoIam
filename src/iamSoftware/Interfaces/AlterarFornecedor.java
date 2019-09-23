@@ -5,6 +5,7 @@
  */
 package iamSoftware.Interfaces;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.FornecedorData;
@@ -429,6 +430,10 @@ public class AlterarFornecedor extends javax.swing.JFrame {
 
         try {
             fornecedordata.Alterar(id);
+            Fornecedores.Atualizar();
+            Mensagem msg = new Mensagem("Cadastro alterado com sucesso!");
+            msg.setVisible(true);
+            this.dispose();
 
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
