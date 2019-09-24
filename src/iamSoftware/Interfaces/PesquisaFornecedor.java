@@ -136,7 +136,7 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Seleção da Empresa Convêniada");
+        jLabel7.setText("Seleção de Fornecedor");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -353,6 +353,12 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         if(tela.equals("cadastronotafiscal")){
             CadastroNotaFiscal.fieldNomeFornecedor.setText(nome);
             CadastroNotaFiscal.fieldCNPJ.setText(cnpj);
+        }
+        if(tela.equals("cadastrocontaspagar")){
+            CadastroContasPagar.fieldFornecedor.setText(nome);
+        }
+        if(tela.equals("contaspagar")){
+            ContasPagar.fieldFornecedor.setText(nome);
         }
         
         this.dispose();

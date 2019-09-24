@@ -59,12 +59,13 @@ public class CadastroContasPagar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         comboParcelas = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        fieldDescricao = new javax.swing.JTextField();
+        fieldFornecedor = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         fieldVencimento = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox<>();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -146,9 +147,10 @@ public class CadastroContasPagar extends javax.swing.JFrame {
         comboParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setText("Descrição:");
+        jLabel3.setText("Fornecedor:");
 
-        fieldDescricao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fieldFornecedor.setEditable(false);
+        fieldFornecedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -178,6 +180,16 @@ public class CadastroContasPagar extends javax.swing.JFrame {
         comboStatus.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em Aberto", "Liquidado" }));
 
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton7.setFocusPainted(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,7 +213,7 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                                     .addComponent(fieldNumDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(fieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel20)
@@ -209,13 +221,15 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(fieldVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(140, 140, 140))))
+                                .addGap(140, 140, 140)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,10 +245,15 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(fieldNumDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jButton7)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -255,7 +274,7 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,7 +287,7 @@ public class CadastroContasPagar extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
         String numDoc = fieldNumDoc.getText();
-        String descricao = fieldDescricao.getText();
+        String forncedor = fieldFornecedor.getText();
         String valor = fieldValor.getText();
         
         String status = (String) comboStatus.getSelectedItem();
@@ -280,50 +299,84 @@ public class CadastroContasPagar extends javax.swing.JFrame {
         int m2 = Integer.parseInt(String.valueOf(dataArray[4]));
         //dois digitos do mês
         int m3 = Integer.parseInt(m1+""+m2);
+        
         int a1 = Integer.parseInt(String.valueOf(dataArray[8]));
         int a2 = Integer.parseInt(String.valueOf(dataArray[9]));
         //dois digitos do ano
         int a3 = Integer.parseInt(a1+""+a2);
+        
+        int d1 = Integer.parseInt(String.valueOf(dataArray[0]));
+        int d2 = Integer.parseInt(String.valueOf(dataArray[1]));
+        //dois digitos do ano
+        int d3 = Integer.parseInt(d1+""+d2);
+                
         String data = "";
         
         ContasPagarData contaspagar = new ContasPagarData();
         
-        for(int i = 0; i < numParcelas; i++){
-            if(m3 == 12){
-                m3=1;
-                a3+=1;
-            }if(i > 0){
-                m3 = m3+1;
+        try {           
+            for(int i = 0; i < numParcelas; i++){
+                if(m3 == 12){
+                    m3=1;
+                    a3+=1;
+                }if(i > 0){
+                    m3 = m3+1;
+                }
+                         
+                if(m3==2){
+                    if(d3 == 29 || d3 == 30 || d3 == 31){    
+                        System.out.println("Entrou aqui "+d3);
+                        String dia1 = "28";                        
+                        dataArray[0] = dia1.charAt(0);
+                        dataArray[1] = dia1.charAt(1);
+                    }
+                }
+                if(m3 < 10){
+                    data = String.valueOf("20"+a3+"-0"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
+                    //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-0"+m3+"-20"+a3;
+
+                }else{
+                    data = String.valueOf("20"+a3+"-"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
+                    //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-"+m3+"-20"+a3;                
+                }
+
+                contaspagar.setNumeroDocumento(numDoc);
+                contaspagar.setFornecedor(forncedor);
+                contaspagar.setValor(valor);
+                int num = i+1;
+                contaspagar.setNumeroParcela(num+"/"+numParcelas);
+                contaspagar.setVencimento(data);
+                contaspagar.setStatus(status);
+
+                try {
+                    contaspagar.Cadastrar();              
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(CadastroContasPagar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if(m3==2){
+                    String dia2 = String.valueOf(d1);
+                    dataArray[0] = dia2.charAt(0);
+                    dia2 = String.valueOf(d2);
+                    dataArray[1] = dia2.charAt(0);
+                }
             }
-           
-            if(m3 < 10){
-                data = String.valueOf("20"+a3+"-0"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
-                //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-0"+m3+"-20"+a3;
-                
-            }else{
-                data = String.valueOf("20"+a3+"-"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
-                //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-"+m3+"-20"+a3;                
-            }
-            
-            contaspagar.setNumeroDocumento(numDoc);
-            contaspagar.setDescricao(descricao);
-            contaspagar.setValor(valor);
-            int num = i+1;
-            contaspagar.setNumeroParcela(num+"/"+numParcelas);
-            contaspagar.setVencimento(data);
-            contaspagar.setStatus(status);
-            
-            try {
-                contaspagar.Cadastrar();
-            } catch (SQLException ex) {
-                Logger.getLogger(CadastroContasPagar.class.getName()).log(Level.SEVERE, null, ex);
-            }           
-            
+            Mensagem msg = new Mensagem("Cadastro realizado com sucesso!");
+            msg.setVisible(true);
+            ContasPagar.Atualizar();
+            this.dispose();
+        } 
+        catch (Exception e) {
         }
         
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        PesquisaFornecedor pesquisafornecedor = new PesquisaFornecedor("cadastrocontaspagar");
+        pesquisafornecedor.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,12 +419,13 @@ public class CadastroContasPagar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboParcelas;
     private javax.swing.JComboBox<String> comboStatus;
-    private javax.swing.JTextField fieldDescricao;
+    public static javax.swing.JTextField fieldFornecedor;
     private javax.swing.JTextField fieldNumDoc;
     private javax.swing.JTextField fieldValor;
     private javax.swing.JFormattedTextField fieldVencimento;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

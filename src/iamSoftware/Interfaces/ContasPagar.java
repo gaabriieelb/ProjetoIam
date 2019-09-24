@@ -27,7 +27,10 @@ import javax.swing.table.DefaultTableModel;
  * @author ga_br
  */
 public class ContasPagar extends javax.swing.JFrame {
-
+    
+    public static DefaultTableModel tblstatic;
+    public static String data;
+    String status = "Todos";
     /**
      * Creates new form Clientes
      */
@@ -61,12 +64,19 @@ public class ContasPagar extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
         buttonCadastrar2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         radioTodos = new javax.swing.JRadioButton();
         radioEmAberto = new javax.swing.JRadioButton();
         radioLiquidado = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        fieldFornecedor = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        fieldPeriodoInicial = new javax.swing.JFormattedTextField();
+        fieldPeriodoFinal = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -76,11 +86,11 @@ public class ContasPagar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N°  Doc", "Descrição", "Valor", "Parcela", "Vencimento", "Status"
+                "ID", "N°  Doc", "Fornecedor", "Valor", "Parcela", "Vencimento", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false, false, true, true
@@ -159,16 +169,6 @@ public class ContasPagar extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        jButton7.setText("Fechar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         buttonCadastrar2.setBackground(new java.awt.Color(255, 255, 255));
         buttonCadastrar2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         buttonCadastrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash.png"))); // NOI18N
@@ -210,6 +210,61 @@ public class ContasPagar extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Fornecedor:");
+
+        fieldFornecedor.setEditable(false);
+        fieldFornecedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton7.setText("Buscar");
+        jButton7.setFocusPainted(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        try {
+            fieldPeriodoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldPeriodoInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPeriodoInicialActionPerformed(evt);
+            }
+        });
+
+        try {
+            fieldPeriodoFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldPeriodoFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPeriodoFinalActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("Período:");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("a");
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton8.setFocusPainted(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,29 +272,42 @@ public class ContasPagar extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioTodos)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioEmAberto)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioLiquidado)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(51, 51, 51)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(51, 51, 51)
                             .addComponent(buttonCadastrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(507, 507, 507)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(radioTodos)
+                            .addGap(18, 18, 18)
+                            .addComponent(radioEmAberto)
+                            .addGap(18, 18, 18)
+                            .addComponent(radioLiquidado)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton8)
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,36 +315,58 @@ public class ContasPagar extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))))
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(radioTodos)
                     .addComponent(radioEmAberto)
-                    .addComponent(radioLiquidado))
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1)
+                    .addComponent(radioLiquidado)
+                    .addComponent(jButton7))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCadastrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        NotaFiscalData notafiscaldata = new NotaFiscalData();
+        ContasPagarData contaspagar = new ContasPagarData();
         DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
         int row = tblFornecedores.getSelectedRow();
-        int id = (int) tabela.getValueAt(row, 0);
+        String numeronota = (String) tabela.getValueAt(row, 1);
          
         try {
-            notafiscaldata.Remover(id);
+            contaspagar.Remover(numeronota);
             PreencherTabela();
+            Mensagem msg = new Mensagem("Registro excluido com sucesso!");
+            msg.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -287,10 +377,6 @@ public class ContasPagar extends javax.swing.JFrame {
         cadastrocontaspagar.setVisible(true);
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void buttonCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrar2ActionPerformed
         ContasPagarData contaspagar = new ContasPagarData();
         
@@ -300,12 +386,16 @@ public class ContasPagar extends javax.swing.JFrame {
         
         try {
             contaspagar.Liquidar(id);
+            PreencherTabela();
+            Mensagem msg = new Mensagem("Conta Liquidada com sucesso!");
+            msg.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(ContasPagar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonCadastrar2ActionPerformed
 
     private void radioTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTodosActionPerformed
+        status = "Todos";
         radioEmAberto.setSelected(false);
         radioLiquidado.setSelected(false);
         try {
@@ -316,6 +406,7 @@ public class ContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_radioTodosActionPerformed
 
     private void radioEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEmAbertoActionPerformed
+        status = "Em Aberto";
         radioTodos.setSelected(false);
         radioLiquidado.setSelected(false);
         try {
@@ -326,8 +417,9 @@ public class ContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_radioEmAbertoActionPerformed
 
     private void radioLiquidadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioLiquidadoActionPerformed
-       radioEmAberto.setSelected(false);
-       radioTodos.setSelected(false);
+        status = "Liquidado";
+        radioEmAberto.setSelected(false);
+        radioTodos.setSelected(false);
        
         try {
             PreencherTabela("Liquidado");
@@ -335,6 +427,67 @@ public class ContasPagar extends javax.swing.JFrame {
             Logger.getLogger(ContasPagar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_radioLiquidadoActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String fornecedor = fieldFornecedor.getText();
+        String periodoInicial = fieldPeriodoInicial.getText();
+        String periodoFinal = fieldPeriodoFinal.getText();
+        String sql = "";
+        String datainicial="", datafinal="";
+        
+        if(!periodoInicial.equalsIgnoreCase("") && !periodoFinal.equalsIgnoreCase("")){            
+            datainicial = converterToDataBase(periodoInicial);
+            datafinal = converterToDataBase(periodoFinal);
+        }
+        
+        if(periodoInicial.equalsIgnoreCase("  /  /    ") || periodoFinal.equalsIgnoreCase("  /  /    ")){
+            Mensagem msg = new Mensagem("Preencha os campos Data Inicial e Final");
+            msg.setVisible(true);
+        }
+        if(fornecedor.equalsIgnoreCase("") && !periodoInicial.equalsIgnoreCase("  /  /    ") && !periodoFinal.equalsIgnoreCase("  /  /    ")){
+           sql= "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' ORDER BY vencimento ASC";
+            try {
+                BuscaFiltrada(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(ContasPagar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(!fornecedor.equalsIgnoreCase("") && !periodoInicial.equalsIgnoreCase("  /  /    ") && !periodoFinal.equalsIgnoreCase("  /  /    ")){
+            if(status.equalsIgnoreCase("todos")){
+                sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+fornecedor+"' ORDER BY vencimento ASC";
+                try {
+                    BuscaFiltrada(sql);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ContasPagar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(!status.equalsIgnoreCase("todos")){
+                sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+fornecedor+"' AND status='"+status+"' ORDER BY vencimento ASC";
+                try {
+                    BuscaFiltrada(sql);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ContasPagar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+            
+        
+        
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void fieldPeriodoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPeriodoInicialActionPerformed
+
+    private void fieldPeriodoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPeriodoFinalActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        PesquisaFornecedor pesquisafornecedor = new PesquisaFornecedor("contaspagar");
+        pesquisafornecedor.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,7 +556,7 @@ public class ContasPagar extends javax.swing.JFrame {
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("numerodocumento");
-            dados[2] = rs.getString("descricao");
+            dados[2] = rs.getString("fornecedor");
             dados[3] = rs.getString("valor");
             dados[4] = rs.getString("numeroparcela");
             dados[5] = rs.getString("vencimento");
@@ -437,7 +590,7 @@ public class ContasPagar extends javax.swing.JFrame {
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");                        
             dados[1] = rs.getString("numerodocumento");
-            dados[2] = rs.getString("descricao");
+            dados[2] = rs.getString("fornecedor");
             dados[3] = rs.getString("valor");
             dados[4] = rs.getString("numeroparcela");
             dados[5] = rs.getString("vencimento");
@@ -452,20 +605,100 @@ public class ContasPagar extends javax.swing.JFrame {
         }       
     }
     
+    public void BuscaFiltrada(String sql) throws SQLException{
+        DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+        
+        tabela.setRowCount(0);      
+               
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[7];
+            dados[0] = rs.getInt("id");                        
+            dados[1] = rs.getString("numerodocumento");
+            dados[2] = rs.getString("fornecedor");
+            dados[3] = rs.getString("valor");
+            dados[4] = rs.getString("numeroparcela");
+            dados[5] = rs.getString("vencimento");
+            
+            String data = (String) dados[5];
+            char[] dataArray = data.toCharArray();
+            data = conveter(dataArray);
+            dados[5] = data;            
+            dados[6] = rs.getString("status");            
+            
+            tabela.addRow(dados);
+        }       
+    }
     
-    public String conveter(char[] dataArray){
+    public static void Atualizar() throws SQLException{
+        tblstatic = (DefaultTableModel) tblFornecedores.getModel();
+        
+        tblstatic.setRowCount(0);
+        
+        String sql = "SELECT * FROM `contaspagar` ORDER BY `vencimento` ASC";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[7];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("numerodocumento");
+            dados[2] = rs.getString("fornecedor");
+            dados[3] = rs.getString("valor");
+            dados[4] = rs.getString("numeroparcela");
+            dados[5] = rs.getString("vencimento");
+            
+            data = (String) dados[5];
+            char[] dataArray = data.toCharArray();
+            data = conveter(dataArray);
+            dados[5] = data;
+            
+            dados[6] = rs.getString("status");
+            
+            
+            tblstatic.addRow(dados);
+        }       
+    }
+    
+    
+    public static String conveter(char[] dataArray){
     
         String dataString = dataArray[8]+""+dataArray[9]+"/"+dataArray[5]+""+dataArray[6]+"/20"+dataArray[2]+dataArray[3];  
         
     return dataString;    
     }
+    
+    
+    public String converterToDataBase(String data){
+        char [] dataArray = data.toCharArray();
+        data = dataArray[6]+""+dataArray[7]+""+dataArray[8]+""+dataArray[9]+"-"+dataArray[3]+""+dataArray[4]+"-"+dataArray[0]+""+dataArray[1];
+        return data;        
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonCadastrar2;
+    public static javax.swing.JTextField fieldFornecedor;
+    private javax.swing.JFormattedTextField fieldPeriodoFinal;
+    private javax.swing.JFormattedTextField fieldPeriodoInicial;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -473,6 +706,6 @@ public class ContasPagar extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioEmAberto;
     private javax.swing.JRadioButton radioLiquidado;
     private javax.swing.JRadioButton radioTodos;
-    private javax.swing.JTable tblFornecedores;
+    public static javax.swing.JTable tblFornecedores;
     // End of variables declaration//GEN-END:variables
 }

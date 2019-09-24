@@ -26,7 +26,8 @@ import javax.swing.table.DefaultTableModel;
  * @author ga_br
  */
 public class NotaFiscal extends javax.swing.JFrame {
-
+    
+    public static DefaultTableModel tblstatic;
     /**
      * Creates new form Clientes
      */
@@ -101,6 +102,7 @@ public class NotaFiscal extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shuffle.png"))); // NOI18N
         jButton5.setText("Alterar");
+        jButton5.setFocusPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -111,6 +113,7 @@ public class NotaFiscal extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
         jButton6.setText("Excluir");
+        jButton6.setFocusPainted(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -249,6 +252,8 @@ public class NotaFiscal extends javax.swing.JFrame {
         try {
             notafiscaldata.Remover(id);
             PreencherTabela();
+            Mensagem msg = new Mensagem("Registro excluido com sucesso!");
+            msg.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -337,6 +342,31 @@ public class NotaFiscal extends javax.swing.JFrame {
         }
         
     }
+    
+    public static void Atualizar() throws SQLException{
+        tblstatic = (DefaultTableModel) tblFornecedores.getModel();
+        
+        tblstatic.setRowCount(0);
+        
+        String sql = "SELECT * FROM `notas`";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+             
+        while(rs.next()){
+            Object[] dados = new Object[4];
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("numeronota");
+            dados[2] = rs.getString("dataemissao");        
+            
+            
+            tblstatic.addRow(dados);
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
@@ -348,6 +378,6 @@ public class NotaFiscal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblFornecedores;
+    public static javax.swing.JTable tblFornecedores;
     // End of variables declaration//GEN-END:variables
 }

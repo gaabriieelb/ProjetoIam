@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class ContasPagarData {
     String NumeroDocumento;
-    String Descricao;
+    String Fornecedor;
     String Valor;
     String NumeroParcela;
     String Vencimento;
@@ -29,12 +29,12 @@ public class ContasPagarData {
         this.NumeroDocumento = NumeroDocumento;
     }
 
-    public String getDescricao() {
-        return Descricao;
+    public String getFornecedor() {
+        return Fornecedor;
     }
 
-    public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
+    public void setFornecedor(String Fornecedor) {
+        this.Fornecedor = Fornecedor;
     }
 
     public String getValor() {
@@ -77,10 +77,10 @@ public class ContasPagarData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO contaspagar (numerodocumento, descricao, valor, numeroparcela, vencimento, status)VALUES(?,?,?,?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO contaspagar (numerodocumento, fornecedor, valor, numeroparcela, vencimento, status)VALUES(?,?,?,?,?,?)");
         
         stmt.setString(1,getNumeroDocumento());
-        stmt.setString(2,getDescricao());
+        stmt.setString(2,getFornecedor());
         stmt.setString(3,getValor());
         stmt.setString(4,getNumeroParcela());
         stmt.setString(5,getVencimento());
@@ -103,6 +103,15 @@ public class ContasPagarData {
                
         stmt.executeUpdate();
         stmt.close();
+    }
+    
+    public void Remover(String numeronota) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        PreparedStatement stmt = null;
+        stmt = conn.prepareStatement("DELETE FROM contaspagar WHERE numerodocumento="+numeronota);
+        stmt.executeUpdate();
+        stmt.close();
+    
     }
             
 }

@@ -9,8 +9,13 @@ import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.NotaFiscalData;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -24,7 +29,19 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     public CadastroNotaFiscal() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
-        this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null);
+        
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	Date dataDoSistema = new Date();		
+	String dataEmTexto = formatador.format(dataDoSistema);  
+        fieldDataRegistro.setText(dataEmTexto);
+        
+        DecimalFormat dFormat = new DecimalFormat("#######.00") ;
+        NumberFormatter formatter = new NumberFormatter(dFormat) ;
+        formatter.setFormat(dFormat) ;
+        formatter.setAllowsInvalid(false);
+        fieldValorCompra.setFormatterFactory(new DefaultFormatterFactory(formatter));
+	
     }
 
     /**
@@ -64,7 +81,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         fieldDataRegistro = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        fieldValorCompra = new javax.swing.JTextField();
+        fieldValorCompra = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -238,8 +255,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Valor de Compra (Unidade):");
 
-        fieldValorCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,7 +292,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel10)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel8)
@@ -352,7 +367,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(fieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -374,8 +389,10 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     String cnpj = fieldCNPJ.getText();
     String nomeProduto = fieldProduto.getText();
     String quantidade = fieldQuantidade.getText();
-    String valorCompra = fieldValorCompra.getText();  
+    String vCompra = fieldValorCompra.getText();  
     
+    vCompra = vCompra.replace(",",".");
+    Double valorCompra = Double.parseDouble(vCompra);
     
     NotaFiscalData nota = new NotaFiscalData();
     
@@ -390,6 +407,11 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     
         try {
             nota.Cadastrar();
+            NotaFiscal.Atualizar();
+            Mensagem msg = new Mensagem("Nota Fiscal cadastrada com Sucesso!");
+            msg.setVisible(true);
+            this.dispose();
+            
         } catch (SQLException ex) {
             Logger.getLogger(CadastroNotaFiscal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -449,7 +471,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JTextField fieldNumNota;
     public static javax.swing.JTextField fieldProduto;
     private javax.swing.JTextField fieldQuantidade;
-    private javax.swing.JTextField fieldValorCompra;
+    private javax.swing.JFormattedTextField fieldValorCompra;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

@@ -24,7 +24,7 @@ public class NotaFiscalData {
     String cnpj;
     String nomeProduto;
     String quantidade;
-    String valorCompra;
+    double valorCompra;
 
     public String getNumNota() {
         return numNota;
@@ -82,11 +82,11 @@ public class NotaFiscalData {
         this.quantidade = quantidade;
     }
 
-    public String getValorCompra() {
+    public double getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(String valorCompra) {
+    public void setValorCompra(double valorCompra) {
         this.valorCompra = valorCompra;
     }
     
@@ -105,7 +105,7 @@ public class NotaFiscalData {
         stmt.setString(5,getCnpj());
         stmt.setString(6,getNomeProduto());
         stmt.setString(7,getQuantidade());
-        stmt.setString(8,getValorCompra());
+        stmt.setDouble(8,getValorCompra());
                
         stmt.executeUpdate();
         stmt.close();
