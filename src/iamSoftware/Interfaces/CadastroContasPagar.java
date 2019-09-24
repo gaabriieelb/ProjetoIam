@@ -307,30 +307,34 @@ public class CadastroContasPagar extends javax.swing.JFrame {
         
         int d1 = Integer.parseInt(String.valueOf(dataArray[0]));
         int d2 = Integer.parseInt(String.valueOf(dataArray[1]));
-        //dois digitos do ano
+        //dois digitos do dia
         int d3 = Integer.parseInt(d1+""+d2);
-                
+        
+        boolean t = false;
+        
         String data = "";
         
         ContasPagarData contaspagar = new ContasPagarData();
         
         try {           
             for(int i = 0; i < numParcelas; i++){
-                if(m3 == 12){
-                    m3=1;
-                    a3+=1;
-                }if(i > 0){
-                    m3 = m3+1;
-                }
+                            
                          
                 if(m3==2){
-                    if(d3 == 29 || d3 == 30 || d3 == 31){    
-                        System.out.println("Entrou aqui "+d3);
+                    if(d3 == 29 || d3 == 30 || d3 == 31){                        
                         String dia1 = "28";                        
                         dataArray[0] = dia1.charAt(0);
                         dataArray[1] = dia1.charAt(1);
                     }
                 }
+                
+                if(m3==4 || m3==6 || m3==9 || m3==11 && d3==31){                    
+                    t=true;
+                    String dia1 = "30";                        
+                    dataArray[0] = dia1.charAt(0);
+                    dataArray[1] = dia1.charAt(1);
+                }
+                
                 if(m3 < 10){
                     data = String.valueOf("20"+a3+"-0"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
                     //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-0"+m3+"-20"+a3;
@@ -359,6 +363,20 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                     dataArray[0] = dia2.charAt(0);
                     dia2 = String.valueOf(d2);
                     dataArray[1] = dia2.charAt(0);
+                }
+                
+                if(t=true){
+                    t= false;
+                    String dia1 = "31";                        
+                    dataArray[0] = dia1.charAt(0);
+                    dataArray[1] = dia1.charAt(1);
+                }
+                
+                if(m3 == 12){
+                    m3=1;
+                    a3+=1;
+                }else{
+                    m3 = m3+1;
                 }
             }
             Mensagem msg = new Mensagem("Cadastro realizado com sucesso!");
