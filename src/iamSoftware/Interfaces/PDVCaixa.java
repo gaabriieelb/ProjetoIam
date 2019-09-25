@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -42,6 +43,13 @@ public class PDVCaixa extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);  
         
+        lbl02.setVisible(false);
+        comboFormaPagamento2.setVisible(false);
+        lbl03.setVisible(false);
+        fieldValorPago2.setVisible(false);
+        buttonConfirmar2.setVisible(false);
+        buttonFinalizar.setEnabled(false);
+        
     }
     
     
@@ -61,7 +69,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         tblProdutos = new javax.swing.JTable();
         comboFormaPagamento = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        buttonFinalizar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -84,6 +92,14 @@ public class PDVCaixa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         labelValorPago = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        fieldValorPago1 = new javax.swing.JTextField();
+        labelValorPago1 = new javax.swing.JLabel();
+        lbl02 = new javax.swing.JLabel();
+        comboFormaPagamento2 = new javax.swing.JComboBox<>();
+        lbl03 = new javax.swing.JLabel();
+        fieldValorPago2 = new javax.swing.JTextField();
+        buttonConfirmar1 = new javax.swing.JButton();
+        buttonConfirmar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -151,14 +167,14 @@ public class PDVCaixa extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Método de Pagamento:");
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
-        jButton5.setText("Finalizar Venda");
-        jButton5.setFocusPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonFinalizar.setBackground(new java.awt.Color(255, 255, 255));
+        buttonFinalizar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        buttonFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
+        buttonFinalizar.setText("Finalizar Venda");
+        buttonFinalizar.setFocusPainted(false);
+        buttonFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buttonFinalizarActionPerformed(evt);
             }
         });
 
@@ -297,9 +313,61 @@ public class PDVCaixa extends javax.swing.JFrame {
         jLabel5.setText("Valor Pago R$:");
 
         labelValorPago.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        labelValorPago.setText("00,00");
+        labelValorPago.setText("Valor R$:");
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money (1).png"))); // NOI18N
+
+        fieldValorPago1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        fieldValorPago1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldValorPago1ActionPerformed(evt);
+            }
+        });
+
+        labelValorPago1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        labelValorPago1.setText("00,00");
+
+        lbl02.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl02.setText("Método de Pagamento:");
+
+        comboFormaPagamento2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        comboFormaPagamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Dinheiro", "Cartão", "À Prazo", "Cheque", "Convenio" }));
+        comboFormaPagamento2.setOpaque(false);
+        comboFormaPagamento2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFormaPagamento2ActionPerformed(evt);
+            }
+        });
+
+        lbl03.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl03.setText("Valor R$:");
+
+        fieldValorPago2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        fieldValorPago2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldValorPago2ActionPerformed(evt);
+            }
+        });
+
+        buttonConfirmar1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonConfirmar1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        buttonConfirmar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
+        buttonConfirmar1.setFocusPainted(false);
+        buttonConfirmar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmar1ActionPerformed(evt);
+            }
+        });
+
+        buttonConfirmar2.setBackground(new java.awt.Color(255, 255, 255));
+        buttonConfirmar2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        buttonConfirmar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
+        buttonConfirmar2.setFocusPainted(false);
+        buttonConfirmar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmar2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -308,36 +376,52 @@ public class PDVCaixa extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(labelValorPago1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel10))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(buttonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                .addComponent(labelTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(labelTotal)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel6))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
                                         .addComponent(labelValorPago)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(fieldValorPago1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lbl02)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel10)))
-                                .addGap(4, 4, 4))))
+                                        .addComponent(comboFormaPagamento2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(lbl03)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(fieldValorPago2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonConfirmar2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -367,7 +451,7 @@ public class PDVCaixa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton9))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(33, 33, 33))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,17 +459,17 @@ public class PDVCaixa extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(fieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,34 +479,49 @@ public class PDVCaixa extends javax.swing.JFrame {
                     .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4)
                     .addComponent(jButton9))
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton10)
+                        .addGap(103, 103, 103))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelTotal)
+                                .addComponent(jLabel4))
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(labelTotal)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(labelValorPago)
-                                    .addComponent(jLabel5)))
-                            .addComponent(jButton10))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
-                .addContainerGap())
+                                    .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(fieldValorPago1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelValorPago)))
+                            .addComponent(buttonConfirmar1))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboFormaPagamento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl02)
+                                .addComponent(fieldValorPago2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl03))
+                            .addComponent(buttonConfirmar2))
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelValorPago1)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel10))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -470,12 +569,10 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void comboFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamentoActionPerformed
-        if(comboFormaPagamento.getSelectedItem().equals("Dinheiro")){
-            
-        }
+        
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
         int vtotal = Integer.parseInt(labelTotal.getText());
         int vpago = Integer.parseInt(labelValorPago.getText());
         if(vtotal == vpago){
@@ -483,7 +580,54 @@ public class PDVCaixa extends javax.swing.JFrame {
         }else if (vtotal != vpago){
             Mensagem msg = new Mensagem("A Venda deve ser liquidada para finalizar!");
         } 
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_buttonFinalizarActionPerformed
+
+    private void fieldValorPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorPago1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldValorPago1ActionPerformed
+
+    private void comboFormaPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamento2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFormaPagamento2ActionPerformed
+
+    private void fieldValorPago2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorPago2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldValorPago2ActionPerformed
+
+    private void buttonConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar1ActionPerformed
+        Double valorpago = Double.parseDouble(fieldValorPago1.getText());
+        Double valorCompra = Double.parseDouble(labelTotal.getText());
+        if(comboFormaPagamento.getSelectedItem().equals("Dinheiro")){
+            if(valorpago >valorCompra){
+                double troco = valorpago - valorCompra;
+                Mensagem msg = new Mensagem("Troco: R$"+troco);
+                msg.setVisible(true);
+                buttonFinalizar.setEnabled(true);
+                labelValorPago1.setText(""+valorCompra);
+            }
+            if(Objects.equals(valorpago, valorCompra)){
+                Mensagem msg = new Mensagem("Compra Realizada com sucesso!");
+                msg.setVisible(true);
+                buttonFinalizar.setEnabled(true);
+                labelValorPago1.setText(""+valorCompra);
+            }
+            if(valorpago < valorCompra){                
+                Mensagem msg = new Mensagem("Selecione uma nova forma de pagamento!");
+                msg.setVisible(true);
+                
+                lbl02.setVisible(true);
+                comboFormaPagamento2.setVisible(true);
+                lbl03.setVisible(true);
+                fieldValorPago2.setVisible(true);
+                buttonConfirmar2.setVisible(true);
+                labelValorPago1.setText(""+valorpago);
+            }
+       }
+    }//GEN-LAST:event_buttonConfirmar1ActionPerformed
+
+    private void buttonConfirmar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonConfirmar2ActionPerformed
         
     
     
@@ -526,16 +670,21 @@ public class PDVCaixa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonConfirmar1;
+    private javax.swing.JButton buttonConfirmar2;
+    private javax.swing.JButton buttonFinalizar;
     private javax.swing.JComboBox<String> comboFormaPagamento;
+    private javax.swing.JComboBox<String> comboFormaPagamento2;
     public static javax.swing.JTextField fieldId;
     public static javax.swing.JTextField fieldProduto;
     private javax.swing.JTextField fieldQuantidade;
+    public static javax.swing.JTextField fieldValorPago1;
+    public static javax.swing.JTextField fieldValorPago2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -555,6 +704,9 @@ public class PDVCaixa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelValorPago;
+    private javax.swing.JLabel labelValorPago1;
+    private javax.swing.JLabel lbl02;
+    private javax.swing.JLabel lbl03;
     private javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
     
