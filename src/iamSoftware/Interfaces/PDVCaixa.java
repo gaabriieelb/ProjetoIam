@@ -33,7 +33,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class PDVCaixa extends javax.swing.JFrame {
     
-  
+    boolean pagamento2 = false;
     
     /**
      * Creates new form PDVCaixa
@@ -480,8 +480,8 @@ public class PDVCaixa extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton9))
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton10)
@@ -495,13 +495,11 @@ public class PDVCaixa extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(fieldValorPago1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelValorPago)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(fieldValorPago1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelValorPago))
                             .addComponent(buttonConfirmar1))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -521,7 +519,7 @@ public class PDVCaixa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -573,13 +571,53 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
-        int vtotal = Integer.parseInt(labelTotal.getText());
-        int vpago = Integer.parseInt(labelValorPago.getText());
-        if(vtotal == vpago){
+        CompraData compra = new CompraData();
+        Double valorCompra = Double.parseDouble(labelTotal.getText());
         
-        }else if (vtotal != vpago){
-            Mensagem msg = new Mensagem("A Venda deve ser liquidada para finalizar!");
-        } 
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int numRow = tblProdutos.getRowCount();
+        
+        //Registro Compra
+        compra.setTotal(valorCompra);            
+        try {
+            compra.cadastrarCompra();
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        
+        //Registro Produtos
+        int idcompra = 0;
+        try {
+            idcompra = pegarID(); //pegar id da ultima compra
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String nomeProduto;
+        double quantidade;
+        
+        for(int i =0; i < numRow; i++){
+            nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
+            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
+            
+            compra.setIdCompra(idcompra);
+            compra.setProduto(nomeProduto);
+            compra.setQuantidade(quantidade);
+            
+            try {
+                compra.cadastrarItensCompra();
+            } catch (SQLException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //
+        
+        if(pagamento2 == false){
+            //Registro Conta a receber
+            
+            
+            
+        }
     }//GEN-LAST:event_buttonFinalizarActionPerformed
 
     private void fieldValorPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorPago1ActionPerformed
@@ -615,6 +653,7 @@ public class PDVCaixa extends javax.swing.JFrame {
                 Mensagem msg = new Mensagem("Selecione uma nova forma de pagamento!");
                 msg.setVisible(true);
                 
+                pagamento2= true;
                 lbl02.setVisible(true);
                 comboFormaPagamento2.setVisible(true);
                 lbl03.setVisible(true);
@@ -783,6 +822,22 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
         
         labelTotal.setText(String.valueOf(soma));
+    }
+    
+    public int pegarID() throws SQLException{
+       
+        String sql = "SELECT id FROM `compras`";
+
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        int id =0;
+        
+        while (rs.next()) {           
+           id = rs.getInt("id");          
+        }
+        
+        return id;
     }
 
 }
