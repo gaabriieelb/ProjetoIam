@@ -25,7 +25,8 @@ public class CompraData {
     int idCliente;
     String cliente;
     String status;
-
+    String codigoProduto;
+    
     public double getTotal() {
         return total;
     }
@@ -105,6 +106,14 @@ public class CompraData {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
+
+    public String getCodigoProduto() {
+        return codigoProduto;
+    }
+
+    public void setCodigoProduto(String codigoProduto) {
+        this.codigoProduto = codigoProduto;
+    }
     
         
     public void cadastrarCompra() throws SQLException{
@@ -127,11 +136,12 @@ public class CompraData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO itenscompras (idcompra,produto,quantidade)VALUES(?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO itenscompras (idcompra,codigoproduto,produto,quantidade)VALUES(?,?,?,?)");
         
         stmt.setInt(1,getIdCompra());
-        stmt.setString(2,getProduto());
-        stmt.setDouble(3,getQuantidade());
+        stmt.setString(2,getCodigoProduto());
+        stmt.setString(3,getProduto());
+        stmt.setDouble(4,getQuantidade());
                
         stmt.executeUpdate();
         stmt.close();
