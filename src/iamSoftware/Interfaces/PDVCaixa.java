@@ -14,7 +14,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -38,6 +40,7 @@ public class PDVCaixa extends javax.swing.JFrame {
     public static int idcliente;
     public static String cliente;
     public static boolean clienteSelecionado = false;
+    public static String prazo;
     
     /**
      * Creates new form PDVCaixa
@@ -504,9 +507,7 @@ public class PDVCaixa extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton10)
-                        .addGap(37, 37, 37))
+                    .addComponent(jButton10)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,8 +531,8 @@ public class PDVCaixa extends javax.swing.JFrame {
                                 .addComponent(lbl02)
                                 .addComponent(fieldValorPago2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbl03))
-                            .addComponent(buttonConfirmar2))
-                        .addGap(18, 18, 18)))
+                            .addComponent(buttonConfirmar2))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(labelValorPago1)
@@ -589,7 +590,16 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void comboFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamentoActionPerformed
-        
+        if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
+            if(cliente.equals("Cliente Não Cadastrado")){
+                comboFormaPagamento.setSelectedItem("Dinheiro");
+                Mensagem mensagem = new Mensagem("Selecione um cliente!");
+                mensagem.setVisible(true);
+            }else{
+                Prazo prazo = new Prazo();
+                prazo.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
@@ -650,11 +660,20 @@ public class PDVCaixa extends javax.swing.JFrame {
             
             //dinheiro
             if(formaPagamento1.equalsIgnoreCase("Dinheiro")){
-                compra.setDataPagamento("27/02/2019");
+                SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+                Date dataDoSistema = new Date();		
+                String dataEmTexto = formatador.format(dataDoSistema);                
+                compra.setDataPagamento(dataEmTexto);
                 compra.setStatus("Liquidado");
-                compra.setCliente("Não Cadastrado");
+                compra.setCliente(cliente);
             }
-            
+            //à prazo
+            if(formaPagamento1.equalsIgnoreCase("À Prazo")){                               
+                compra.setDataPagamento(prazo);
+                compra.setStatus("Em aberto");
+                compra.setIdCliente(idcliente);
+                compra.setCliente(cliente);
+            }
             
             try {
                 compra.cadastrarContasReceber();
@@ -682,39 +701,49 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorPago2ActionPerformed
 
     private void buttonConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar1ActionPerformed
-               
+          
         
         Double valorpago = Double.parseDouble(fieldValorPago1.getText());
         Double valorCompra = Double.parseDouble(labelTotal.getText());
+        
+        if(valorpago >valorCompra){
+            double troco = valorpago - valorCompra;
+            Mensagem msg = new Mensagem("Troco: R$"+troco);
+            msg.setVisible(true);
+            buttonFinalizar.setEnabled(true);
+            labelValorPago1.setText(""+valorCompra);
+        }
+        if(Objects.equals(valorpago, valorCompra)){
+            Mensagem msg = new Mensagem("Compra Realizada com sucesso!");
+            msg.setVisible(true);
+            buttonFinalizar.setEnabled(true);
+            labelValorPago1.setText(""+valorCompra);
+        }
+        if(valorpago < valorCompra){                
+            Mensagem msg = new Mensagem("Selecione uma nova forma de pagamento!");
+            msg.setVisible(true);
+               
+            pagamento2= true;
+            lbl02.setVisible(true);
+            comboFormaPagamento2.setVisible(true);
+            lbl03.setVisible(true);
+            fieldValorPago2.setVisible(true);
+            buttonConfirmar2.setVisible(true);
+            labelValorPago1.setText(""+valorpago);
+        } 
+        
+        RegistrarVenda();
+        RegistrarItensVenda();
+        RegistrarContaReceber(1);
+        
         if(comboFormaPagamento.getSelectedItem().equals("Dinheiro")){
-            if(valorpago >valorCompra){
-                double troco = valorpago - valorCompra;
-                Mensagem msg = new Mensagem("Troco: R$"+troco);
-                msg.setVisible(true);
-                buttonFinalizar.setEnabled(true);
-                labelValorPago1.setText(""+valorCompra);
-            }
-            if(Objects.equals(valorpago, valorCompra)){
-                Mensagem msg = new Mensagem("Compra Realizada com sucesso!");
-                msg.setVisible(true);
-                buttonFinalizar.setEnabled(true);
-                labelValorPago1.setText(""+valorCompra);
-            }
-            if(valorpago < valorCompra){                
-                Mensagem msg = new Mensagem("Selecione uma nova forma de pagamento!");
-                msg.setVisible(true);
-                
-                pagamento2= true;
-                lbl02.setVisible(true);
-                comboFormaPagamento2.setVisible(true);
-                lbl03.setVisible(true);
-                fieldValorPago2.setVisible(true);
-                buttonConfirmar2.setVisible(true);
-                labelValorPago1.setText(""+valorpago);
-            }
+                   
+        }
         
-        
-       }
+        if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
+         
+          
+        }
     }//GEN-LAST:event_buttonConfirmar1ActionPerformed
 
     private void buttonConfirmar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar2ActionPerformed
@@ -903,11 +932,108 @@ public class PDVCaixa extends javax.swing.JFrame {
         comboFormaPagamento.setEnabled(true);
         comboFormaPagamento2.setEnabled(true);
         if(clienteSelecionado==false){
-            comboFormaPagamento.removeItemAt(2);
-            comboFormaPagamento2.removeItemAt(2);
+            //comboFormaPagamento.removeItemAt(2);
+            //comboFormaPagamento2.removeItemAt(2);
         }
     }
     
+    public void RegistrarVenda(){
+        CompraData compra = new CompraData();
+        Double valorCompra = Double.parseDouble(labelTotal.getText());
+             
+        //Registro Compra
+        compra.setTotal(valorCompra);            
+        try {
+            compra.cadastrarCompra();
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void RegistrarItensVenda(){
+        CompraData compra = new CompraData();
+        String codigoProduto;
+        String nomeProduto;
+        double quantidade;
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int numRow = tblProdutos.getRowCount();
+        
+        int idcompra = 0;
+        try {
+            idcompra = pegarID(); //pegar id da ultima compra
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(int i =0; i < numRow; i++){
+            codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
+            nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
+            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
+            
+            compra.setIdCompra(idcompra);
+            compra.setCodigoProduto(codigoProduto);
+            compra.setProduto(nomeProduto);
+            compra.setQuantidade(quantidade);
+            
+            try {
+                compra.cadastrarItensCompra();
+            } catch (SQLException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void RegistrarContaReceber(int pagamento){
+        CompraData compra = new CompraData();
+        
+        int idcompra = 0;
+        try {
+            idcompra = pegarID(); //pegar id da ultima compra
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String formaPagamento1 = String.valueOf(comboFormaPagamento.getSelectedItem());
+        
+        Double valorCompra = 0.0;
+        if(pagamento==1){            
+            valorCompra = Double.parseDouble(labelValorPago1.getText());
+        }
+        if(pagamento==2){
+            Double v1 = Double.parseDouble(labelValorPago1.getText());
+            Double v2 = Double.parseDouble(labelTotal.getText());
+            valorCompra = v2-v1;
+        }
+        //Registro Conta a receber             
+        compra.setIdCompra(idcompra);
+        compra.setFormaPagamento(formaPagamento1);
+        compra.setValor(valorCompra);
+            
+        //dinheiro
+        if(formaPagamento1.equalsIgnoreCase("Dinheiro")){
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+            Date dataDoSistema = new Date();		
+            String dataEmTexto = formatador.format(dataDoSistema);                
+            compra.setDataPagamento(dataEmTexto);
+            compra.setStatus("Liquidado");
+            compra.setIdCliente(idcliente);
+            compra.setCliente(cliente);
+        }
+            //à prazo
+        if(formaPagamento1.equalsIgnoreCase("À Prazo")){                               
+            compra.setDataPagamento(prazo);
+            compra.setStatus("Em aberto");
+            compra.setIdCliente(idcliente);
+            compra.setCliente(cliente);
+        }
+            
+        try {
+            compra.cadastrarContasReceber();
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
 

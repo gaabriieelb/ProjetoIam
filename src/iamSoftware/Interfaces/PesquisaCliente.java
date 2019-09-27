@@ -172,7 +172,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Produto:");
+        jLabel1.setText("Cliente:");
 
         fieldNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
