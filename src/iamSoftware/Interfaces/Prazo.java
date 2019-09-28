@@ -18,7 +18,7 @@ public class Prazo extends javax.swing.JFrame {
      */
     public Prazo() {
         initComponents();
-        this.getContentPane().setBackground(Color.white);
+        this.getContentPane().setBackground(Color.white);       
         this.setLocationRelativeTo(null);  
     }
     
@@ -46,6 +46,7 @@ public class Prazo extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -136,7 +137,8 @@ public class Prazo extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        
         String prazo = fieldPrazo.getText();
-        if(prazo.equals("  /  /   ")){
+        
+        if(prazo.equals("  /  /    ")){          
             PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
             this.dispose();
         }else{
@@ -147,6 +149,7 @@ public class Prazo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 

@@ -251,6 +251,11 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
 
         fieldDataRegistro.setEditable(false);
         fieldDataRegistro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fieldDataRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldDataRegistroActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Valor de Compra (Unidade):");
@@ -426,6 +431,10 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         PesquisaProduto pesquisaproduto = new PesquisaProduto("notafiscal");
         pesquisaproduto.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void fieldDataRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDataRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldDataRegistroActionPerformed
 
     /**
      * @param args the command line arguments

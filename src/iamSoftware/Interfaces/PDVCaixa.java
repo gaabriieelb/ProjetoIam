@@ -41,6 +41,8 @@ public class PDVCaixa extends javax.swing.JFrame {
     public static String cliente;
     public static boolean clienteSelecionado = false;
     public static String prazo;
+    public static double taxa;
+    public static String pagamentoCartao;
     
     /**
      * Creates new form PDVCaixa
@@ -600,92 +602,15 @@ public class PDVCaixa extends javax.swing.JFrame {
                 prazo.setVisible(true);
             }
         }
+        
+        if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
+            Cartao cartao = new Cartao();
+            cartao.setVisible(true);           
+        }
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
-                
-        CompraData compra = new CompraData();
-        Double valorCompra = Double.parseDouble(labelTotal.getText());
         
-        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-        int numRow = tblProdutos.getRowCount();
-        
-        String formaPagamento1 = String.valueOf(comboFormaPagamento.getSelectedItem());
-        
-        int idcompra = 0;
-        try {
-            idcompra = pegarID(); //pegar id da ultima compra
-        } catch (SQLException ex) {
-            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //Registro Compra
-        compra.setTotal(valorCompra);            
-        try {
-            compra.cadastrarCompra();
-        } catch (SQLException ex) {
-            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //
-        
-        //Registro Produtos        
-        String codigoProduto;
-        String nomeProduto;
-        double quantidade;
-        
-        for(int i =0; i < numRow; i++){
-            codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
-            nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
-            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
-            
-            compra.setIdCompra(idcompra);
-            compra.setCodigoProduto(codigoProduto);
-            compra.setProduto(nomeProduto);
-            compra.setQuantidade(quantidade);
-            
-            try {
-                compra.cadastrarItensCompra();
-            } catch (SQLException ex) {
-                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        //
-        
-        //apenas 1 pagamento
-        if(pagamento2 == false){
-            //Registro Conta a receber             
-            compra.setIdCompra(idcompra);
-            compra.setFormaPagamento(formaPagamento1);
-            compra.setValor(valorCompra);
-            
-            //dinheiro
-            if(formaPagamento1.equalsIgnoreCase("Dinheiro")){
-                SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
-                Date dataDoSistema = new Date();		
-                String dataEmTexto = formatador.format(dataDoSistema);                
-                compra.setDataPagamento(dataEmTexto);
-                compra.setStatus("Liquidado");
-                compra.setCliente(cliente);
-            }
-            //à prazo
-            if(formaPagamento1.equalsIgnoreCase("À Prazo")){                               
-                compra.setDataPagamento(prazo);
-                compra.setStatus("Em aberto");
-                compra.setIdCliente(idcliente);
-                compra.setCliente(cliente);
-            }
-            
-            try {
-                compra.cadastrarContasReceber();
-            } catch (SQLException ex) {
-                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        //com 2 formas de pamento
-        if(pagamento2 == true){
-        
-        }
     }//GEN-LAST:event_buttonFinalizarActionPerformed
 
     private void fieldValorPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorPago1ActionPerformed
@@ -734,15 +659,17 @@ public class PDVCaixa extends javax.swing.JFrame {
         
         RegistrarVenda();
         RegistrarItensVenda();
-        RegistrarContaReceber(1);
+        //RegistrarContaReceber(1);
         
         if(comboFormaPagamento.getSelectedItem().equals("Dinheiro")){
-                   
+                RegistrarContaReceber(1, "Dinheiro", "Dinheiro");   
         }
         
         if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
-         
-          
+               RegistrarContaReceber(1, "À Prazo", "À Prazo");  
+        }
+        if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
+               RegistrarContaReceber(1,pagamentoCartao, "Cartão");  
         }
     }//GEN-LAST:event_buttonConfirmar1ActionPerformed
 
@@ -984,7 +911,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
     }
     
-    public void RegistrarContaReceber(int pagamento){
+    public void RegistrarContaReceber(int pagamento, String formapagamento, String comboPagamento){
         CompraData compra = new CompraData();
         
         int idcompra = 0;
@@ -994,7 +921,7 @@ public class PDVCaixa extends javax.swing.JFrame {
             Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String formaPagamento1 = String.valueOf(comboFormaPagamento.getSelectedItem());
+        //String formaPagamento1 = String.valueOf(comboFormaPagamento.getSelectedItem());
         
         Double valorCompra = 0.0;
         if(pagamento==1){            
@@ -1007,11 +934,11 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
         //Registro Conta a receber             
         compra.setIdCompra(idcompra);
-        compra.setFormaPagamento(formaPagamento1);
+        compra.setFormaPagamento(formapagamento);
         compra.setValor(valorCompra);
             
         //dinheiro
-        if(formaPagamento1.equalsIgnoreCase("Dinheiro")){
+        if(comboPagamento.equalsIgnoreCase("Dinheiro")){
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
             Date dataDoSistema = new Date();		
             String dataEmTexto = formatador.format(dataDoSistema);                
@@ -1021,7 +948,14 @@ public class PDVCaixa extends javax.swing.JFrame {
             compra.setCliente(cliente);
         }
             //à prazo
-        if(formaPagamento1.equalsIgnoreCase("À Prazo")){                               
+        if(comboPagamento.equalsIgnoreCase("À Prazo")){                               
+            compra.setDataPagamento(prazo);
+            compra.setStatus("Em aberto");
+            compra.setIdCliente(idcliente);
+            compra.setCliente(cliente);
+        }
+            //cartao
+        if(comboPagamento.equalsIgnoreCase("Cartão")){                               
             compra.setDataPagamento(prazo);
             compra.setStatus("Em aberto");
             compra.setIdCliente(idcliente);
