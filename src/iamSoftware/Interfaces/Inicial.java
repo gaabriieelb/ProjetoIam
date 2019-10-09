@@ -7,6 +7,7 @@ package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.Horario;
+import iamSoftware.Classes.teste;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -30,6 +33,11 @@ public class Inicial extends javax.swing.JFrame {
      */
     public Inicial() {
         initComponents();
+        
+        
+        
+        
+
         
         System.out.println(jButton1.getSize());
            
@@ -765,7 +773,9 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        ContasReceber contasreceber = new ContasReceber();
+        contasreceber.setVisible(true);
+              
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -779,7 +789,8 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        Inventario inventario = new Inventario();
+        inventario.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

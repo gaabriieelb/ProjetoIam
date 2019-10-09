@@ -30,21 +30,27 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author ga_br
  */
-public class PesquisaCliente extends javax.swing.JFrame {
+public class Inventario extends javax.swing.JFrame {
     
     String tela;
     
     /**
      * Creates new form PDVCaixa
      */
-    public PesquisaCliente() {
+    public Inventario() {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
-        radioContem.setSelected(true);        
+        radioContem.setSelected(true);
+
+        try {
+            GerarEstoque();
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public PesquisaCliente(String tela) {
+    public Inventario(String tela) {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
@@ -82,7 +88,6 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
-        setUndecorated(true);
 
         tblProdutos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -90,14 +95,14 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Cód.", "Nome"
+                "Produto", "Quantidade Comprada", "Quantidade Vendida", "Disponível"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -110,7 +115,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblProdutos);
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
-            tblProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(13);
         }
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,7 +144,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Seleção de Cliente");
+        jLabel7.setText("Inventário");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,7 +153,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(597, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +177,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Cliente:");
+        jLabel1.setText("Produto:");
 
         fieldNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -236,30 +241,35 @@ public class PesquisaCliente extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(radioContem)
-                            .addGap(18, 18, 18)
-                            .addComponent(radioIgual)
-                            .addGap(18, 18, 18)
-                            .addComponent(radioInicio)
-                            .addGap(18, 18, 18)
-                            .addComponent(radioFim))))
-                .addGap(20, 20, 20))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(radioContem)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioIgual)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioInicio)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioFim)))
+                        .addGap(206, 206, 206))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,8 +290,8 @@ public class PesquisaCliente extends javax.swing.JFrame {
                     .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -322,22 +332,22 @@ public class PesquisaCliente extends javax.swing.JFrame {
         nome = fieldNome.getText();
         
         if(radioIgual.isSelected()){
-           sql = "SELECT * FROM clientes WHERE nome LIKE '"+nome+"'";
+           sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"'";
         }
         if(radioContem.isSelected()){
-           sql = "SELECT * FROM clientes WHERE nome LIKE '%"+nome+"%'";
+           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"%'";
         }
         if(radioInicio.isSelected()){
-            sql = "SELECT * FROM clientes WHERE nome LIKE '"+nome+"%'";
+            sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"%'";
         }
         if(radioFim.isSelected()){
-           sql = "SELECT * FROM clientes WHERE nome LIKE '%"+nome+"'";
+           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"'";
         }
         
         try {
             PreencherTabela(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -349,23 +359,25 @@ public class PesquisaCliente extends javax.swing.JFrame {
         int id = (int) tabela.getValueAt(row, 0);
         String nome = (String) tabela.getValueAt(row, 2);
                 
-        PDVCaixa.idcliente = id;
-        PDVCaixa.cliente = nome;
-        PDVCaixa.clienteSelecionado=true;
-        PDVCaixa.habilitar();
+        if(tela.equals("")){
+            PDVCaixa.fieldProduto.setText(nome);
+            PDVCaixa.fieldId.setText(String.valueOf(id));
+        }
+        if(tela.equals("notafiscal")){
+            CadastroNotaFiscal.fieldProduto.setText(nome);
+        }        
+        if(tela.equals("alterarnotafiscal")){
+            AlterarNotaFiscal.fieldProduto.setText(nome);
+        }
         
-        Prazo prazo = new Prazo();
-        prazo.setVisible(true);
+        
+        
+        
         
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        PDVCaixa.idcliente = 0;
-        PDVCaixa.cliente = "Cliente Não Cadastrado";
-        PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
-        PDVCaixa.comboFormaPagamento2.setSelectedItem("Dinheiro");
-        PDVCaixa.habilitar();
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
         
@@ -389,13 +401,13 @@ public class PesquisaCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -405,7 +417,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PesquisaCliente().setVisible(true);
+                new Inventario().setVisible(true);
             }
         });
         
@@ -442,17 +454,81 @@ public class PesquisaCliente extends javax.swing.JFrame {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
 
+        List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
+
         while (rs.next()) {
-            Object[] dados = new Object[3];
+            Object[] dados = new Object[4];
             dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("cpfcnpj");
+            dados[1] = rs.getString("codigo");
             dados[2] = rs.getString("nome");            
-            
+            dados[3] = rs.getDouble("valorVenda");
             
             tabela.addRow(dados);
         }
 
     }
+    
+    public void GerarEstoque() throws SQLException{
+    
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        tabela.setRowCount(0);
+        
+         //pega todos nomes de produtos
+        ArrayList<String> produtos = new ArrayList<>();
+        ArrayList<Float> quantidade = new ArrayList<>();
+        ArrayList<Double> vendido = new ArrayList<>();
+        float soma = 0;
+        double soma2 = 0;
+        
+        String sql = "SELECT nome FROM `produtos`";
+        
+        
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+              
+        
+        while (rs.next()) {            
+            produtos.add(rs.getString("nome"));            
+        }
+        
+       
+        //soma todas quantidades de cada produtos
+                
+        for(int i = 0; i < produtos.size(); i++){
+            String sql2 = "SELECT quantidade FROM `notas` WHERE nomeproduto='"+produtos.get(i)+"'";
+            stmt = conn.prepareStatement(sql2);
+            rs = stmt.executeQuery();
+            while (rs.next()) {            
+                soma+=rs.getFloat("quantidade");            
+            }
+            quantidade.add(i,soma);
+            soma = 0;
+            
+            String sql3 = "SELECT quantidade FROM `itenscompras` WHERE produto='"+produtos.get(i)+"'";
+            stmt = conn.prepareStatement(sql3);
+            rs = stmt.executeQuery();
+            while (rs.next()) {            
+                soma2+=rs.getDouble("quantidade");            
+            }
+            vendido.add(i,soma2);
+            soma2 = 0;
+        }
+        
+        for (int j =0; j < produtos.size(); j++){
+            Object[] dados = new Object[4];
+            dados[0] = produtos.get(j);
+            dados[1] = quantidade.get(j);
+            dados[2] = vendido.get(j);
+            double sub = quantidade.get(j) - vendido.get(j);
+            dados[3] = sub;
+            
+            tabela.addRow(dados);
+        }
+        
+    }
+    
 
 }
 

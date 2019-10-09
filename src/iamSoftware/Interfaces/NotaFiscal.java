@@ -73,14 +73,14 @@ public class NotaFiscal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N° da Nota", "Data de Emissão"
+                "ID", "Fornecedor", "N° da Nota", "Data de Emissão"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -334,8 +334,9 @@ public class NotaFiscal extends javax.swing.JFrame {
         while(rs.next()){
             Object[] dados = new Object[4];
             dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("numeronota");
-            dados[2] = rs.getString("dataemissao");        
+            dados[1] = rs.getString("nomefornecedor");
+            dados[2] = rs.getString("numeronota");
+            dados[3] = rs.getString("dataemissao");        
             
             
             tabela.addRow(dados);
@@ -359,9 +360,9 @@ public class NotaFiscal extends javax.swing.JFrame {
         while(rs.next()){
             Object[] dados = new Object[4];
             dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("numeronota");
-            dados[2] = rs.getString("dataemissao");        
-            
+            dados[1] = rs.getString("nomefornecedor");
+            dados[2] = rs.getString("numeronota");
+            dados[3] = rs.getString("dataemissao"); 
             
             tblstatic.addRow(dados);
         }
