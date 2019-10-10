@@ -281,7 +281,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -459,38 +459,49 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldDataEmissaoActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-    String numNota = fieldNumNota.getText();
-    String dataEmissao = fieldDataEmissao.getText();
-    String dataRegistro = fieldDataRegistro.getText();
-    String nomeFornecedor = fieldNomeFornecedor.getText();
-    String cnpj = fieldCNPJ.getText();
-    String nomeProduto = fieldProduto.getText();
-    String quantidade = fieldQuantidade.getText();
-    String vCompra = fieldValorCompra.getText();  
+    DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
     
-    vCompra = vCompra.replace(",",".");
-    Double valorCompra = Double.parseDouble(vCompra);
+    int numrow = tabela.getRowCount();
     
-    NotaFiscalData nota = new NotaFiscalData();
-    
-    nota.setNumNota(numNota);
-    nota.setDataEmissao(dataEmissao);
-    nota.setDataRegistro(dataRegistro);
-    nota.setNomeFornecedor(nomeFornecedor);
-    nota.setCnpj(cnpj);
-    nota.setNomeProduto(nomeProduto);
-    nota.setQuantidade(quantidade);
-    nota.setValorCompra(valorCompra);
-    
-        try {
-            nota.Cadastrar();
-            NotaFiscal.Atualizar();
-            Mensagem msg = new Mensagem("Nota Fiscal cadastrada com Sucesso!");
-            msg.setVisible(true);
-            this.dispose();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroNotaFiscal.class.getName()).log(Level.SEVERE, null, ex);
+    for(int i =0; i < numrow; i++){
+        
+        String numNota = fieldNumNota.getText();
+        String dataEmissao = fieldDataEmissao.getText();
+        String dataRegistro = fieldDataRegistro.getText();
+        String nomeFornecedor = fieldNomeFornecedor.getText();
+        String cnpj = fieldCNPJ.getText();
+        
+        //String nomeProduto = fieldProduto.getText();
+        String nomeProduto = (String) tabela.getValueAt(i, 0);
+        //String quantidade = fieldQuantidade.getText();
+        String quantidade = (String) tabela.getValueAt(i, 2);
+        //String vCompra = fieldValorCompra.getText();
+        String vCompra = (String) tabela.getValueAt(i, 1);
+
+        vCompra = vCompra.replace(",",".");
+        Double valorCompra = Double.parseDouble(vCompra);
+
+        NotaFiscalData nota = new NotaFiscalData();
+
+        nota.setNumNota(numNota);
+        nota.setDataEmissao(dataEmissao);
+        nota.setDataRegistro(dataRegistro);
+        nota.setNomeFornecedor(nomeFornecedor);
+        nota.setCnpj(cnpj);
+        nota.setNomeProduto(nomeProduto);
+        nota.setQuantidade(quantidade);
+        nota.setValorCompra(valorCompra);
+
+            try {
+                nota.Cadastrar();
+                NotaFiscal.Atualizar();
+                Mensagem msg = new Mensagem("Nota Fiscal cadastrada com Sucesso!");
+                msg.setVisible(true);
+                this.dispose();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastroNotaFiscal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -510,7 +521,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String produto = fieldProduto.getText();        
-        Double quantidade = Double.parseDouble(fieldQuantidade.getText());
+        String quantidade = fieldQuantidade.getText();
         String valorCompra = fieldValorCompra.getText();
                
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
