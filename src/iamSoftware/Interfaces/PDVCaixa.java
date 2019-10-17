@@ -59,7 +59,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         buttonConfirmar2.setVisible(false);
         buttonFinalizar.setEnabled(false);
         //comboFormaPagamento.setEnabled(false);
-        comboFormaPagamento2.setEnabled(false);
+        //comboFormaPagamento2.setEnabled(false);
         
     }
     
@@ -620,7 +620,10 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorPago2ActionPerformed
 
     private void buttonConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar1ActionPerformed
-          
+        
+        if(cliente==null || cliente.equals("")){
+            cliente = "Cliente não cadastrado";
+        }
         
         Double valorpago = Double.parseDouble(fieldValorPago1.getText());
         Double valorCompra = Double.parseDouble(labelTotal.getText());

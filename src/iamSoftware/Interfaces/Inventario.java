@@ -72,7 +72,6 @@ public class Inventario extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -118,21 +117,10 @@ public class Inventario extends javax.swing.JFrame {
             tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(13);
         }
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check.png"))); // NOI18N
-        jButton5.setText("Confirmar Seleção");
-        jButton5.setFocusPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        jButton6.setText("Cancelar Seleção");
+        jButton6.setText("Fechar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -267,8 +255,6 @@ public class Inventario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -291,11 +277,9 @@ public class Inventario extends javax.swing.JFrame {
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -332,50 +316,25 @@ public class Inventario extends javax.swing.JFrame {
         nome = fieldNome.getText();
         
         if(radioIgual.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"'";
+           sql = "SELECT nome FROM `produtos` WHERE nome LIKE '"+nome+"'";
         }
         if(radioContem.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"%'";
+           sql = "SELECT nome FROM `produtos` WHERE nome LIKE '%"+nome+"%'";
         }
         if(radioInicio.isSelected()){
-            sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"%'";
+            sql = "SELECT nome FROM `produtos` WHERE nome LIKE '"+nome+"%'";
         }
         if(radioFim.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"'";
+           sql = "SELECT nome FROM `produtos` WHERE nome LIKE '%"+nome+"'";
         }
         
         try {
-            PreencherTabela(sql);
+           GerarEstoque2(sql);
         } catch (SQLException ex) {
             Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ProdutosData produtos = new ProdutosData();
-        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
-        int row = tblProdutos.getSelectedRow();
-        int id = (int) tabela.getValueAt(row, 0);
-        String nome = (String) tabela.getValueAt(row, 2);
-                
-        if(tela.equals("")){
-            PDVCaixa.fieldProduto.setText(nome);
-            PDVCaixa.fieldId.setText(String.valueOf(id));
-        }
-        if(tela.equals("notafiscal")){
-            CadastroNotaFiscal.fieldProduto.setText(nome);
-        }        
-        if(tela.equals("alterarnotafiscal")){
-            AlterarNotaFiscal.fieldProduto.setText(nome);
-        }
-        
-        
-        
-        
-        
-        this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose();
@@ -426,7 +385,6 @@ public class Inventario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField fieldNome;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -481,6 +439,67 @@ public class Inventario extends javax.swing.JFrame {
         double soma2 = 0;
         
         String sql = "SELECT nome FROM `produtos`";
+        
+        
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+              
+        
+        while (rs.next()) {            
+            produtos.add(rs.getString("nome"));            
+        }
+        
+       
+        //soma todas quantidades de cada produtos
+                
+        for(int i = 0; i < produtos.size(); i++){
+            String sql2 = "SELECT quantidade FROM `notas` WHERE nomeproduto='"+produtos.get(i)+"'";
+            stmt = conn.prepareStatement(sql2);
+            rs = stmt.executeQuery();
+            while (rs.next()) {            
+                soma+=rs.getFloat("quantidade");            
+            }
+            quantidade.add(i,soma);
+            soma = 0;
+            
+            String sql3 = "SELECT quantidade FROM `itenscompras` WHERE produto='"+produtos.get(i)+"'";
+            stmt = conn.prepareStatement(sql3);
+            rs = stmt.executeQuery();
+            while (rs.next()) {            
+                soma2+=rs.getDouble("quantidade");            
+            }
+            vendido.add(i,soma2);
+            soma2 = 0;
+        }
+        
+        for (int j =0; j < produtos.size(); j++){
+            Object[] dados = new Object[4];
+            dados[0] = produtos.get(j);
+            dados[1] = quantidade.get(j);
+            dados[2] = vendido.get(j);
+            double sub = quantidade.get(j) - vendido.get(j);
+            dados[3] = sub;
+            
+            tabela.addRow(dados);
+        }
+        
+    }
+    
+    public void GerarEstoque2(String sql) throws SQLException{
+    
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        tabela.setRowCount(0);
+        
+         //pega todos nomes de produtos
+        ArrayList<String> produtos = new ArrayList<>();
+        ArrayList<Float> quantidade = new ArrayList<>();
+        ArrayList<Double> vendido = new ArrayList<>();
+        float soma = 0;
+        double soma2 = 0;
+        
+        //String sql = "SELECT nome FROM `produtos`";
         
         
         

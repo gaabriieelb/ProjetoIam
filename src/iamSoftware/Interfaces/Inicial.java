@@ -102,20 +102,20 @@ public class Inicial extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listCompromisso = new javax.swing.JList<>();
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        listPagar = new javax.swing.JList<>();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        listReceber = new javax.swing.JList<>();
         jPanel10 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        listVenda = new javax.swing.JList<>();
         jPanel12 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
@@ -472,14 +472,14 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jList1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
-        jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listCompromisso.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
+        listCompromisso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listCompromisso.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listCompromisso);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -512,14 +512,14 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jList2.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
-        jList2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        listPagar.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
+        listPagar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listPagar.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(listPagar);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -532,14 +532,14 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jList3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
-        jList3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+        listReceber.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
+        listReceber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listReceber.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 3", "Item 4Item 3", "Item 4Item 3", "Item 4" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(listReceber);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -572,14 +572,14 @@ public class Inicial extends javax.swing.JFrame {
             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jList4.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
-        jList4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+        listVenda.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
+        listVenda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listVenda.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList4);
+        jScrollPane4.setViewportView(listVenda);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -895,10 +895,6 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -916,5 +912,9 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblData;
+    private javax.swing.JList<String> listCompromisso;
+    private javax.swing.JList<String> listPagar;
+    private javax.swing.JList<String> listReceber;
+    private javax.swing.JList<String> listVenda;
     // End of variables declaration//GEN-END:variables
 }
