@@ -271,8 +271,8 @@
                 <Column editable="false" title="C&#xf3;d." type="java.lang.String"/>
                 <Column editable="false" title="Produto" type="java.lang.String"/>
                 <Column editable="false" title="Quant." type="java.lang.Double"/>
-                <Column editable="false" title="Valor Unit." type="java.lang.Double"/>
-                <Column editable="false" title="Subtotal" type="java.lang.Double"/>
+                <Column editable="false" title="Valor Unit." type="java.lang.Object"/>
+                <Column editable="false" title="Subtotal" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

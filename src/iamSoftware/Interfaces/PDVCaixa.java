@@ -10,10 +10,13 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import static java.lang.String.valueOf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -144,7 +147,7 @@ public class PDVCaixa extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -827,6 +830,9 @@ public class PDVCaixa extends javax.swing.JFrame {
     
     public void inserirItem(int id, String nome, double quantidade) throws SQLException{
         
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
+        
         double subtotal, valorVenda;
         
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
@@ -844,10 +850,15 @@ public class PDVCaixa extends javax.swing.JFrame {
             dados[3] = quantidade;
             dados[4] = rs.getDouble("valorVenda");
             
+            
+            dados[4] = df.format(dados[4]); 
+            
             valorVenda = rs.getDouble("valorVenda");
             subtotal = quantidade * valorVenda;
             dados[5] =  subtotal;
-
+            
+            dados[5] = df.format(dados[5]);
+            
             tabela.addRow(dados);
         }
     }
@@ -857,10 +868,19 @@ public class PDVCaixa extends javax.swing.JFrame {
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         int numRow = tabela.getRowCount();
         double soma = 0;
-        double valorColuna; 
+        double valorColuna=0; 
         
         for(int i = 0; i < numRow; i++){
-            valorColuna = (double) tabela.getValueAt(i, 5);
+            String convert = valueOf(tabela.getValueAt(i, 5));
+            
+            try {
+                double l = DecimalFormat.getNumberInstance().parse(convert).doubleValue();
+                valorColuna = l;
+            } catch (ParseException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //valorColuna = Double.valueOf(tabela.getValueAt(i, 5));
             soma = soma + valorColuna;
         }
         

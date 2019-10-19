@@ -5,22 +5,35 @@
  */
 package iamSoftware.Interfaces;
 
+import iamSoftware.Classes.APagar;
+import iamSoftware.Classes.AReceber;
+import iamSoftware.Classes.Agenda;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.Horario;
+import iamSoftware.Classes.ProdutosData;
 import iamSoftware.Classes.teste;
+import static iamSoftware.Interfaces.ContasPagar.conveter;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -33,12 +46,7 @@ public class Inicial extends javax.swing.JFrame {
      */
     public Inicial() {
         initComponents();
-        
-        
-        
-        
-
-        
+                
         System.out.println(jButton1.getSize());
            
         //this.getContentPane().setBackground(new Color(60,65,103));
@@ -59,6 +67,124 @@ public class Inicial extends javax.swing.JFrame {
         Horario.start(lblData);
         
         
+        ///prenchimento contas a pagar
+        try {        
+        DefaultListModel modelPagar;
+        modelPagar = new DefaultListModel();
+        
+        String sql = "SELECT * FROM `contaspagar` WHERE status= 'Em Aberto' ORDER BY `vencimento` ASC";
+        
+        Connection conn = ConexaoBD.Conectar();
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();       
+             
+        while(rs.next()){          
+            String fornecedor = rs.getString("fornecedor");
+            String valor = rs.getString("valor"); 
+            modelPagar.addElement(new APagar(fornecedor,valor));
+        }
+        listPagar.setModel(modelPagar);
+        listPagar.setCellRenderer(new RendererAPagar());
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////
+        
+        ///preenchimento contas a receber
+        try {        
+        DefaultListModel modelPagar;
+        modelPagar = new DefaultListModel();
+        
+        String sql = "SELECT * FROM `contasreceber` WHERE status= 'Em Aberto'";
+        
+        Connection conn = ConexaoBD.Conectar();
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();       
+             
+        while(rs.next()){          
+            String formapagamento = rs.getString("formapagamento");
+            String valor = rs.getString("valor"); 
+            modelPagar.addElement(new AReceber(formapagamento,valor));
+        }
+        listReceber.setModel(modelPagar);
+        listReceber.setCellRenderer(new RendererAReceber());
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////
+        
+        
+        
+        
+        
+        /////////////        
+        //JList<Agenda> list;
+        DefaultListModel model;        
+        //list = new JList();
+        model = new DefaultListModel();        
+        model.addElement(new Agenda("27/02/2019", "SP", "teste"));        
+        listCompromisso.setModel(model);
+        listCompromisso.setCellRenderer(new MyListCellRenderer());        
+        ////////////
+        
+    }
+    
+     private class MyListCellRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(
+                JList list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            Agenda label = (Agenda) value;
+            String data = label.getData();
+            String local = label.getLocal();
+            String assunto = label.getAssunto();
+           
+            String labelText = "<html>Local: " + local + "<br/>Assunto: " + assunto + "<br/>Data: " + data ;
+            setText(labelText);
+
+            return this;
+        }
+
+    }
+     
+    private class RendererAPagar extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(
+                JList list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            APagar label = (APagar) value;
+            String fornecedor = label.getForncedor();
+            String valor = label.getValor();
+            
+           
+            String labelText = "<html>"+fornecedor+" R$:"+ valor;
+            setText(labelText);
+
+            return this;
+        }
+    }
+    
+    private class RendererAReceber extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(
+                JList list, Object value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            AReceber label = (AReceber) value;
+            String formapagamento = label.getFormapagamento();
+            String valor = label.getValor();
+            
+           
+            String labelText = "<html>"+formapagamento+" R$:"+ valor;
+            setText(labelText);
+
+            return this;
+        }
     }
 
     /**
@@ -474,11 +600,6 @@ public class Inicial extends javax.swing.JFrame {
 
         listCompromisso.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         listCompromisso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listCompromisso.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listCompromisso);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -514,11 +635,6 @@ public class Inicial extends javax.swing.JFrame {
 
         listPagar.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         listPagar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listPagar.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(listPagar);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -534,11 +650,6 @@ public class Inicial extends javax.swing.JFrame {
 
         listReceber.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         listReceber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listReceber.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 3", "Item 4Item 3", "Item 4Item 3", "Item 4" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(listReceber);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -574,11 +685,6 @@ public class Inicial extends javax.swing.JFrame {
 
         listVenda.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         listVenda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listVenda.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(listVenda);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
