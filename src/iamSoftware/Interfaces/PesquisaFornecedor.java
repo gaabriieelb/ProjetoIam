@@ -360,6 +360,12 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         if(tela.equals("contaspagar")){
             ContasPagar.fieldFornecedor.setText(nome);
         }
+        if(tela.equals("relatorioNF")){
+            RelatorioNF.fieldNomeFornecedor.setText(nome);
+        }
+        
+        
+        
         
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed

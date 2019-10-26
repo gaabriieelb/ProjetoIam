@@ -13,44 +13,36 @@ import java.sql.SQLException;
  *
  * @author ga_br
  */
-public class Agenda {
-    String data;
-    String local;
-    String assunto;
+public class Composicao {
+    String idproduto;
+    String idcomposicao;
+    String composicao;
 
-    public Agenda() {
-    }
-    
-    
-
-    public Agenda(String data, String local, String assunto) {
-        this.data = data;
-        this.local = local;
-        this.assunto = assunto;
+    public Composicao() {
     }
 
-    public String getData() {
-        return data;
+    public String getIdproduto() {
+        return idproduto;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setIdproduto(String idproduto) {
+        this.idproduto = idproduto;
     }
 
-    public String getLocal() {
-        return local;
+    public String getIdcomposicao() {
+        return idcomposicao;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setIdcomposicao(String idcomposicao) {
+        this.idcomposicao = idcomposicao;
     }
 
-    public String getAssunto() {
-        return assunto;
+    public String getComposicao() {
+        return composicao;
     }
 
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
+    public void setComposicao(String composicao) {
+        this.composicao = composicao;
     }
     
     public void Cadastrar() throws SQLException{
@@ -59,10 +51,10 @@ public class Agenda {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO agenda (horario,local,assunto)VALUES(?,?,?)");
-        stmt.setString(1,getData());
-        stmt.setString(2,getLocal());        
-        stmt.setString(3,getAssunto());       
+        stmt = conn.prepareStatement("INSERT INTO composicao (id_produto, id_composicao, nome)VALUES(?,?,?)");
+        stmt.setString(1,getIdproduto());
+        stmt.setString(2,getIdcomposicao());        
+        stmt.setString(3,getComposicao());       
         
         
         stmt.executeUpdate();
@@ -73,11 +65,9 @@ public class Agenda {
     public void Remover(int id) throws SQLException{
         Connection conn = ConexaoBD.Conectar();    
         PreparedStatement stmt = null;
-        stmt = conn.prepareStatement("DELETE FROM agenda WHERE id="+id);
+        stmt = conn.prepareStatement("DELETE FROM composicao WHERE id_produto="+id);
         stmt.executeUpdate();
         stmt.close();
     
     }
-    
-    
 }

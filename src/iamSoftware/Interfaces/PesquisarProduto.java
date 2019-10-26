@@ -425,13 +425,21 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
+        Composicao composicao = new Composicao();
         ProdutosData produtos = new ProdutosData();
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         int row = tblProdutos.getSelectedRow();
         int id = (int) tabela.getValueAt(row, 0);
-
+        String tipo = (String) tabela.getValueAt(row, 2);
+        
         try {
             produtos.Remover(id);
+            
+            if(tipo.equalsIgnoreCase("Composto")){
+                    composicao.Remover(id);
+            }   
+            
             PreencherTabela();
             String msg = "Registro Excluido com Sucesso!";
             Mensagem mensagem = new Mensagem(msg);

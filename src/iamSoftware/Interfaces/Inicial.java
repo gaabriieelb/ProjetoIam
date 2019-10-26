@@ -67,6 +67,32 @@ public class Inicial extends javax.swing.JFrame {
         Horario.start(lblData);
         
         
+        ///preenchimento compromisso
+        try {        
+        DefaultListModel modelPagar;
+        modelPagar = new DefaultListModel();
+        
+        String sql = "SELECT * FROM `agenda`";
+        
+        Connection conn = ConexaoBD.Conectar();
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();       
+             
+        while(rs.next()){          
+            String horario = rs.getString("horario");
+            String local = rs.getString("local"); 
+            String assunto = rs.getString("assunto");
+            modelPagar.addElement(new Agenda(horario, local, assunto));
+        }
+        listCompromisso.setModel(modelPagar);
+        listCompromisso.setCellRenderer(new RendererCompromisso());
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////
+        
+        
         ///prenchimento contas a pagar
         try {        
         DefaultListModel modelPagar;
@@ -90,6 +116,7 @@ public class Inicial extends javax.swing.JFrame {
             Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
         }
         ////////////////////////////////////
+        
         
         ///preenchimento contas a receber
         try {        
@@ -116,22 +143,37 @@ public class Inicial extends javax.swing.JFrame {
         ////////////////////////////////////
         
         
+        ///preenchimento vendas diárias
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	Date dataDoSistema = new Date();		
+	String dataEmTexto = formatador.format(dataDoSistema);  
         
+        try {        
+        DefaultListModel modelPagar;
+        modelPagar = new DefaultListModel();
         
+        String sql = "SELECT * FROM `contasreceber` WHERE datapagamento= '"+dataEmTexto+"'";
         
-        /////////////        
-        //JList<Agenda> list;
-        DefaultListModel model;        
-        //list = new JList();
-        model = new DefaultListModel();        
-        model.addElement(new Agenda("27/02/2019", "SP", "teste"));        
-        listCompromisso.setModel(model);
-        listCompromisso.setCellRenderer(new MyListCellRenderer());        
-        ////////////
+        Connection conn = ConexaoBD.Conectar();
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();       
+             
+        while(rs.next()){          
+            String formapagamento = rs.getString("formapagamento");
+            String valor = rs.getString("valor"); 
+            modelPagar.addElement(new AReceber(formapagamento,valor));
+        }
+        listVenda.setModel(modelPagar);
+        listVenda.setCellRenderer(new RendererAReceber());
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////
         
     }
     
-     private class MyListCellRenderer extends DefaultListCellRenderer {
+     private class RendererCompromisso extends DefaultListCellRenderer {
 
         @Override
         public Component getListCellRendererComponent(
@@ -904,11 +946,13 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
+       Relatorios relatorios = new Relatorios();
+       relatorios.setVisible(true);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
+        AgendaView agendaview = new AgendaView();
+        agendaview.setVisible(true);
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
