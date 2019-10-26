@@ -363,7 +363,9 @@ public class PesquisaFornecedor extends javax.swing.JFrame {
         if(tela.equals("relatorioNF")){
             RelatorioNF.fieldNomeFornecedor.setText(nome);
         }
-        
+        if(tela.equals("relatorioContasPagar")){
+            RelatorioContasPagar.fieldNomeFornecedor.setText(nome);
+        }
         
         
         
