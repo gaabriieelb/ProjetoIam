@@ -131,8 +131,7 @@ public class RelatorioData {
         } catch (Exception e) {
         }
     }
-    
-    
+        
     public void gerarContasPagar(String Status, String Fornecedor, String datainicial, String datafinal) throws SQLException{
         String data;
         System.out.println(datainicial);
@@ -271,8 +270,305 @@ public class RelatorioData {
         }
     }
     
+    public void gerarProdutos() throws SQLException{
+        
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        String sql= "SELECT * FROM `produtos`";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-produtos.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Produtos");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(4);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Un. Medida"));
+            //PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Compra"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Venda"));
+                       
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            //table.addCell(cell4);
+            table.addCell(cell5);
+                        
+            //entra for
+            while (rs.next()) {
+               
+                int id = rs.getInt("id");                
+                String nome = rs.getString("nome");                
+                String medida = rs.getString("medida");
+                //Double valorCompra = rs.getDouble("valorcompra");                
+                Double valorVenda = rs.getDouble("valorVenda");
+                                
+                cell1 = new PdfPCell(new Paragraph(id+""));
+                cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell3 = new PdfPCell(new Paragraph(medida+""));
+                //cell4 = new PdfPCell(new Paragraph(valorCompra+""));
+                cell5 = new PdfPCell(new Paragraph(valorVenda+""));
+               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                //table.addCell(cell4);
+                table.addCell(cell5);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{10f, 20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
     
-     public static String converter(char[] dataArray){
+    public void gerarFornecedor() throws SQLException{
+        
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        String sql= "SELECT * FROM `fornecedores`";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-fornecedores.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Fornecedores");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(4);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Fornecedor"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("CPF/CNPJ"));
+            //PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Compra"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Ramo de Atividade"));
+                       
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            //table.addCell(cell4);
+            table.addCell(cell5);
+                        
+            //entra for
+            while (rs.next()) {
+               
+                int id = rs.getInt("id");                
+                String nome = rs.getString("nome");                
+                String cpfcnpj = rs.getString("cpfcnpj");
+                //Double valorCompra = rs.getDouble("valorcompra");                
+                String ramo = rs.getString("ramoatividade");
+                                
+                cell1 = new PdfPCell(new Paragraph(id+""));
+                cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell3 = new PdfPCell(new Paragraph(cpfcnpj+""));
+                //cell4 = new PdfPCell(new Paragraph(valorCompra+""));
+                cell5 = new PdfPCell(new Paragraph(ramo+""));
+               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                //table.addCell(cell4);
+                table.addCell(cell5);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{10f, 20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public void gerarCliente() throws SQLException{
+        
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        String sql= "SELECT * FROM `clientes`";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-cliente.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Clientes");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(5);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Cliente"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("CPF/CNPJ"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Prazo"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Limite"));
+                       
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+                        
+            //entra for
+            while (rs.next()) {
+               
+                int id = rs.getInt("id");                
+                String nome = rs.getString("nome");                
+                String cpfcnpj = rs.getString("cpfcnpj");
+                String prazo = rs.getString("prazo");                
+                Double limite = rs.getDouble("limitecredito");
+                                
+                cell1 = new PdfPCell(new Paragraph(id+""));
+                cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell3 = new PdfPCell(new Paragraph(cpfcnpj+""));
+                cell4 = new PdfPCell(new Paragraph(prazo+""));
+                cell5 = new PdfPCell(new Paragraph(limite+""));
+               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
+                table.addCell(cell5);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{10f, 20f, 20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public void gerarAgenda() throws SQLException{
+        
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        String sql= "SELECT * FROM `agenda`";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-agenda.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Agenda");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Data/Hora"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Local"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Assunto"));
+                  
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                         
+                String horario = rs.getString("horario");                
+                String local = rs.getString("local");
+                String assunto = rs.getString("assunto");                
+                            
+                cell1 = new PdfPCell(new Paragraph(horario+""));
+                cell2 = new PdfPCell(new Paragraph(local+""));
+                cell3 = new PdfPCell(new Paragraph(assunto+""));
+               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public static String converter(char[] dataArray){
     
         String dataString = dataArray[8]+""+dataArray[9]+"/"+dataArray[5]+""+dataArray[6]+"/20"+dataArray[2]+dataArray[3];  
         
