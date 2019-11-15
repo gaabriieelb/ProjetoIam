@@ -75,16 +75,19 @@
                               <Component id="jButton16" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jButton10" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton14" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jButton11" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton15" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jButton10" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jButton14" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jButton11" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jButton15" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -176,7 +179,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/receipt (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Entrada NF"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -247,7 +250,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/inventory (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Produtos"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -265,7 +268,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/distribution.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Produto Agregado"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -301,7 +304,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/network (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cliente"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -319,7 +322,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/accounting.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Faturamento"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -337,7 +340,7 @@
           <Font name="Arial" size="12" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/clipboard.png"/>
+          <Image iconType="3" name="/images/diary (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Agenda"/>
         <Property name="focusPainted" type="boolean" value="false"/>

@@ -17,6 +17,7 @@ public class Composicao {
     String idproduto;
     String idcomposicao;
     String composicao;
+    Double quantidade;
 
     public Composicao() {
     }
@@ -44,6 +45,16 @@ public class Composicao {
     public void setComposicao(String composicao) {
         this.composicao = composicao;
     }
+
+    public Double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Double quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
     
     public void Cadastrar() throws SQLException{
         Connection conn = ConexaoBD.Conectar();    
@@ -51,10 +62,11 @@ public class Composicao {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO composicao (id_produto, id_composicao, nome)VALUES(?,?,?)");
+        stmt = conn.prepareStatement("INSERT INTO composicao (id_produto, id_composicao, nome, quantidade)VALUES(?,?,?,?)");
         stmt.setString(1,getIdproduto());
         stmt.setString(2,getIdcomposicao());        
-        stmt.setString(3,getComposicao());       
+        stmt.setString(3,getComposicao());
+        stmt.setDouble(4,getQuantidade());
         
         
         stmt.executeUpdate();

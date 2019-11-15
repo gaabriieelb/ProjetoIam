@@ -431,6 +431,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
             
             String idcomposicao;
             String composicaoprod;
+            Double quantidade;
             
             int idproduto = 0;
             try {
@@ -442,10 +443,12 @@ public class ProdutosCompostos extends javax.swing.JFrame {
             for(int i=0; i < numRow; i++){
                 idcomposicao = String.valueOf(tabela.getValueAt(i,0));           
                 composicaoprod = String.valueOf(tabela.getValueAt(i,1));
+                quantidade = Double.parseDouble(String.valueOf(tabela.getValueAt(i,3)));
                 
                 composicao.setComposicao(composicaoprod);
                 composicao.setIdcomposicao(idcomposicao);
                 composicao.setIdproduto(String.valueOf(idproduto));
+                composicao.setQuantidade(quantidade);
                 
             try {
                 composicao.Cadastrar();

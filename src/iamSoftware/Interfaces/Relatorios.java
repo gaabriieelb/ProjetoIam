@@ -104,7 +104,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receipt (1).png"))); // NOI18N
         jButton7.setText("Entrada NF");
         jButton7.setFocusPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +147,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton11.setBackground(new java.awt.Color(255, 255, 255));
         jButton11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventory (1).png"))); // NOI18N
         jButton11.setText("Produtos");
         jButton11.setFocusPainted(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +158,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
         jButton12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/distribution.png"))); // NOI18N
         jButton12.setText("Produto Agregado");
         jButton12.setFocusPainted(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +180,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton14.setBackground(new java.awt.Color(255, 255, 255));
         jButton14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/network (1).png"))); // NOI18N
         jButton14.setText("Cliente");
         jButton14.setFocusPainted(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +191,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton15.setBackground(new java.awt.Color(255, 255, 255));
         jButton15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounting.png"))); // NOI18N
         jButton15.setText("Faturamento");
         jButton15.setFocusPainted(false);
         jButton15.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +202,7 @@ public class Relatorios extends javax.swing.JFrame {
 
         jButton16.setBackground(new java.awt.Color(255, 255, 255));
         jButton16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/diary (1).png"))); // NOI18N
         jButton16.setText("Agenda");
         jButton16.setFocusPainted(false);
         jButton16.addActionListener(new java.awt.event.ActionListener() {
@@ -258,14 +258,15 @@ public class Relatorios extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(61, 61, 61))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,7 +296,8 @@ public class Relatorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        RelatorioContasReceber contasReceber = new RelatorioContasReceber();
+        contasReceber.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -308,7 +310,8 @@ public class Relatorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        PesquisaProduto pesquisa = new PesquisaProduto("Relatorio");
+        pesquisa.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed

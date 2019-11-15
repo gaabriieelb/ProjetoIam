@@ -35,9 +35,9 @@ public class RelatorioData {
         String sql;
         
         if(Fornecedor.equals("")){
-            sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y')";
+            sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(dataemissao, '%d/%m/%Y') ASC";
         }else{
-            sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND nomefornecedor='"+Fornecedor+"'";
+            sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND nomefornecedor='"+Fornecedor+"' ORDER BY STR_TO_DATE(dataemissao, '%d/%m/%Y') ASC";
         }
         
         Connection conn = ConexaoBD.Conectar();
@@ -252,6 +252,134 @@ public class RelatorioData {
             }
             
             float[] columnWidths = new float[]{10f, 20f, 20f, 20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            p = new Paragraph("Valor total: "+valorfinal+"");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            doc.close();
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public void gerarContasReceber(String Status, String datainicial, String datafinal) throws SQLException{
+        String data;
+        System.out.println(datainicial);
+        
+        Double valorfinal=0.0;
+        String sql = null;
+        
+        
+        //if(Fornecedor.equals("")){
+        
+            if(Status.equals("Todos")){
+                sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+                System.out.println(sql);
+            }
+            if(Status.equals("Em Aberto")){
+                sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+               
+            }
+            if(Status.equals("Liquidado")){
+                sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+                
+            }
+           
+            //sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y')";
+        //}else
+        /*
+            //sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND nomefornecedor='"+Fornecedor+"'";
+            if(Status.equals("Todos")){
+                sql = "SELECT * FROM `contaspagar` WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND fornecedor='"+Fornecedor+"' ORDER BY vencimento ASC";
+                System.out.println("entrou 04");
+            }
+            if(Status.equals("Em Aberto")){
+                sql = "SELECT * FROM `contaspagar` WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND fornecedor='"+Fornecedor+"' AND status='Em Aberto' ORDER BY vencimento ASC";
+                System.out.println("entrou 05");
+            }
+            if(Status.equals("Liquidado")){
+                sql = "SELECT * FROM `contaspagar` WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND fornecedor='"+Fornecedor+"' AND status='Liquidado' ORDER BY vencimento ASC";
+                System.out.println("entrou 06");
+            }
+        //}
+        */
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-contas-receber.pdf";
+        
+        
+        
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório Contas a Receber");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(5);          
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("ID"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Cliente"));
+            //PdfPCell cell3 = new PdfPCell(new Paragraph("N° Doc."));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Vencimento"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Valor"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Status"));
+                        
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+            //table.addCell(cell6);
+            
+            //entra for
+            while (rs.next()) {
+                
+                int id = rs.getInt("id");                
+                String nome = rs.getString("cliente");                
+                String vencimento= rs.getString("datapagamento");
+                Double valor = Double.parseDouble(rs.getString("valor"));                
+                String status = rs.getString("status");
+                
+                valorfinal+=valor;
+                
+               
+                cell1 = new PdfPCell(new Paragraph(id+""));
+                cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell3 = new PdfPCell(new Paragraph(vencimento+""));
+                cell4 = new PdfPCell(new Paragraph(valor+""));
+                cell5 = new PdfPCell(new Paragraph(status+""));
+                //cell6 = new PdfPCell(new Paragraph(status+""));
+                
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
+                table.addCell(cell5);
+                //table.addCell(cell6);
+                
+            }
+            
+            float[] columnWidths = new float[]{10f, 20f, 20f, 10f, 15f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);
@@ -555,6 +683,108 @@ public class RelatorioData {
             
             
             float[] columnWidths = new float[]{20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    public static void gerarProdutoComposto(int id) throws SQLException{
+       
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        String sql= "SELECT * FROM `composicao` WHERE id_produto="+id;
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-composicao-produto.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Composição de Produto");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(5);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Quantidade"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Un. Med."));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Compra"));
+                  
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                         
+                String codigo = rs.getString("id_composicao");                
+                String nome = rs.getString("nome");
+                Double quantidade = rs.getDouble("quantidade");                
+                            
+                cell1 = new PdfPCell(new Paragraph(codigo+""));
+                cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell3 = new PdfPCell(new Paragraph(quantidade+""));
+               
+                
+                
+                String sql2= "SELECT * FROM `produtos` WHERE id="+codigo;        
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = stmt2.executeQuery();
+                
+                while (rs2.next()) {
+                     
+                    String medida = rs2.getString("medida");
+                    cell4 = new PdfPCell(new Paragraph(medida+""));
+                    
+                   
+                    String sql3= "SELECT valorcompra FROM `notas` WHERE nomeproduto='"+nome+"'";
+                    
+                    PreparedStatement stmt3 = conn.prepareStatement(sql3);
+                    ResultSet rs3 = stmt3.executeQuery();
+                
+                    while (rs3.next()) {
+                        
+                        Double valorCompra = rs3.getDouble("valorcompra");
+                        cell5 = new PdfPCell(new Paragraph(valorCompra+""));
+                        
+                       
+                    }
+                }
+                
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
+                table.addCell(cell5);
+            }    
+                    
+                
+                
+            
+    
+            
+            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);

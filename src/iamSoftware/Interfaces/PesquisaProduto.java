@@ -321,19 +321,33 @@ public class PesquisaProduto extends javax.swing.JFrame {
         
         nome = fieldNome.getText();
         
-        if(radioIgual.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"'";
+        if(tela.equals("Relatorio")){
+            if(radioIgual.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"' and codigo='Composto'";
+            }
+            if(radioContem.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"%' and codigo='Composto'";
+            }
+            if(radioInicio.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"%' and codigo='Composto'";
+            }
+            if(radioFim.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"' and codigo='Composto'";
+            }
+        }else{
+            if(radioIgual.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"'";
+            }
+            if(radioContem.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"%'";
+            }
+            if(radioInicio.isSelected()){
+                 sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"%'";
+            }
+            if(radioFim.isSelected()){
+                sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"'";
+            }
         }
-        if(radioContem.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"%'";
-        }
-        if(radioInicio.isSelected()){
-            sql = "SELECT * FROM produtos WHERE nome LIKE '"+nome+"%'";
-        }
-        if(radioFim.isSelected()){
-           sql = "SELECT * FROM produtos WHERE nome LIKE '%"+nome+"'";
-        }
-        
         try {
             PreencherTabela(sql);
         } catch (SQLException ex) {
@@ -363,7 +377,13 @@ public class PesquisaProduto extends javax.swing.JFrame {
         if(tela.equals("alterarnotafiscal")){
             AlterarNotaFiscal.fieldProduto.setText(nome);
         }
-        
+        if(tela.equals("Relatorio")){
+            try {
+                RelatorioData.gerarProdutoComposto(id);
+            } catch (SQLException ex) {
+                Logger.getLogger(PesquisaProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         
         
