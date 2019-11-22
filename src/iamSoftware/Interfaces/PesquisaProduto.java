@@ -367,6 +367,10 @@ public class PesquisaProduto extends javax.swing.JFrame {
             PDVCaixa.fieldProduto.setText(nome);
             PDVCaixa.fieldId.setText(String.valueOf(id));
         }
+        if(tela.equals("PDVComanda")){
+            PDVComanda.fieldProduto.setText(nome);
+            PDVComanda.fieldId.setText(String.valueOf(id));
+        }        
         if(tela.equals("Produtos Compostos")){
             ProdutosCompostos.fieldProduto.setText(nome);
             ProdutosCompostos.fieldId.setText(String.valueOf(id));

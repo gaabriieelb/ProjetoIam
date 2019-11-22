@@ -5,9 +5,18 @@
  */
 package iamSoftware.Interfaces;
 
+import iamSoftware.Classes.ConexaoBD;
+import static iamSoftware.Interfaces.CadastroCartao.tblProdutos;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,13 +28,23 @@ public class Cartao extends javax.swing.JFrame {
     String cartao;
     String prazo;
     Double taxa;
+    int v = 0;
+    int tela; 
     /**
      * Creates new form Mensagem
      */
-    public Cartao() {
+    public Cartao(int tela) {
         initComponents();
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);  
+        
+        this.tela = tela;
+        
+        try {
+            PreencherTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Cartao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         String dia = "05";
         
@@ -63,6 +82,14 @@ public class Cartao extends javax.swing.JFrame {
         lblPagamento.setText(dia+"/"+m3+"/20"+data[8]+data[9]);
     }
     
+    public Cartao() {
+        initComponents();
+        this.getContentPane().setBackground(Color.white);
+        this.setLocationRelativeTo(null);  
+        
+       
+        
+    }
   
 
     /**
@@ -128,7 +155,6 @@ public class Cartao extends javax.swing.JFrame {
         textMensagem1.setText("Cartão:");
 
         comboCartao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        comboCartao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cielo", "Visa", "MasterCard" }));
         comboCartao.setOpaque(false);
         comboCartao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,8 +268,14 @@ public class Cartao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
-        PDVCaixa.comboFormaPagamento2.setSelectedItem("Dinheiro");
+        if(tela == 1){
+            PDVCaixa.comboFormaPagamento.setSelectedIndex(0);
+            PDVCaixa.comboFormaPagamento2.setSelectedIndex(0);
+        }
+        if(tela == 2){
+            PDVComanda.comboFormaPagamento.setSelectedIndex(0);
+            PDVComanda.comboFormaPagamento2.setSelectedIndex(0);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -252,7 +284,14 @@ public class Cartao extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
     private void comboCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCartaoActionPerformed
-        // TODO add your handling code here:
+       
+        String bandeira = (String) comboCartao.getSelectedItem();
+       
+        try {
+            PreencherDados(bandeira);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cartao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_comboCartaoActionPerformed
 
     /**
@@ -306,4 +345,49 @@ public class Cartao extends javax.swing.JFrame {
     private javax.swing.JLabel textMensagem2;
     private javax.swing.JLabel textMensagem4;
     // End of variables declaration//GEN-END:variables
+public void PreencherTabela() throws SQLException {
+        
+
+        String sql = "SELECT * FROM `cartao`";
+
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        comboCartao.addItem("Selecione a Bandeira");
+        
+        while (rs.next()) {
+                       
+            String bandeira = rs.getString("bandeira");
+                    
+            comboCartao.addItem(bandeira);
+            
+           
+        }
+
+    }
+
+
+
+public void PreencherDados(String bandeira) throws SQLException {
+        
+
+        String sql = "SELECT * FROM `cartao` WHERE bandeira='"+bandeira+"'";
+
+        Connection conn = ConexaoBD.Conectar();
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        String prazo="", taxa="";
+        
+        while (rs.next()) {
+                       
+            prazo = rs.getString("prazo");
+            taxa = rs.getString("taxacomissao");
+                    
+           
+        }
+        lblPagamento.setText(prazo);
+        lblTaxa.setText(taxa);
+    }
 }

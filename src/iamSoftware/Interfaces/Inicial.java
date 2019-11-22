@@ -482,6 +482,11 @@ public class Inicial extends javax.swing.JFrame {
         jButton13.setFocusPainted(false);
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Operacional");
@@ -978,6 +983,11 @@ public class Inicial extends javax.swing.JFrame {
         NotaFiscal notafiscal = new NotaFiscal();
         notafiscal.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        CadastroCartao cartao = new CadastroCartao();
+        cartao.setVisible(true);
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments

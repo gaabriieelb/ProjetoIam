@@ -585,7 +585,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
         
         if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
-            Cartao cartao = new Cartao();
+            Cartao cartao = new Cartao(1);
             cartao.setVisible(true);           
         }
     }//GEN-LAST:event_comboFormaPagamentoActionPerformed
@@ -613,7 +613,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
         
         if(comboFormaPagamento2.getSelectedItem().equals("Cartão")){
-            Cartao cartao = new Cartao();
+            Cartao cartao = new Cartao(1);
             cartao.setVisible(true);           
         }
     }//GEN-LAST:event_comboFormaPagamento2ActionPerformed
