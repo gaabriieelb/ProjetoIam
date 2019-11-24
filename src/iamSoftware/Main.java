@@ -25,8 +25,8 @@ public class Main {
      */
     public static void main( String[] args ) throws SQLException {
         
-        Inicial inicial = new Inicial();
-        inicial.setVisible(true);
+        Login login = new Login();
+        login.setVisible(true);
         /*
         
         //create connection for a server installed in localhost, with a user "root" with no password
