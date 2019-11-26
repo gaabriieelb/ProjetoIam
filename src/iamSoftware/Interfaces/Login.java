@@ -10,6 +10,7 @@ import iamSoftware.Classes.CartaoDATA;
 import iamSoftware.Classes.Composicao;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.ProdutosData;
+import static iamSoftware.Interfaces.ContasReceber.tblFornecedores;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -114,9 +115,29 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
-        Inicial inicial = new Inicial();
-        inicial.setVisible(true);
-        this.dispose();
+        String usuario = fieldUsuario.getText();
+        char[] s = fieldSenha.getPassword();
+        String senha = String.valueOf(s);
+        
+        try {
+            int n = Login(usuario, senha);
+            
+            if(n == 0){
+                Mensagem msg = new Mensagem("Usuário ou Senha Incorreto!");
+                msg.setVisible(true);
+            }
+            if(n !=0){
+                Inicial inicial = new Inicial();
+                inicial.setVisible(true);
+                this.dispose();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_buttonFinalizarActionPerformed
 
     /**
@@ -169,4 +190,23 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+public int Login(String usuario, String senha) throws SQLException{
+       
+        int id = 0;
+        
+        String sql = "SELECT * FROM `users` WHERE username='"+usuario+"' AND password=MD5('"+senha+"')";
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+                    
+        while(rs.next()){
+            
+            id = rs.getInt("id");
+            
+        }
+        return id;
+    }
+
 }

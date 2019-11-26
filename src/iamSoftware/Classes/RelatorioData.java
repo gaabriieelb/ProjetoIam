@@ -224,7 +224,7 @@ public class RelatorioData {
                 String vencimento = (String) dados[0];
                 char[] dataArray = vencimento.toCharArray();
                 vencimento = converter(dataArray);
-                System.out.println(dados[0]);
+                
                
                 
                 Double valor = Double.parseDouble(rs.getString("valor"));                
@@ -473,6 +473,438 @@ public class RelatorioData {
             
         } catch (Exception e) {
         }
+    }
+    
+    public void gerarRankingMaiorValor() throws SQLException{
+        
+        String sql= "SELECT * FROM produtos ORDER BY valorVenda DESC LIMIT 10";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Produtos");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Produto"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Código"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                            
+                String nome = rs.getString("nome");
+                String codigo = rs.getString("codigo");
+                Double valorVenda = rs.getDouble("valorVenda");
+                                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(codigo+""));
+                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
+    public void gerarRankingMaiorVendas() throws SQLException{
+        
+        String sql= "SELECT *, SUM(quantidade) FROM itenscompras GROUP BY produto";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking-produtos-mais-vendidos.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Produtos Mais Vendidos");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Produto"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Quantidade"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                            
+                String nome = rs.getString("produto");
+                String quantidade = rs.getString("SUM(quantidade)");
+                //Double valorVenda = rs.getDouble("valorVenda");
+                
+                String codigo = rs.getString("codigoproduto");
+                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(quantidade+""));
+                
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+               
+                
+                String sql2= "SELECT * FROM produtos WHERE codigo='"+codigo+"'";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = stmt2.executeQuery();
+                
+                while(rs2.next()){
+                    double valor = rs2.getDouble("valorVenda");
+                    cell3 = new PdfPCell(new Paragraph(valor+""));
+                }
+                
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
+    public void gerarRankingMaiorCompra() throws SQLException{
+        
+        String sql= "SELECT * FROM notas ORDER BY quantidade DESC LIMIT 10";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking-compra.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Maiores Compras");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Produto"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Quantidade"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                            
+                String nome = rs.getString("nomeproduto");
+                Double codigo = rs.getDouble("quantidade");
+                Double valorVenda = rs.getDouble("valorcompra");
+                                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(codigo+""));
+                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
+    public void gerarRankingMaiorNota() throws SQLException{
+        
+        String sql= "SELECT * FROM notas ORDER BY valorcompra DESC LIMIT 10";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking-notas.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Maiores Notas");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Fornecedor"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                            
+                String nome = rs.getString("nomefornecedor");
+                String codigo = rs.getString("dataregistro");
+                Double valorVenda = rs.getDouble("valorcompra");
+                                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(codigo+""));
+                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
+    public void gerarRankingMaiorContasPagar() throws SQLException{
+        
+        String sql= "SELECT * FROM contaspagar ORDER BY valor DESC LIMIT 10";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking-contas-pagar.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Maiores Contas a Pagar");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Fornecedor"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                Object[] dados = new Object[1];            
+                String nome = rs.getString("fornecedor");
+                
+                dados[0]= rs.getString("vencimento");
+                String vencimento = (String) dados[0];
+                char[] dataArray = vencimento.toCharArray();
+                vencimento = converter(dataArray);
+                
+                Double valorVenda = rs.getDouble("valor");
+                                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(vencimento+""));
+                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
+    public void gerarRankingMaiorContasReceber() throws SQLException{
+        
+        String sql= "SELECT * FROM contasreceber ORDER BY valor DESC LIMIT 10";
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-ranking-contas-receber.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Ranking de Maiores Contas a Receber");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cliente"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+                        
+            //entra for
+            while (rs.next()) {
+                          
+                String nome = rs.getString("cliente");
+                String vencimento = rs.getString("datapagamento");
+                Double valorVenda = rs.getDouble("valor");
+                                
+                cell1 = new PdfPCell(new Paragraph(nome+""));
+                cell2 = new PdfPCell(new Paragraph(vencimento+""));
+                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                               
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
     }
     
     public void gerarFornecedor() throws SQLException{
