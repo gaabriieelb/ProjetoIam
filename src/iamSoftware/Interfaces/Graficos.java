@@ -405,7 +405,7 @@ public class Graficos extends javax.swing.JFrame {
     
     public void gerarContasReceber2(String mes, String ano) throws SQLException{
         String data;
-        System.out.println(ano);
+        
         
         //int mes = 1;
         Double valorfinal=0.0, valorDinheiro=0.0,valorCartao=0.0, valorPrazo=0.0, valorCheque=0.0, valorConvenio=0.0, somaTotal;

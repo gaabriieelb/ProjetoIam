@@ -626,6 +626,83 @@ public class RelatorioData {
     
     }
     
+    public void gerarFaturamento(String ano) throws SQLException{
+        int mes = 1;
+        Double valorfinal=0.0;
+        
+                
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-faturamento.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Faturamento");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(3);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Ano"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Mês"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            
+            while(mes <=12){
+                
+                String sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('01/"+mes+"/"+ano+"', '%d/%m/%Y') AND STR_TO_DATE('31/"+mes+"/"+ano+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+
+                Connection conn = ConexaoBD.Conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                
+                cell1 = new PdfPCell(new Paragraph(ano+""));
+                cell2 = new PdfPCell(new Paragraph(mes+""));
+                
+                table.addCell(cell1);
+                table.addCell(cell2); 
+                
+                //entra for
+                while (rs.next()) {
+                         
+                    Double valor = Double.parseDouble(rs.getString("valor"));                    
+                    valorfinal+=valor;
+       
+                }
+                
+                cell3 = new PdfPCell(new Paragraph(valorfinal+""));     
+                table.addCell(cell3); 
+                
+                valorfinal=0.0;
+                mes+=1;
+            }
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+         
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+            
+        } catch (Exception e) {
+        }
+    
+    }
+    
     public void gerarRankingMaiorCompra() throws SQLException{
         
         String sql= "SELECT * FROM notas ORDER BY quantidade DESC LIMIT 10";

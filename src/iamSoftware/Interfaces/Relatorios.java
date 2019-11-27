@@ -478,7 +478,8 @@ public class Relatorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
+        RelatorioFaturamento faturamento = new RelatorioFaturamento();
+        faturamento.setVisible(true);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
