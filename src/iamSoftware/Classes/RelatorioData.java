@@ -629,7 +629,7 @@ public class RelatorioData {
     public void gerarFaturamento(String ano) throws SQLException{
         int mes = 1;
         Double valorfinal=0.0;
-        
+        String strMes = "";
                 
         Document doc = new Document();
         String arquivoPDF = "relatorio-faturamento.pdf";
@@ -658,6 +658,57 @@ public class RelatorioData {
             
             while(mes <=12){
                 
+                switch(mes){
+                    case 1: 
+                        strMes="Janeiro";
+                        break;
+                        
+                    case 2: 
+                        strMes="Fevereiro";
+                        break;    
+                    
+                    case 3: 
+                        strMes="Março";
+                        break;
+                        
+                    case 4: 
+                        strMes="Abril";
+                        break;
+                        
+                    case 5: 
+                        strMes="Maio";
+                        break;
+                        
+                    case 6: 
+                        strMes="Junho";
+                        break;
+                        
+                    case 7: 
+                        strMes="Julho";
+                        break;
+                        
+                    case 8: 
+                        strMes="Agosto";
+                        break;    
+                    
+                    case 9: 
+                        strMes="Setembro";
+                        break;
+                        
+                    case 10: 
+                        strMes="Outubro";
+                        break;
+                        
+                    case 11: 
+                        strMes="Novembro";
+                        break;
+                        
+                    case 12: 
+                        strMes="Dezembro";
+                        break;
+                }
+                
+                
                 String sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('01/"+mes+"/"+ano+"', '%d/%m/%Y') AND STR_TO_DATE('31/"+mes+"/"+ano+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
 
                 Connection conn = ConexaoBD.Conectar();
@@ -665,7 +716,7 @@ public class RelatorioData {
                 ResultSet rs = stmt.executeQuery();
                 
                 cell1 = new PdfPCell(new Paragraph(ano+""));
-                cell2 = new PdfPCell(new Paragraph(mes+""));
+                cell2 = new PdfPCell(new Paragraph(strMes+""));
                 
                 table.addCell(cell1);
                 table.addCell(cell2); 

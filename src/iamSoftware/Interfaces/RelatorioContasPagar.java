@@ -94,7 +94,7 @@ public class RelatorioContasPagar extends javax.swing.JFrame {
         fieldNomeFornecedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel8.setText("Período Emissão:");
+        jLabel8.setText("Status:");
 
         fieldDataInicial.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 

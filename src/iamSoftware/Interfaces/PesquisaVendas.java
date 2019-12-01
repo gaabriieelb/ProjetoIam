@@ -183,8 +183,13 @@ public class PesquisaVendas extends javax.swing.JFrame {
         jLabel5.setText("a");
 
         comboFormaPagamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque", "Convenio" }));
+        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
         comboFormaPagamento.setOpaque(false);
+        comboFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,6 +265,10 @@ public class PesquisaVendas extends javax.swing.JFrame {
     private void fieldPeriodoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoFinalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPeriodoFinalActionPerformed
+
+    private void comboFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFormaPagamentoActionPerformed
 
     /**
      * @param args the command line arguments

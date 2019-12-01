@@ -98,7 +98,7 @@ public class Produtos extends javax.swing.JFrame {
         jLabel3.setText("Código:");
 
         comboUnidades.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kg", "Lt", "Ún", "Cx", "Ct" }));
+        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kg", "Lt", "Ún", "Cx", "Ct", "Mt" }));
         comboUnidades.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
