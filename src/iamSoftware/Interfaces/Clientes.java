@@ -326,7 +326,7 @@ public class Clientes extends javax.swing.JFrame {
         
         tabela.setRowCount(0);
         
-        String sql = "SELECT * FROM `clientes`";
+        String sql = "SELECT * FROM `clientes` ORDER BY nome ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -351,7 +351,7 @@ public class Clientes extends javax.swing.JFrame {
         
         tblstatic.setRowCount(0);
         
-        String sql = "SELECT * FROM `clientes`";
+        String sql = "SELECT * FROM `clientes` ORDER BY nome ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);

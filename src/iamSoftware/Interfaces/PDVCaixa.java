@@ -27,8 +27,10 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -64,6 +66,14 @@ public class PDVCaixa extends javax.swing.JFrame {
         //comboFormaPagamento.setEnabled(false);
         //comboFormaPagamento2.setEnabled(false);
         
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
     
     
@@ -835,6 +845,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         
         double subtotal, valorVenda;
         
+        
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         
         String sql = "SELECT * FROM `produtos` WHERE id="+id;
@@ -858,6 +869,7 @@ public class PDVCaixa extends javax.swing.JFrame {
             dados[5] =  subtotal;
             
             dados[5] = df.format(dados[5]);
+            
             
             tabela.addRow(dados);
         }

@@ -41,6 +41,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
 
 
 
@@ -392,7 +393,7 @@ public class Graficos extends javax.swing.JFrame {
             mes+=1;
         }
         
-            JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Valor", barchardata, PlotOrientation.VERTICAL, false, true, true);
+            JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Valor", barchardata, PlotOrientation.VERTICAL, true, true, true);
             
             CategoryPlot bc=barChart.getCategoryPlot();
             bc.setRangeGridlinePaint(Color.ORANGE);
@@ -457,12 +458,17 @@ public class Graficos extends javax.swing.JFrame {
             pCheque= (100*valorCheque)/somaTotal;
             pConvenio= (100*valorConvenio)/somaTotal;
             
-           
-            piedata.setValue("Dinheiro", pDinheiro);
-            piedata.setValue("Cartão", pCartao);
-            piedata.setValue("À Prazo", pPrazo);
-            piedata.setValue("Cheque", pCheque);
-            piedata.setValue("Convênio", pConvenio);
+            String d = String.format("%.2f", pDinheiro);
+            String c = String.format("%.2f", pCartao);
+            String p = String.format("%.2f", pPrazo);
+            String ch = String.format("%.2f", pCheque);
+            String co = String.format("%.2f", pConvenio);
+            
+            piedata.setValue("Dinheiro: "+d+"%", pDinheiro);
+            piedata.setValue("Cartão: "+c+"%", pCartao);
+            piedata.setValue("À Prazo: "+p+"%", pPrazo);
+            piedata.setValue("Cheque: "+ch+"%", pCheque);
+            piedata.setValue("Convênio: "+co+"%", pConvenio);
             
             
             //System.out.println("Mes: "+mes+"| Valor: "+valorfinal);
@@ -470,11 +476,11 @@ public class Graficos extends javax.swing.JFrame {
             mes+=1;
         
         
-            JFreeChart chart = ChartFactory.createPieChart("Faturamento Tipo de Pagamento", piedata, true, true, false);
-            
-            chart.getPlot().setBackgroundPaint(Color.WHITE);
-            
+            JFreeChart chart = ChartFactory.createPieChart("Faturamento Tipo de Pagamento", piedata, true, true, true);
+                       
+            chart.getPlot().setBackgroundPaint(Color.WHITE);            
             ChartPanel barPanel = new ChartPanel(chart);
+            
             jPanel3.removeAll();
             jPanel3.add(barPanel, BorderLayout.CENTER);
             jPanel3.validate();

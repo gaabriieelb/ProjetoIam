@@ -79,7 +79,7 @@ public class Cartao extends javax.swing.JFrame {
             data[4] = dataMes[1];
         }
         
-        lblPagamento.setText(dia+"/"+m3+"/20"+data[8]+data[9]);
+        //lblPagamento.setText(dia+"/"+m3+"/20"+data[8]+""+data[9]);
     }
     
     public Cartao() {
@@ -166,13 +166,11 @@ public class Cartao extends javax.swing.JFrame {
         textMensagem2.setText("Pagamento:");
 
         lblPagamento.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblPagamento.setText("05");
 
         textMensagem4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         textMensagem4.setText("Taxa:");
 
         lblTaxa.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblTaxa.setText("0.03");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,11 +185,6 @@ public class Cartao extends javax.swing.JFrame {
                         .addComponent(jButton6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(textMensagem2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPagamento))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(textMensagem)
@@ -203,9 +196,15 @@ public class Cartao extends javax.swing.JFrame {
                                 .addComponent(comboCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(textMensagem4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTaxa)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(textMensagem4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTaxa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(textMensagem2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -383,8 +382,7 @@ public void PreencherDados(String bandeira) throws SQLException {
         while (rs.next()) {
                        
             prazo = rs.getString("prazo");
-            taxa = rs.getString("taxacomissao");
-                    
+            taxa = rs.getString("taxacomissao");              
            
         }
         lblPagamento.setText(prazo);

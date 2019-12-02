@@ -6,6 +6,8 @@
  */
 package iamSoftware.Interfaces;
 
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
 import iamSoftware.Classes.Composicao;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.ProdutosData;
@@ -47,7 +49,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         NumberFormatter formatter = new NumberFormatter(dFormat) ;
         formatter.setFormat(dFormat) ;
         formatter.setAllowsInvalid(false);
-        //fieldValorVenda.setFormatterFactory(new DefaultFormatterFactory(formatter));
+        fieldValorVenda.setFormatterFactory(new DefaultFormatterFactory(formatter));
 
        
     }
@@ -85,6 +87,8 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         labelTotal = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        fieldValorVenda = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,7 +98,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         fieldNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         comboUnidades.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kg", "Lt", "Ún", "Cx", "Ct", "Mt" }));
+        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ún", "Kg", "Lt", "Cx", "Ct", "Mt" }));
         comboUnidades.setOpaque(false);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,7 +109,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Valor de Venda", "Quantidade", "Subtotal"
+                "ID", "Nome", "Valor de Compra", "Quantidade", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
@@ -257,6 +261,9 @@ public class ProdutosCompostos extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money (1).png"))); // NOI18N
 
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setText("Valor de Venda:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,29 +273,6 @@ public class ProdutosCompostos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9)))
-                        .addContainerGap(83, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1)
@@ -313,7 +297,35 @@ public class ProdutosCompostos extends javax.swing.JFrame {
                                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(30, 30, 30))))
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fieldValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton8))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(fieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton9))))
+                        .addContainerGap(83, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +339,9 @@ public class ProdutosCompostos extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11)
+                    .addComponent(fieldValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
@@ -383,7 +397,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         
         String nome = fieldNome.getText();
         String codigo = "Composto";         
-        String vVenda = labelTotal.getText();        
+        String vVenda = fieldValorVenda.getText();      
         String unidade = (String) comboUnidades.getSelectedItem();
         
         if(nome.equals("") || codigo.equals("") || vVenda.equals(""))
@@ -589,6 +603,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
     private javax.swing.JTextField fieldNome;
     public static javax.swing.JTextField fieldProduto;
     private javax.swing.JTextField fieldQuantidade;
+    private javax.swing.JFormattedTextField fieldValorVenda;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -596,6 +611,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -614,7 +630,7 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
         
         DecimalFormat df = new DecimalFormat("#,###.00");
                 
-        double subtotal, valorVenda;
+        double subtotal, valorcompra=0.0;
         
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         
@@ -633,8 +649,17 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
             
             dados[3] = quantidade;
             
-            valorVenda = rs.getDouble("valorVenda");
-            subtotal = quantidade * valorVenda;
+                String sql2= "SELECT valorcompra FROM notas WHERE nomeproduto='"+nome+"'";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = stmt2.executeQuery();
+                
+                while(rs2.next()){
+                    valorcompra = rs2.getDouble("valorcompra");                
+                }
+            
+            
+            
+            subtotal = quantidade * valorcompra;
             dados[4] =  subtotal;
             
             dados[4] = df.format(dados[4]);

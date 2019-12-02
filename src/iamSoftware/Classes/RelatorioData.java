@@ -14,6 +14,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.*;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import static iamSoftware.Interfaces.ContasPagar.conveter;
@@ -21,6 +22,8 @@ import static iamSoftware.Interfaces.ContasPagar.data;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -422,19 +425,19 @@ public class RelatorioData {
             p = new Paragraph(" ");
             doc.add(p);
             
-            PdfPTable table = new PdfPTable(4);
+            PdfPTable table = new PdfPTable(5);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Un. Medida"));
-            //PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Compra"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Compra"));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Venda"));
                        
             
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
-            //table.addCell(cell4);
+            table.addCell(cell4);
             table.addCell(cell5);
                         
             //entra for
@@ -449,19 +452,30 @@ public class RelatorioData {
                 cell1 = new PdfPCell(new Paragraph(id+""));
                 cell2 = new PdfPCell(new Paragraph(nome+""));
                 cell3 = new PdfPCell(new Paragraph(medida+""));
-                //cell4 = new PdfPCell(new Paragraph(valorCompra+""));
+                
+                String sql2= "SELECT valorcompra FROM notas WHERE nomeproduto='"+nome+"'";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                ResultSet rs2 = stmt2.executeQuery();
+                
+                while(rs2.next()){
+                    double valorCompra = rs2.getDouble("valorcompra");
+                    cell4 = new PdfPCell(new Paragraph(valorCompra+""));
+                }
+                
                 cell5 = new PdfPCell(new Paragraph(valorVenda+""));
                
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
-                //table.addCell(cell4);
+                table.addCell(cell4);
                 table.addCell(cell5);
+                
+                
                 
             }
             
             
-            float[] columnWidths = new float[]{10f, 20f, 20f, 20f};
+            float[] columnWidths = new float[]{10f, 20f, 20f, 20f, 20f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);
@@ -1061,12 +1075,19 @@ public class RelatorioData {
             
             PdfPTable table = new PdfPTable(4);
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Fornecedor"));
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
             PdfPCell cell3 = new PdfPCell(new Paragraph("CPF/CNPJ"));
+            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
             //PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Compra"));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Ramo de Atividade"));
+            cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                        
+            
             
             table.addCell(cell1);
             table.addCell(cell2);
@@ -1084,10 +1105,17 @@ public class RelatorioData {
                 String ramo = rs.getString("ramoatividade");
                                 
                 cell1 = new PdfPCell(new Paragraph(id+""));
+                cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 cell3 = new PdfPCell(new Paragraph(cpfcnpj+""));
+                cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 //cell4 = new PdfPCell(new Paragraph(valorCompra+""));
                 cell5 = new PdfPCell(new Paragraph(ramo+""));
+                cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -1110,7 +1138,7 @@ public class RelatorioData {
             
         } catch (Exception e) {
         }
-    }
+    }  //OK 
     
     public void gerarCliente() throws SQLException{
         
@@ -1138,11 +1166,20 @@ public class RelatorioData {
             
             PdfPTable table = new PdfPTable(5);
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód")); 
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Cliente"));
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
             PdfPCell cell3 = new PdfPCell(new Paragraph("CPF/CNPJ"));
+            cell3.setHorizontalAlignment(Element.ALIGN_CENTER); 
+            
             PdfPCell cell4 = new PdfPCell(new Paragraph("Prazo"));
+            cell4.setHorizontalAlignment(Element.ALIGN_CENTER); 
+            
             PdfPCell cell5 = new PdfPCell(new Paragraph("Limite"));
+            cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                        
             
             table.addCell(cell1);
@@ -1159,12 +1196,24 @@ public class RelatorioData {
                 String cpfcnpj = rs.getString("cpfcnpj");
                 String prazo = rs.getString("prazo");                
                 Double limite = rs.getDouble("limitecredito");
+                
+                DecimalFormat df = new DecimalFormat("#,###.00");
+                //df.format(1234.36); 
                                 
                 cell1 = new PdfPCell(new Paragraph(id+""));
+                cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 cell2 = new PdfPCell(new Paragraph(nome+""));
+                cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 cell3 = new PdfPCell(new Paragraph(cpfcnpj+""));
+                cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 cell4 = new PdfPCell(new Paragraph(prazo+""));
-                cell5 = new PdfPCell(new Paragraph(limite+""));
+                cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                cell5 = new PdfPCell(new Paragraph(df.format(limite)+""));
+                cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -1187,7 +1236,7 @@ public class RelatorioData {
             
         } catch (Exception e) {
         }
-    }
+    } //OK
     
     public void gerarAgenda() throws SQLException{
         
@@ -1261,6 +1310,11 @@ public class RelatorioData {
         //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
         String sql= "SELECT * FROM `composicao` WHERE id_produto="+id;
         
+        Double totalVenda = 0.0;
+        Double totalCompra = 0.0;
+        Double valorVenda = 0.0;
+        Double valorCompra = 0.0;
+        
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
@@ -1280,20 +1334,21 @@ public class RelatorioData {
             p = new Paragraph(" ");
             doc.add(p);
             
-            PdfPTable table = new PdfPTable(5);
+            PdfPTable table = new PdfPTable(6);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Quantidade"));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Un. Med."));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Compra"));
+            PdfPCell cell6 = new PdfPCell(new Paragraph("Valor Venda"));
                   
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
             table.addCell(cell4);
             table.addCell(cell5);
-            
+            table.addCell(cell6);
                         
             //entra for
             while (rs.next()) {
@@ -1317,7 +1372,11 @@ public class RelatorioData {
                     String medida = rs2.getString("medida");
                     cell4 = new PdfPCell(new Paragraph(medida+""));
                     
+                    valorVenda = rs2.getDouble("valorVenda");
+                    cell6 = new PdfPCell(new Paragraph(valorVenda+""));
                    
+                    
+                    
                     String sql3= "SELECT valorcompra FROM `notas` WHERE nomeproduto='"+nome+"'";
                     
                     PreparedStatement stmt3 = conn.prepareStatement(sql3);
@@ -1325,26 +1384,40 @@ public class RelatorioData {
                 
                     while (rs3.next()) {
                         
-                        Double valorCompra = rs3.getDouble("valorcompra");
+                        valorCompra = rs3.getDouble("valorcompra");
                         cell5 = new PdfPCell(new Paragraph(valorCompra+""));
-                        
-                       
+                      
                     }
                 }
+                
+                totalVenda = valorVenda + totalVenda;
+                totalCompra = valorCompra + totalCompra;
                 
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
                 table.addCell(cell4);
                 table.addCell(cell5);
+                table.addCell(cell6);
             }    
                     
-                
-                
             
+            cell1 = new PdfPCell(new Paragraph("Total"));
+            cell2 = new PdfPCell(new Paragraph(""));
+            cell3 = new PdfPCell(new Paragraph(""));
+            cell4 = new PdfPCell(new Paragraph(""));
+            cell5 = new PdfPCell(new Paragraph(totalCompra+""));
+            cell6 = new PdfPCell(new Paragraph(totalVenda+""));
+            
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+            table.addCell(cell6);
     
             
-            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f};
+            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f, 20f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);

@@ -323,7 +323,7 @@ public class NotaFiscal extends javax.swing.JFrame {
         
         tabela.setRowCount(0);
         
-        String sql = "SELECT * FROM `notas`";
+        String sql = "SELECT * FROM `notas` ORDER BY id DESC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);

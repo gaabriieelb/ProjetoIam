@@ -327,7 +327,7 @@ public class Fornecedores extends javax.swing.JFrame {
         
         tabela.setRowCount(0);
         
-        String sql = "SELECT * FROM `fornecedores`";
+        String sql = "SELECT * FROM `fornecedores` ORDER BY nome ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -352,7 +352,7 @@ public class Fornecedores extends javax.swing.JFrame {
         
         tblstatic.setRowCount(0);
         
-        String sql = "SELECT * FROM `fornecedores`";
+        String sql = "SELECT * FROM `fornecedores` ORDER BY nome ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);

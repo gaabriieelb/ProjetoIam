@@ -273,11 +273,12 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="5">
             <StringItem index="0" value="Dinheiro"/>
             <StringItem index="1" value="Cart&#xe3;o"/>
             <StringItem index="2" value="&#xc0; Prazo"/>
             <StringItem index="3" value="Cheque"/>
+            <StringItem index="4" value="Todos"/>
           </StringArray>
         </Property>
         <Property name="opaque" type="boolean" value="false"/>

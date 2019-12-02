@@ -100,7 +100,7 @@ public class ProdutosAlterar extends javax.swing.JFrame {
         jLabel4.setText("Unidade de Medida:");
 
         comboUnidades.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unidade", "Caixa", "Litro" }));
+        comboUnidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kg", "Lt", "Ún", "Cx", "Ct", "Mt" }));
         comboUnidades.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

@@ -183,7 +183,7 @@ public class PesquisaVendas extends javax.swing.JFrame {
         jLabel5.setText("a");
 
         comboFormaPagamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
+        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque", "Todos" }));
         comboFormaPagamento.setOpaque(false);
         comboFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -498,12 +498,19 @@ public class PesquisaVendas extends javax.swing.JFrame {
      public void BuscaDataTipoPagamento(String dataInicial, String dataFinal, String formaPagamento) throws SQLException{
         
         DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
-        
+        String sql1 = "";
         tabela.setRowCount(0);
         
-        String sql1 = "SELECT idcompra, formapagamento FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataInicial+"', '%d/%m/%Y')AND STR_TO_DATE('"+dataFinal+"', '%d/%m/%Y')"
+        if(!formaPagamento.equalsIgnoreCase("Todos")){
+            sql1 = "SELECT idcompra, formapagamento FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataInicial+"', '%d/%m/%Y')AND STR_TO_DATE('"+dataFinal+"', '%d/%m/%Y')"
                 + "AND formapagamento='"+formaPagamento+"' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
-               
+        }
+        
+        if(formaPagamento.equalsIgnoreCase("Todos")){
+            sql1 = "SELECT idcompra, formapagamento FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataInicial+"', '%d/%m/%Y')AND STR_TO_DATE('"+dataFinal+"', '%d/%m/%Y')"
+                + "ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        }
+        
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql1);
         ResultSet rs = stmt.executeQuery();
@@ -523,7 +530,7 @@ public class PesquisaVendas extends javax.swing.JFrame {
                 dados[1] = rs2.getString("produto");
                 dados[2] = rs2.getDouble("quantidade");
                 
-                System.out.println(dados[1]);
+                
                 
                 String sql3 = "SELECT valorVenda FROM produtos WHERE nome='"+dados[1]+"'";
                 PreparedStatement stmt3 = conn.prepareStatement(sql3);

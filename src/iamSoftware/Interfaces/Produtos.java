@@ -500,7 +500,7 @@ public class Produtos extends javax.swing.JFrame {
 
         tabela.setRowCount(0);
 
-        String sql = "SELECT * FROM `produtos`";
+        String sql = "SELECT * FROM `produtos` ORDER BY nome ASC";
 
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -526,7 +526,7 @@ public class Produtos extends javax.swing.JFrame {
 
         tblstatic.setRowCount(0);
 
-        String sql = "SELECT * FROM `produtos`";
+        String sql = "SELECT * FROM `produtos` ORDER BY nome ASC";
 
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
