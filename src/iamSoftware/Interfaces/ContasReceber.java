@@ -69,6 +69,11 @@ public class ContasReceber extends javax.swing.JFrame {
         radioTodos = new javax.swing.JRadioButton();
         radioEmAberto = new javax.swing.JRadioButton();
         radioLiquidado = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        fieldPeriodoInicial = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        fieldPeriodoFinal = new javax.swing.JFormattedTextField();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -191,6 +196,45 @@ public class ContasReceber extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("Período:");
+
+        try {
+            fieldPeriodoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldPeriodoInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPeriodoInicialActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("a");
+
+        try {
+            fieldPeriodoFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldPeriodoFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPeriodoFinalActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton7.setText("Buscar");
+        jButton7.setFocusPainted(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,6 +244,16 @@ public class ContasReceber extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -228,8 +282,15 @@ public class ContasReceber extends javax.swing.JFrame {
                     .addComponent(radioTodos)
                     .addComponent(radioEmAberto)
                     .addComponent(radioLiquidado))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton7)
+                    .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,6 +367,39 @@ public class ContasReceber extends javax.swing.JFrame {
             Logger.getLogger(ContasReceber.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_radioLiquidadoActionPerformed
+
+    private void fieldPeriodoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPeriodoInicialActionPerformed
+
+    private void fieldPeriodoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPeriodoFinalActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       
+        String periodoInicial = fieldPeriodoInicial.getText();
+        String periodoFinal = fieldPeriodoFinal.getText();
+        String sql = "";
+        String datainicial=periodoInicial, datafinal=periodoFinal;
+
+        if(status.equals("Todos")){
+            sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        }
+        if(status.equals("Em Aberto")){
+            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        }
+        if(status.equals("Liquidado")){
+            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        }
+        
+        try {
+            BuscaFiltrada(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasReceber.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,18 +533,12 @@ public class ContasReceber extends javax.swing.JFrame {
              
         while(rs.next()){
             Object[] dados = new Object[7];
-            dados[0] = rs.getInt("id");                        
-            dados[1] = rs.getString("numerodocumento");
-            dados[2] = rs.getString("fornecedor");
-            dados[3] = rs.getString("valor");
-            dados[4] = rs.getString("numeroparcela");
-            dados[5] = rs.getString("vencimento");
-            
-            String data = (String) dados[5];
-            char[] dataArray = data.toCharArray();
-            data = conveter(dataArray);
-            dados[5] = data;            
-            dados[6] = rs.getString("status");            
+            dados[0] = rs.getInt("id");
+            dados[1] = rs.getString("formapagamento");
+            dados[2] = rs.getString("cliente");
+            dados[3] = rs.getString("datapagamento");
+            dados[4] = rs.getString("valor");
+            dados[5] = rs.getString("status");         
             
             tabela.addRow(dados);
         }       
@@ -509,8 +597,13 @@ public class ContasReceber extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar2;
+    private javax.swing.JFormattedTextField fieldPeriodoFinal;
+    private javax.swing.JFormattedTextField fieldPeriodoInicial;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

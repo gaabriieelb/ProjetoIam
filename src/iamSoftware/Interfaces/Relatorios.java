@@ -483,12 +483,8 @@ public class Relatorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-       RelatorioData relatorioData = new RelatorioData();
-        try {
-            relatorioData.gerarAgenda();
-        } catch (SQLException ex) {
-            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        RelatorioAgenda relatorioAgenda = new RelatorioAgenda();
+        relatorioAgenda.setVisible(true);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed

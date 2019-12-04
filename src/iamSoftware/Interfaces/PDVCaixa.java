@@ -180,7 +180,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
 
         comboFormaPagamento.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque", "Convenio" }));
+        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
         comboFormaPagamento.setOpaque(false);
         comboFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,7 +355,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         lbl02.setText("Método de Pagamento:");
 
         comboFormaPagamento2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        comboFormaPagamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque", "Convenio" }));
+        comboFormaPagamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
         comboFormaPagamento2.setOpaque(false);
         comboFormaPagamento2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

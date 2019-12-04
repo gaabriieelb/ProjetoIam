@@ -6,6 +6,7 @@
 package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.*;
+import static iamSoftware.Interfaces.Produtos.tblProdutos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,6 +85,7 @@ public class Inventario extends javax.swing.JFrame {
         radioInicio = new javax.swing.JRadioButton();
         radioFim = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -94,14 +96,14 @@ public class Inventario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Quantidade Comprada", "Quantidade Vendida", "Disponível"
+                "Produto", "Qtd. Comprada", "Qtd. Vendida", "Disponível", "Qtd. Contada"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Float.class, java.lang.Float.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -221,6 +223,17 @@ public class Inventario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Forma de Busca:");
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/insert.png"))); // NOI18N
+        jButton4.setText("Inserir Quantidade Contada");
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,33 +241,35 @@ public class Inventario extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioContem)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioIgual)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioInicio)
-                                .addGap(18, 18, 18)
-                                .addComponent(radioFim)))
-                        .addGap(206, 206, 206))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(radioContem)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(radioIgual)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(radioInicio)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(radioFim)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -276,9 +291,11 @@ public class Inventario extends javax.swing.JFrame {
                     .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -339,6 +356,18 @@ public class Inventario extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        int row = tblProdutos.getSelectedRow();
+        String produto = (String) tblProdutos.getValueAt(row, 0);
+        
+        
+        InserirQuantidade inserirQuantidade = new InserirQuantidade(produto);
+        inserirQuantidade.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
         
     
     
@@ -385,6 +414,7 @@ public class Inventario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField fieldNome;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -397,7 +427,7 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioFim;
     private javax.swing.JRadioButton radioIgual;
     private javax.swing.JRadioButton radioInicio;
-    private javax.swing.JTable tblProdutos;
+    public static javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
     
    
@@ -426,7 +456,7 @@ public class Inventario extends javax.swing.JFrame {
 
     }
     
-    public void GerarEstoque() throws SQLException{
+    public static void GerarEstoque() throws SQLException{
     
         DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
         tabela.setRowCount(0);
@@ -435,8 +465,11 @@ public class Inventario extends javax.swing.JFrame {
         ArrayList<String> produtos = new ArrayList<>();
         ArrayList<Float> quantidade = new ArrayList<>();
         ArrayList<Double> vendido = new ArrayList<>();
+        ArrayList<Double> contado = new ArrayList<>();
+        
         float soma = 0;
         double soma2 = 0;
+        double qtd = 0;
         
         String sql = "SELECT nome FROM `produtos`";
         
@@ -472,15 +505,26 @@ public class Inventario extends javax.swing.JFrame {
             }
             vendido.add(i,soma2);
             soma2 = 0;
+            
+            String sql4 = "SELECT quantidadecontada FROM `inventario` WHERE produto='"+produtos.get(i)+"'";
+            stmt = conn.prepareStatement(sql4);
+            rs = stmt.executeQuery();
+            while (rs.next()) {            
+                qtd =rs.getDouble("quantidadecontada");                
+            }
+            contado.add(qtd);
+            qtd = 0;
+            
         }
         
         for (int j =0; j < produtos.size(); j++){
-            Object[] dados = new Object[4];
+            Object[] dados = new Object[5];
             dados[0] = produtos.get(j);
             dados[1] = quantidade.get(j);
             dados[2] = vendido.get(j);
             double sub = quantidade.get(j) - vendido.get(j);
             dados[3] = sub;
+            dados[4] = contado.get(j);
             
             tabela.addRow(dados);
         }
@@ -547,6 +591,8 @@ public class Inventario extends javax.swing.JFrame {
         }
         
     }
+    
+    
     
 
 }

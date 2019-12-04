@@ -81,9 +81,10 @@ public class Inicial extends javax.swing.JFrame {
              
         while(rs.next()){          
             String horario = rs.getString("horario");
+            String data = rs.getString("data");
             String local = rs.getString("local"); 
             String assunto = rs.getString("assunto");
-            modelPagar.addElement(new Agenda(horario, local, assunto));
+            modelPagar.addElement(new Agenda(horario, data, local, assunto));
         }
         listCompromisso.setModel(modelPagar);
         listCompromisso.setCellRenderer(new RendererCompromisso());
@@ -181,11 +182,12 @@ public class Inicial extends javax.swing.JFrame {
                 boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             Agenda label = (Agenda) value;
+            String hora = label.getHorario();
             String data = label.getData();
             String local = label.getLocal();
             String assunto = label.getAssunto();
            
-            String labelText = "<html>Local: " + local + "<br/>Assunto: " + assunto + "<br/>Data: " + data ;
+            String labelText = "<html>Local: " + local + "<br/>Assunto: " + assunto + "<br/>Data: " + data + "<br/>Hora: "+hora;
             setText(labelText);
 
             return this;

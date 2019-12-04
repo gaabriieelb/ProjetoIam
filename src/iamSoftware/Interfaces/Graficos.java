@@ -409,8 +409,8 @@ public class Graficos extends javax.swing.JFrame {
         
         
         //int mes = 1;
-        Double valorfinal=0.0, valorDinheiro=0.0,valorCartao=0.0, valorPrazo=0.0, valorCheque=0.0, valorConvenio=0.0, somaTotal;
-        Double pDinheiro=0.0, pCartao=0.0, pPrazo =0.0, pCheque = 0.0, pConvenio =0.0;
+        Double valorfinal=0.0, valorDinheiro=0.0,valorCredito=0.0, valorPrazo=0.0, valorCheque=0.0, valorDebito=0.0, somaTotal;
+        Double pDinheiro=0.0, pCredito=0.0, pPrazo =0.0, pCheque = 0.0, pDebito =0.0;
         String sql = null;
         
         DefaultPieDataset piedata = new DefaultPieDataset();
@@ -435,8 +435,8 @@ public class Graficos extends javax.swing.JFrame {
                 if(formaPagamento.equals("Dinheiro")){
                     valorDinheiro+=valorDinheiro+valor;
                 }
-                if(formaPagamento.equals("Cartão")){
-                    valorCartao+=valorCartao+valor; 
+                if(formaPagamento.contains("Crédito")){
+                    valorCredito+=valorCredito+valor; 
                 }
                 if(formaPagamento.equals("À Prazo")){
                     valorPrazo+=valorPrazo+valor;
@@ -444,31 +444,31 @@ public class Graficos extends javax.swing.JFrame {
                 if(formaPagamento.equals("Cheque")){
                     valorCheque+=valorCheque+valor;
                 }
-                if(formaPagamento.equals("Convênio")){
-                    valorConvenio+=valorConvenio+valor;
+                if(formaPagamento.contains("Débito")){
+                    valorDebito+=valorDebito+valor;
                 }
                 
             }
             
-            somaTotal = valorDinheiro+valorCartao+valorPrazo+valorCheque+valorConvenio;
+            somaTotal = valorDinheiro+valorCredito+valorPrazo+valorCheque+valorDebito;
             
             pDinheiro= (100*valorDinheiro)/somaTotal;
-            pCartao= (100*valorCartao)/somaTotal;
+            pCredito= (100*valorCredito)/somaTotal;
             pPrazo= (100*valorPrazo)/somaTotal;
             pCheque= (100*valorCheque)/somaTotal;
-            pConvenio= (100*valorConvenio)/somaTotal;
+            pDebito= (100*valorDebito)/somaTotal;
             
             String d = String.format("%.2f", pDinheiro);
-            String c = String.format("%.2f", pCartao);
+            String c = String.format("%.2f", pCredito);
             String p = String.format("%.2f", pPrazo);
             String ch = String.format("%.2f", pCheque);
-            String co = String.format("%.2f", pConvenio);
+            String co = String.format("%.2f", pDebito);
             
             piedata.setValue("Dinheiro: "+d+"%", pDinheiro);
-            piedata.setValue("Cartão: "+c+"%", pCartao);
+            piedata.setValue("Crédito: "+c+"%", pCredito);
             piedata.setValue("À Prazo: "+p+"%", pPrazo);
             piedata.setValue("Cheque: "+ch+"%", pCheque);
-            piedata.setValue("Convênio: "+co+"%", pConvenio);
+            piedata.setValue("Débito: "+co+"%", pDebito);
             
             
             //System.out.println("Mes: "+mes+"| Valor: "+valorfinal);

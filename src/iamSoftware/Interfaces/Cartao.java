@@ -112,6 +112,10 @@ public class Cartao extends javax.swing.JFrame {
         lblPagamento = new javax.swing.JLabel();
         textMensagem4 = new javax.swing.JLabel();
         lblTaxa = new javax.swing.JLabel();
+        textMensagem5 = new javax.swing.JLabel();
+        fieldMes = new javax.swing.JTextField();
+        textMensagem6 = new javax.swing.JLabel();
+        fieldAno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -172,6 +176,16 @@ public class Cartao extends javax.swing.JFrame {
 
         lblTaxa.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        textMensagem5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        textMensagem5.setText("/");
+
+        fieldMes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        textMensagem6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        textMensagem6.setText("/");
+
+        fieldAno.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -196,15 +210,23 @@ public class Cartao extends javax.swing.JFrame {
                                 .addComponent(comboCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(textMensagem4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTaxa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(textMensagem2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lblPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textMensagem5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textMensagem6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -219,9 +241,15 @@ public class Cartao extends javax.swing.JFrame {
                     .addComponent(textMensagem1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textMensagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textMensagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textMensagem5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textMensagem6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textMensagem4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,19 +276,29 @@ public class Cartao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        String dia = lblPagamento.getText();
+        String mes = fieldMes.getText();
+        String ano = fieldAno.getText();
         
         
         forma = String.valueOf(comboFormaPagamento.getSelectedItem());
         cartao = String.valueOf(comboCartao.getSelectedItem());
-        prazo = lblPagamento.getText();
+        prazo = dia+"/"+mes+"/"+ano;
         //String taxa2 = lblTaxa.getText();        
         //System.out.println(taxa2);
         taxa = Double.parseDouble(lblTaxa.getText());
         //taxa.replace(",", ".");
         
-        PDVCaixa.pagamentoCartao = forma+" "+cartao;
-        PDVCaixa.prazo=prazo;
-        PDVCaixa.taxa = taxa;
+        if(tela == 1){
+            PDVCaixa.pagamentoCartao = forma+" "+cartao;
+            PDVCaixa.prazo=prazo;
+            PDVCaixa.taxa = taxa;
+        }
+        if(tela == 2){
+            PDVComanda.pagamentoCartao = forma+" "+cartao;
+            PDVComanda.prazo=prazo;
+            PDVComanda.taxa = taxa;
+        }
         
         this.dispose();
         
@@ -334,6 +372,8 @@ public class Cartao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox<String> comboCartao;
     public static javax.swing.JComboBox<String> comboFormaPagamento;
+    private javax.swing.JTextField fieldAno;
+    private javax.swing.JTextField fieldMes;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
@@ -343,6 +383,8 @@ public class Cartao extends javax.swing.JFrame {
     private javax.swing.JLabel textMensagem1;
     private javax.swing.JLabel textMensagem2;
     private javax.swing.JLabel textMensagem4;
+    private javax.swing.JLabel textMensagem5;
+    private javax.swing.JLabel textMensagem6;
     // End of variables declaration//GEN-END:variables
 public void PreencherTabela() throws SQLException {
         

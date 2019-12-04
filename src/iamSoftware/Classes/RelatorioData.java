@@ -1238,10 +1238,18 @@ public class RelatorioData {
         }
     } //OK
     
-    public void gerarAgenda() throws SQLException{
+    public void gerarAgenda(String datainicial, String datafinal) throws SQLException{
         
         //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
-        String sql= "SELECT * FROM `agenda`";
+        String sql= "";
+        
+        if(datainicial.equals("") && datafinal.equals("")){
+            sql = "SELECT * FROM `agenda`";
+        }else{
+            sql= "SELECT * FROM `agenda`WHERE STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(data, '%d/%m/%Y') ASC";
+        }
+        
+        //WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
         
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1262,36 +1270,41 @@ public class RelatorioData {
             p = new Paragraph(" ");
             doc.add(p);
             
-            PdfPTable table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(4);
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Data/Hora"));            
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Local"));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Assunto"));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Hora"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Local"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Assunto"));
                   
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
+            table.addCell(cell4);
             
                         
             //entra for
             while (rs.next()) {
-                         
+                 
+                String data = rs.getString("data");
                 String horario = rs.getString("horario");                
                 String local = rs.getString("local");
                 String assunto = rs.getString("assunto");                
-                            
-                cell1 = new PdfPCell(new Paragraph(horario+""));
-                cell2 = new PdfPCell(new Paragraph(local+""));
-                cell3 = new PdfPCell(new Paragraph(assunto+""));
+                
+                cell1 = new PdfPCell(new Paragraph(data+""));
+                cell2 = new PdfPCell(new Paragraph(horario+""));
+                cell3 = new PdfPCell(new Paragraph(local+""));
+                cell4 = new PdfPCell(new Paragraph(assunto+""));
                
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
+                table.addCell(cell4);
                 
             }
             
             
-            float[] columnWidths = new float[]{20f, 20f, 20f};
+            float[] columnWidths = new float[]{20f, 20f, 20f, 20f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);

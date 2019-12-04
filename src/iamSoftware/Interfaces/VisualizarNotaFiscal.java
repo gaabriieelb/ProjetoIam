@@ -9,6 +9,7 @@ import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.NotaFiscalData;
 import iamSoftware.Classes.ProdutosData;
+import static iamSoftware.Interfaces.Produtos.tblProdutos;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -77,18 +79,14 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         fieldNumNota = new javax.swing.JLabel();
         fieldDataEmissao = new javax.swing.JLabel();
         fieldDataRegistro = new javax.swing.JLabel();
         fieldNomeFornecedor = new javax.swing.JLabel();
         fieldCNPJ = new javax.swing.JLabel();
-        fieldProduto = new javax.swing.JLabel();
-        fieldQuantidade = new javax.swing.JLabel();
-        fieldValorCompra = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProdutos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -200,17 +198,8 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel8.setText("Produto:");
-
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel9.setText("Quantidade:");
-
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Data de Registro:");
-
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel10.setText("Valor de Compra (Unidade):");
 
         fieldNumNota.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldNumNota.setText("lblNumNota");
@@ -227,57 +216,36 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
         fieldCNPJ.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fieldCNPJ.setText("lblCNPJ");
 
-        fieldProduto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        fieldProduto.setText("lblProduto");
+        tblProdutos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        fieldQuantidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        fieldQuantidade.setText("lblQuantidade");
+            },
+            new String [] {
+                "Produto", "Valor Unit.", "Quant."
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        fieldValorCompra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        fieldValorCompra.setText("lblValorCompra");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldProduto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldNomeFornecedor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldValorCompra))
-                    .addComponent(jLabel20)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldDataRegistro)
-                            .addComponent(fieldNumNota))))
-                .addGap(116, 116, 116)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldCNPJ)
-                    .addComponent(fieldQuantidade))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -289,7 +257,36 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(543, 543, 543)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                .addGap(57, 57, 57))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(fieldNomeFornecedor))
+                            .addComponent(jLabel20)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldDataRegistro)
+                                    .addComponent(fieldNumNota))))
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fieldCNPJ)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,33 +308,25 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(fieldDataRegistro))
-                .addGap(39, 39, 39)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel21)
                 .addGap(2, 2, 2)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(fieldNomeFornecedor)
                     .addComponent(fieldCNPJ))
-                .addGap(39, 39, 39)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel22)
                 .addGap(2, 2, 2)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(fieldProduto)
-                    .addComponent(fieldQuantidade))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(fieldValorCompra))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -391,12 +380,8 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JLabel fieldDataRegistro;
     private javax.swing.JLabel fieldNomeFornecedor;
     private javax.swing.JLabel fieldNumNota;
-    private javax.swing.JLabel fieldProduto;
-    private javax.swing.JLabel fieldQuantidade;
-    private javax.swing.JLabel fieldValorCompra;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -405,13 +390,13 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
 
     public void preencherCampos() throws SQLException{
@@ -430,9 +415,31 @@ public class VisualizarNotaFiscal extends javax.swing.JFrame {
             fieldDataRegistro.setText(rs.getString("dataregistro"));
             fieldNomeFornecedor.setText(rs.getString("nomefornecedor"));
             fieldCNPJ.setText(rs.getString("cnpj"));
-            fieldProduto.setText(rs.getString("nomeproduto"));
-            fieldQuantidade.setText(rs.getString("quantidade"));
-            fieldValorCompra.setText(rs.getString("valorcompra"));
+            
+            
+            String numeronota = rs.getString("numeronota");
+            
+            ////////////////
+            DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+
+            tabela.setRowCount(0);
+
+            String sql2 = "SELECT * FROM `notas` WHERE numeronota='"+numeronota+"'";
+
+
+            PreparedStatement stmt2 = conn.prepareStatement(sql2);
+            ResultSet rs2 = stmt2.executeQuery();
+
+            while (rs2.next()) {
+                Object[] dados = new Object[3];
+                
+                dados[0] = rs2.getString("nomeproduto");
+                dados[1] = rs2.getString("valorcompra");            
+                dados[2] = rs2.getDouble("quantidade");           
+                
+                tabela.addRow(dados);
+            }
+            
             
         }
     }
