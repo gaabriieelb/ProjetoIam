@@ -46,8 +46,10 @@ public class Inicial extends javax.swing.JFrame {
      */
     public Inicial() {
         initComponents();
-                
-        System.out.println(jButton1.getSize());
+              
+        
+       
+        //System.out.println(jButton1.getSize());
            
         //this.getContentPane().setBackground(new Color(60,65,103));
         this.getContentPane().setBackground(new Color(255,255,255));

@@ -979,7 +979,13 @@ public class PDVComanda extends javax.swing.JFrame {
     public void RegistrarVenda(){
         CompraData compra = new CompraData();
         Double valorCompra = Double.parseDouble(labelTotal.getText());
-             
+        
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	Date dataDoSistema = new Date();		
+	String dataEmTexto = formatador.format(dataDoSistema);
+        //Registro Compra
+        compra.setTotal(valorCompra);
+        compra.setDataregistro(dataEmTexto);
         //Registro Compra
         compra.setTotal(valorCompra);            
         try {

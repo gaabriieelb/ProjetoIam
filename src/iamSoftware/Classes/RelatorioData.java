@@ -285,9 +285,9 @@ public class RelatorioData {
         
             if(Status.equals("Todos")){
                 sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
-                System.out.println(sql);
+                
             }
-            if(Status.equals("Em Aberto")){
+            if(Status.equals("Em aberto")){
                 sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
                
             }
@@ -1431,6 +1431,131 @@ public class RelatorioData {
     
             
             float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f, 20f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            
+        } catch (Exception e) {
+        }
+    }
+    
+     public void gerarCartao(String datainicial, String datafinal, String Status) throws SQLException{
+        
+        //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
+        //String sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        String sql = null;
+        
+        if(Status.equals("Todos")){
+            sql= "SELECT * FROM `contasreceber` INNER JOIN compras ON contasreceber.idcompra=compras.id WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        
+        }
+        if(Status.equals("Em aberto")){
+            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+               
+        }
+        if(Status.equals("Liquidado")){
+            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+                
+        }
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-cartao.pdf";
+               
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Cartão de Crédito e Débito");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(6);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Data Venda"));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Valor Venda")); //ok
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Data Depósito")); //ok
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Depósito")); //ok
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Comissão")); //ok
+            PdfPCell cell6 = new PdfPCell(new Paragraph("Status")); //ok
+                       
+            
+            table.addCell(cell1);
+            table.addCell(cell2); //ok
+            table.addCell(cell3); //ok
+            table.addCell(cell4); //ok
+            table.addCell(cell5); //ok
+            table.addCell(cell6); //ok
+                        
+            //entra for
+            while (rs.next()) {
+                    
+                String dataRegistro = rs.getString("dataregistro");
+                Double valorVenda = Double.parseDouble(rs.getString("valor")); //ok
+                String dataDeposito = rs.getString("datapagamento");      // ok                            
+                String status = rs.getString("status");
+                String formaPagamento = rs.getString("formapagamento");
+                
+                cell1 = new PdfPCell(new Paragraph(dataRegistro+""));
+                cell2 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(dataDeposito+""));
+                cell6 = new PdfPCell(new Paragraph(status+"")); 
+                
+                String credito = "Crédito ";
+                String debito = "Débito ";
+                String resultFormaPagamento = "";     
+                
+                if(formaPagamento.contains(credito) || formaPagamento.contains(debito)){
+                    
+                    if(formaPagamento.contains("Crédito")){
+                        resultFormaPagamento = formaPagamento.replaceFirst(credito,"");
+                         
+                    }
+                    if(formaPagamento.contains("Débito")){
+                        resultFormaPagamento = formaPagamento.replaceFirst(debito,"");
+                         
+                    }
+                    
+                    String sql2= "SELECT * FROM `cartao` WHERE bandeira='"+resultFormaPagamento+"'";                    
+                    PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                    ResultSet rs2 = stmt2.executeQuery();
+                    
+                    while(rs2.next()){
+                        Double comissao = rs2.getDouble("taxacomissao");
+                        comissao = valorVenda * (comissao/100);                        
+                        cell5 = new PdfPCell(new Paragraph(comissao+""));
+                        
+                        Double valorDeposito = valorVenda - comissao;
+                        cell4 = new PdfPCell(new Paragraph(valorDeposito+""));
+                    }
+                    
+                    
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
+                table.addCell(cell5);
+                table.addCell(cell6);
+                    
+                }
+                 
+                
+            }
+            
+            
+            float[] columnWidths = new float[]{15f, 15f, 15f, 15f, 15f, 15f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);
