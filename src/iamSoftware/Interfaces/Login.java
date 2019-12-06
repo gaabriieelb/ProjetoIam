@@ -127,7 +127,10 @@ public class Login extends javax.swing.JFrame {
                 msg.setVisible(true);
             }
             if(n !=0){
-                Inicial inicial = new Inicial();
+                
+                String nivel = getNivel(n);
+                                
+                Inicial inicial = new Inicial(nivel);
                 inicial.setVisible(true);
                 this.dispose();
             }
@@ -191,7 +194,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
-public int Login(String usuario, String senha) throws SQLException{
+    public int Login(String usuario, String senha) throws SQLException{
        
         int id = 0;
         
@@ -202,11 +205,27 @@ public int Login(String usuario, String senha) throws SQLException{
         ResultSet rs = stmt.executeQuery();
                     
         while(rs.next()){
-            
             id = rs.getInt("id");
             
         }
         return id;
+    }
+    
+    public String getNivel(int id) throws SQLException{
+       
+        String nivel="";
+        
+        String sql = "SELECT * FROM `users` WHERE id="+id;
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+                    
+        while(rs.next()){
+            nivel = rs.getString("nivelAcesso");
+            
+        }
+        return nivel;
     }
 
 }

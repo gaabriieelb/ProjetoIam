@@ -40,15 +40,36 @@ import javax.swing.JTextArea;
  * @author ga_br
  */
 public class Inicial extends javax.swing.JFrame {
-
+    
+    
+     public Inicial() {
+        initComponents();
+       
+     }
     /**
      * Creates new form Inicial
      */
-    public Inicial() {
+    public Inicial(String nivel) {
         initComponents();
-              
         
-       
+        if(nivel.equals("Operador de Caixa")){
+            btnAgenda.setEnabled(false);
+            btnInventario.setEnabled(false);
+            btnPesquisaVendas.setEnabled(false);
+            btnConfiguracao.setEnabled(false);
+            btnContasPagar.setEnabled(false);
+            btnContasReceber.setEnabled(false);
+            btnRelatorio.setEnabled(false);
+            btnGrafico.setEnabled(false);
+        }
+        if(nivel.equals("Supervisor")){
+            btnRelatorio.setEnabled(false);
+            btnGrafico.setEnabled(false);
+        }
+         
+         
+         
+         
         //System.out.println(jButton1.getSize());
            
         //this.getContentPane().setBackground(new Color(60,65,103));
@@ -243,25 +264,25 @@ public class Inicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPDVCaixa = new javax.swing.JButton();
+        btnPDVComanda = new javax.swing.JButton();
+        btnPesquisaVendas = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnContasPagar = new javax.swing.JButton();
+        btnContasReceber = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
+        btnInventario = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
+        btnConfiguracao = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
+        btnAgenda = new javax.swing.JButton();
+        btnGrafico = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
@@ -298,49 +319,49 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1.setText("Vendas");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setBackground(new java.awt.Color(95, 189, 197));
-        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basket.png"))); // NOI18N
-        jButton1.setText("PDV-Caixa");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.setFocusPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPDVCaixa.setBackground(new java.awt.Color(95, 189, 197));
+        btnPDVCaixa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPDVCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnPDVCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basket.png"))); // NOI18N
+        btnPDVCaixa.setText("PDV-Caixa");
+        btnPDVCaixa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPDVCaixa.setFocusPainted(false);
+        btnPDVCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPDVCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPDVCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPDVCaixaActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(242, 173, 82));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/notepad.png"))); // NOI18N
-        jButton2.setText("PDV-Comanda");
-        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton2.setFocusPainted(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPDVComanda.setBackground(new java.awt.Color(242, 173, 82));
+        btnPDVComanda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPDVComanda.setForeground(new java.awt.Color(255, 255, 255));
+        btnPDVComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/notepad.png"))); // NOI18N
+        btnPDVComanda.setText("PDV-Comanda");
+        btnPDVComanda.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPDVComanda.setFocusPainted(false);
+        btnPDVComanda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPDVComanda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPDVComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPDVComandaActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(95, 189, 197));
-        jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jButton3.setText("Pesq. de Vendas");
-        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton3.setFocusPainted(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setIconTextGap(1);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisaVendas.setBackground(new java.awt.Color(95, 189, 197));
+        btnPesquisaVendas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPesquisaVendas.setForeground(new java.awt.Color(255, 255, 255));
+        btnPesquisaVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        btnPesquisaVendas.setText("Pesq. de Vendas");
+        btnPesquisaVendas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPesquisaVendas.setFocusPainted(false);
+        btnPesquisaVendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPesquisaVendas.setIconTextGap(1);
+        btnPesquisaVendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPesquisaVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnPesquisaVendasActionPerformed(evt);
             }
         });
 
@@ -359,35 +380,35 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(242, 173, 82));
-        jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loss.png"))); // NOI18N
-        jButton5.setText("Contas a Pagar");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setFocusPainted(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnContasPagar.setBackground(new java.awt.Color(242, 173, 82));
+        btnContasPagar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnContasPagar.setForeground(new java.awt.Color(255, 255, 255));
+        btnContasPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loss.png"))); // NOI18N
+        btnContasPagar.setText("Contas a Pagar");
+        btnContasPagar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnContasPagar.setFocusPainted(false);
+        btnContasPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnContasPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnContasPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnContasPagarActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(95, 189, 197));
-        jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/revenue.png"))); // NOI18N
-        jButton6.setText("Contas a Receber");
-        jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton6.setFocusPainted(false);
-        jButton6.setHideActionText(true);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setIconTextGap(1);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnContasReceber.setBackground(new java.awt.Color(95, 189, 197));
+        btnContasReceber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnContasReceber.setForeground(new java.awt.Color(255, 255, 255));
+        btnContasReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/revenue.png"))); // NOI18N
+        btnContasReceber.setText("Contas a Receber");
+        btnContasReceber.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnContasReceber.setFocusPainted(false);
+        btnContasReceber.setHideActionText(true);
+        btnContasReceber.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnContasReceber.setIconTextGap(1);
+        btnContasReceber.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnContasReceber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnContasReceberActionPerformed(evt);
             }
         });
 
@@ -443,18 +464,18 @@ public class Inicial extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Cadastro");
 
-        jButton11.setBackground(new java.awt.Color(95, 189, 197));
-        jButton11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventory.png"))); // NOI18N
-        jButton11.setText("Inventário");
-        jButton11.setBorderPainted(false);
-        jButton11.setFocusPainted(false);
-        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btnInventario.setBackground(new java.awt.Color(95, 189, 197));
+        btnInventario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnInventario.setForeground(new java.awt.Color(255, 255, 255));
+        btnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventory.png"))); // NOI18N
+        btnInventario.setText("Inventário");
+        btnInventario.setBorderPainted(false);
+        btnInventario.setFocusPainted(false);
+        btnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btnInventarioActionPerformed(evt);
             }
         });
 
@@ -477,68 +498,68 @@ public class Inicial extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Gestão");
 
-        jButton13.setBackground(new java.awt.Color(95, 189, 197));
-        jButton13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
-        jButton13.setText("Configuração");
-        jButton13.setBorderPainted(false);
-        jButton13.setFocusPainted(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        btnConfiguracao.setBackground(new java.awt.Color(95, 189, 197));
+        btnConfiguracao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnConfiguracao.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfiguracao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings.png"))); // NOI18N
+        btnConfiguracao.setText("Configuração");
+        btnConfiguracao.setBorderPainted(false);
+        btnConfiguracao.setFocusPainted(false);
+        btnConfiguracao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConfiguracao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConfiguracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                btnConfiguracaoActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Operacional");
 
-        jButton16.setBackground(new java.awt.Color(95, 189, 197));
-        jButton16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/report.png"))); // NOI18N
-        jButton16.setText("Relatório");
-        jButton16.setBorderPainted(false);
-        jButton16.setFocusPainted(false);
-        jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorio.setBackground(new java.awt.Color(95, 189, 197));
+        btnRelatorio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/report.png"))); // NOI18N
+        btnRelatorio.setText("Relatório");
+        btnRelatorio.setBorderPainted(false);
+        btnRelatorio.setFocusPainted(false);
+        btnRelatorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRelatorio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                btnRelatorioActionPerformed(evt);
             }
         });
 
-        jButton17.setBackground(new java.awt.Color(242, 173, 82));
-        jButton17.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/diary.png"))); // NOI18N
-        jButton17.setText("Agenda");
-        jButton17.setBorderPainted(false);
-        jButton17.setFocusPainted(false);
-        jButton17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton17.setIconTextGap(1);
-        jButton17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        btnAgenda.setBackground(new java.awt.Color(242, 173, 82));
+        btnAgenda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnAgenda.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/diary.png"))); // NOI18N
+        btnAgenda.setText("Agenda");
+        btnAgenda.setBorderPainted(false);
+        btnAgenda.setFocusPainted(false);
+        btnAgenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAgenda.setIconTextGap(1);
+        btnAgenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                btnAgendaActionPerformed(evt);
             }
         });
 
-        jButton18.setBackground(new java.awt.Color(242, 173, 82));
-        jButton18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
-        jButton18.setText("Gráfico");
-        jButton18.setBorderPainted(false);
-        jButton18.setFocusPainted(false);
-        jButton18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton18.setIconTextGap(1);
-        jButton18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        btnGrafico.setBackground(new java.awt.Color(242, 173, 82));
+        btnGrafico.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnGrafico.setForeground(new java.awt.Color(255, 255, 255));
+        btnGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graph.png"))); // NOI18N
+        btnGrafico.setText("Gráfico");
+        btnGrafico.setBorderPainted(false);
+        btnGrafico.setFocusPainted(false);
+        btnGrafico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGrafico.setIconTextGap(1);
+        btnGrafico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                btnGraficoActionPerformed(evt);
             }
         });
 
@@ -812,35 +833,35 @@ public class Inicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPDVComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPDVCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel1))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPesquisaVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContasPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(0, 0, 0)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnContasReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -859,15 +880,15 @@ public class Inicial extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPDVCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPDVComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisaVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContasPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContasReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -876,14 +897,14 @@ public class Inicial extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
@@ -910,31 +931,31 @@ public class Inicial extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
-        jButton2.getAccessibleContext().setAccessibleName("Comanda");
+        btnPDVComanda.getAccessibleContext().setAccessibleName("Comanda");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnPDVComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDVComandaActionPerformed
         PDVComanda pdvcomanda = new PDVComanda();
         pdvcomanda.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnPDVComandaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnPesquisaVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaVendasActionPerformed
        PesquisaVendas pesquisaVendas = new PesquisaVendas();
        pesquisaVendas.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnPesquisaVendasActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContasPagarActionPerformed
        ContasPagar contaspagar = new ContasPagar();
        contaspagar.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnContasPagarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContasReceberActionPerformed
         ContasReceber contasreceber = new ContasReceber();
         contasreceber.setVisible(true);
               
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnContasReceberActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Clientes clientes = new Clientes();
@@ -946,34 +967,34 @@ public class Inicial extends javax.swing.JFrame {
        produtos.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
         Inventario inventario = new Inventario();
         inventario.setVisible(true);
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_btnInventarioActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
        Relatorios relatorios = new Relatorios();
        relatorios.setVisible(true);
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void btnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaActionPerformed
         AgendaView agendaview = new AgendaView();
         agendaview.setVisible(true);
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_btnAgendaActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void btnGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficoActionPerformed
         Graficos graficos = new Graficos();
         graficos.setVisible(true);
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_btnGraficoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPDVCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDVCaixaActionPerformed
         PDVCaixa pdvcaixa = new PDVCaixa();
         pdvcaixa.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPDVCaixaActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
        this.dispose();
@@ -989,10 +1010,10 @@ public class Inicial extends javax.swing.JFrame {
         notafiscal.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        CadastroCartao cartao = new CadastroCartao();
-        cartao.setVisible(true);
-    }//GEN-LAST:event_jButton13ActionPerformed
+    private void btnConfiguracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracaoActionPerformed
+        Configuracao configuracao = new Configuracao();
+        configuracao.setVisible(true);
+    }//GEN-LAST:event_btnConfiguracaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1033,19 +1054,19 @@ public class Inicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
+    private javax.swing.JButton btnAgenda;
+    private javax.swing.JButton btnConfiguracao;
+    private javax.swing.JButton btnContasPagar;
+    private javax.swing.JButton btnContasReceber;
+    private javax.swing.JButton btnGrafico;
+    private javax.swing.JButton btnInventario;
+    private javax.swing.JButton btnPDVCaixa;
+    private javax.swing.JButton btnPDVComanda;
+    private javax.swing.JButton btnPesquisaVendas;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
