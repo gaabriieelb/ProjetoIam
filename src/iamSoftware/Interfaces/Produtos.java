@@ -123,7 +123,7 @@ public class Produtos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Código", "Valor de Venda", "Unidade de Medida"
+                "Cód.", "Nome", "Código", "Valor de Venda", "Unidade de Medida"
             }
         ) {
             Class[] types = new Class [] {
@@ -259,7 +259,7 @@ public class Produtos extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard.png"))); // NOI18N
-        jButton5.setText("Cadastro de Produtos Compostos");
+        jButton5.setText("Cadastro de Produtos Agregado");
         jButton5.setFocusPainted(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

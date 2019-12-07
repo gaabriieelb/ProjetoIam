@@ -68,4 +68,26 @@ public class AcessoDATA {
         stmt.close();
         //ConexaoBD.Fechar(conn);       
     }
+    
+    public void Remover(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        PreparedStatement stmt = null;
+        stmt = conn.prepareStatement("DELETE FROM users WHERE id="+id);
+        stmt.executeUpdate();
+        stmt.close();
+    
+    }
+    
+    public void Alterar(int id) throws SQLException{
+        Connection conn = ConexaoBD.Conectar();    
+        //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/iamsoftware", "root", null);
+        
+        PreparedStatement stmt = null;
+        
+        stmt = conn.prepareStatement("UPDATE users SET username='"+getUsuario()+"',password=MD5('"+getSenha()+"'),nivelAcesso='"+getNivelAcesso()+"' WHERE id='"+id+"'");
+               
+        stmt.executeUpdate();
+        stmt.close();
+        //ConexaoBD.Fechar(conn);       
+    }
 }

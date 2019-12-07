@@ -67,7 +67,7 @@ public class RelatorioData {
             
             
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("ID"));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));
             
             PdfPCell cell2 = new PdfPCell(new Paragraph("Nome"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("CNPJ"));
@@ -84,6 +84,7 @@ public class RelatorioData {
             table.addCell(cell6);
             table.addCell(cell7);
             
+            DecimalFormat df = new DecimalFormat("#,###.00");
             
             
             //entra for
@@ -105,7 +106,7 @@ public class RelatorioData {
                 cell4 = new PdfPCell(new Paragraph(dataEmissao+""));
                 cell5 = new PdfPCell(new Paragraph(dataEntrada+""));
                 cell6 = new PdfPCell(new Paragraph(numDoc+""));
-                cell7 = new PdfPCell(new Paragraph(valorNF+""));
+                cell7 = new PdfPCell(new Paragraph(df.format(valorNF)+""));
 
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -122,7 +123,7 @@ public class RelatorioData {
             table.setWidthPercentage(110);
             doc.add(table);
             
-            p = new Paragraph("Valor total: "+valorfinal+"");
+            p = new Paragraph("Valor total: "+df.format(valorfinal)+"");
             p.setAlignment(1);
             doc.add(p);
             p = new Paragraph(" ");
@@ -183,6 +184,7 @@ public class RelatorioData {
         String arquivoPDF = "relatorio-contas-pagar.pdf";
         
         System.out.println("passou aqui 2");
+        DecimalFormat df = new DecimalFormat("#,###.00");
         
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
@@ -200,14 +202,13 @@ public class RelatorioData {
             
             
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("ID"));            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Fonecedor"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("N° Doc."));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Vencimento"));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor"));
             PdfPCell cell6 = new PdfPCell(new Paragraph("Status"));
-            
-            
+                        
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
@@ -240,7 +241,7 @@ public class RelatorioData {
                 cell2 = new PdfPCell(new Paragraph(nome+""));
                 cell3 = new PdfPCell(new Paragraph(numDoc+""));
                 cell4 = new PdfPCell(new Paragraph(vencimento+""));
-                cell5 = new PdfPCell(new Paragraph(valor+""));
+                cell5 = new PdfPCell(new Paragraph(df.format(valor)+""));
                 cell6 = new PdfPCell(new Paragraph(status+""));
                 
                 
@@ -260,7 +261,7 @@ public class RelatorioData {
             table.setWidthPercentage(110);
             doc.add(table);
             
-            p = new Paragraph("Valor total: "+valorfinal+"");
+            p = new Paragraph("Valor total: "+df.format(valorfinal)+"");
             p.setAlignment(1);
             doc.add(p);
             p = new Paragraph(" ");
@@ -324,7 +325,7 @@ public class RelatorioData {
         Document doc = new Document();
         String arquivoPDF = "relatorio-contas-receber.pdf";
         
-        
+        DecimalFormat df = new DecimalFormat("#,###.00");
         
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
@@ -340,7 +341,7 @@ public class RelatorioData {
             
             PdfPTable table = new PdfPTable(5);          
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("ID"));            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Cliente"));
             //PdfPCell cell3 = new PdfPCell(new Paragraph("N° Doc."));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Vencimento"));
@@ -369,7 +370,7 @@ public class RelatorioData {
                 cell1 = new PdfPCell(new Paragraph(id+""));
                 cell2 = new PdfPCell(new Paragraph(nome+""));
                 cell3 = new PdfPCell(new Paragraph(vencimento+""));
-                cell4 = new PdfPCell(new Paragraph(valor+""));
+                cell4 = new PdfPCell(new Paragraph(df.format(valor)+""));
                 cell5 = new PdfPCell(new Paragraph(status+""));
                 //cell6 = new PdfPCell(new Paragraph(status+""));
                 
@@ -388,7 +389,7 @@ public class RelatorioData {
             table.setWidthPercentage(110);
             doc.add(table);
             
-            p = new Paragraph("Valor total: "+valorfinal+"");
+            p = new Paragraph("Valor total: "+df.format(valorfinal)+"");
             p.setAlignment(1);
             doc.add(p);
             p = new Paragraph(" ");
@@ -412,6 +413,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-produtos.pdf";
+        DecimalFormat df = new DecimalFormat("#,###.00");
                
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
@@ -439,7 +441,7 @@ public class RelatorioData {
             table.addCell(cell3);
             table.addCell(cell4);
             table.addCell(cell5);
-                        
+                  
             //entra for
             while (rs.next()) {
                
@@ -459,10 +461,10 @@ public class RelatorioData {
                 
                 while(rs2.next()){
                     double valorCompra = rs2.getDouble("valorcompra");
-                    cell4 = new PdfPCell(new Paragraph(valorCompra+""));
+                    cell4 = new PdfPCell(new Paragraph(df.format(valorCompra)+""));
                 }
                 
-                cell5 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell5 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -499,7 +501,8 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -515,7 +518,7 @@ public class RelatorioData {
             PdfPTable table = new PdfPTable(3);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Produto"));            
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Código"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Cód. de Barra"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Valor"));
             
             table.addCell(cell1);
@@ -532,7 +535,7 @@ public class RelatorioData {
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(codigo+""));
-                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -568,7 +571,8 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking-produtos-mais-vendidos.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -615,7 +619,7 @@ public class RelatorioData {
                 
                 while(rs2.next()){
                     double valor = rs2.getDouble("valorVenda");
-                    cell3 = new PdfPCell(new Paragraph(valor+""));
+                    cell3 = new PdfPCell(new Paragraph(df.format(valor)+""));
                 }
                 
                 table.addCell(cell3);
@@ -647,7 +651,7 @@ public class RelatorioData {
                 
         Document doc = new Document();
         String arquivoPDF = "relatorio-faturamento.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -743,7 +747,7 @@ public class RelatorioData {
        
                 }
                 
-                cell3 = new PdfPCell(new Paragraph(valorfinal+""));     
+                cell3 = new PdfPCell(new Paragraph(df.format(valorfinal)+""));     
                 table.addCell(cell3); 
                 
                 valorfinal=0.0;
@@ -778,7 +782,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking-compra.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -811,7 +815,7 @@ public class RelatorioData {
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(codigo+""));
-                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -847,7 +851,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking-notas.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -880,7 +884,7 @@ public class RelatorioData {
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(codigo+""));
-                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -916,7 +920,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking-contas-pagar.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -954,7 +958,7 @@ public class RelatorioData {
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(vencimento+""));
-                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -990,7 +994,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-ranking-contas-receber.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -1023,7 +1027,7 @@ public class RelatorioData {
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(vencimento+""));
-                cell3 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell3 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                                
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -1075,7 +1079,7 @@ public class RelatorioData {
             
             PdfPTable table = new PdfPTable(4);
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód"));
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));
             cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             PdfPCell cell2 = new PdfPCell(new Paragraph("Fornecedor"));
@@ -1166,7 +1170,7 @@ public class RelatorioData {
             
             PdfPTable table = new PdfPTable(5);
             
-            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód")); 
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód.")); 
             cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             PdfPCell cell2 = new PdfPCell(new Paragraph("Cliente"));
@@ -1334,7 +1338,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-composicao-produto.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -1353,8 +1357,8 @@ public class RelatorioData {
             PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Quantidade"));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Un. Med."));
-            PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Compra"));
-            PdfPCell cell6 = new PdfPCell(new Paragraph("Valor Venda"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Valor de Compra"));
+            PdfPCell cell6 = new PdfPCell(new Paragraph("Valor de Venda"));
                   
             table.addCell(cell1);
             table.addCell(cell2);
@@ -1386,7 +1390,7 @@ public class RelatorioData {
                     cell4 = new PdfPCell(new Paragraph(medida+""));
                     
                     valorVenda = rs2.getDouble("valorVenda");
-                    cell6 = new PdfPCell(new Paragraph(valorVenda+""));
+                    cell6 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                    
                     
                     
@@ -1398,7 +1402,7 @@ public class RelatorioData {
                     while (rs3.next()) {
                         
                         valorCompra = rs3.getDouble("valorcompra");
-                        cell5 = new PdfPCell(new Paragraph(valorCompra+""));
+                        cell5 = new PdfPCell(new Paragraph(df.format(valorCompra)+""));
                       
                     }
                 }
@@ -1419,8 +1423,8 @@ public class RelatorioData {
             cell2 = new PdfPCell(new Paragraph(""));
             cell3 = new PdfPCell(new Paragraph(""));
             cell4 = new PdfPCell(new Paragraph(""));
-            cell5 = new PdfPCell(new Paragraph(totalCompra+""));
-            cell6 = new PdfPCell(new Paragraph(totalVenda+""));
+            cell5 = new PdfPCell(new Paragraph(df.format(totalCompra)+""));
+            cell6 = new PdfPCell(new Paragraph(df.format(totalVenda)+""));
             
             table.addCell(cell1);
             table.addCell(cell2);
@@ -1469,7 +1473,7 @@ public class RelatorioData {
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-cartao.pdf";
-               
+        DecimalFormat df = new DecimalFormat("#,###.00");       
         try {
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
@@ -1485,7 +1489,7 @@ public class RelatorioData {
             PdfPTable table = new PdfPTable(6);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Data Venda"));            
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Valor Venda")); //ok
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Valor de Venda")); //ok
             PdfPCell cell3 = new PdfPCell(new Paragraph("Data Depósito")); //ok
             PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Depósito")); //ok
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Comissão")); //ok
@@ -1509,7 +1513,7 @@ public class RelatorioData {
                 String formaPagamento = rs.getString("formapagamento");
                 
                 cell1 = new PdfPCell(new Paragraph(dataRegistro+""));
-                cell2 = new PdfPCell(new Paragraph(valorVenda+""));
+                cell2 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                 cell3 = new PdfPCell(new Paragraph(dataDeposito+""));
                 cell6 = new PdfPCell(new Paragraph(status+"")); 
                 
@@ -1535,10 +1539,10 @@ public class RelatorioData {
                     while(rs2.next()){
                         Double comissao = rs2.getDouble("taxacomissao");
                         comissao = valorVenda * (comissao/100);                        
-                        cell5 = new PdfPCell(new Paragraph(comissao+""));
+                        cell5 = new PdfPCell(new Paragraph(df.format(comissao)+""));
                         
                         Double valorDeposito = valorVenda - comissao;
-                        cell4 = new PdfPCell(new Paragraph(valorDeposito+""));
+                        cell4 = new PdfPCell(new Paragraph(df.format(valorDeposito)+""));
                     }
                     
                     

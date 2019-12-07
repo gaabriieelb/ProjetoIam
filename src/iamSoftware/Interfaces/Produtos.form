@@ -215,7 +215,7 @@
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="false" title="ID" type="java.lang.Integer"/>
+                <Column editable="false" title="C&#xf3;d." type="java.lang.Integer"/>
                 <Column editable="false" title="Nome" type="java.lang.String"/>
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Valor de Venda" type="java.lang.Long"/>
@@ -466,7 +466,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/images/clipboard.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cadastro de Produtos Compostos"/>
+        <Property name="text" type="java.lang.String" value="Cadastro de Produtos Agregado"/>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
