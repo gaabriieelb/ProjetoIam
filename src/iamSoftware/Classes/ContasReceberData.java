@@ -5,9 +5,15 @@
  */
 package iamSoftware.Classes;
 
+import static iamSoftware.Interfaces.ContasReceber.tblFornecedores;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,5 +34,36 @@ public class ContasReceberData {
                
         stmt.executeUpdate();
         stmt.close();
+    }
+    
+    public void Remover(int id) throws SQLException{
+        
+                
+        String sql = "SELECT * FROM `contasreceber` WHERE id ="+id;
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        int idcompra = 0;
+        
+        while(rs.next()){
+            idcompra = rs.getInt("idcompra");
+        }       
+        
+       
+        
+        
+        stmt = conn.prepareStatement("DELETE FROM contasreceber WHERE idcompra="+idcompra);
+        stmt.executeUpdate();
+        
+        stmt = conn.prepareStatement("DELETE FROM itenscompras WHERE idcompra="+idcompra);
+        stmt.executeUpdate();
+        
+        stmt = conn.prepareStatement("DELETE FROM compras WHERE id="+idcompra);
+        stmt.executeUpdate();
+        
+        stmt.close();
+    
     }
 }

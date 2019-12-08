@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -95,7 +96,7 @@ public class Inicial extends javax.swing.JFrame {
         DefaultListModel modelPagar;
         modelPagar = new DefaultListModel();
         
-        String sql = "SELECT * FROM `agenda`";
+        String sql = "SELECT * FROM `agenda` WHERE data='"+dataFormatada+"'";
         
         Connection conn = ConexaoBD.Conectar();
         
@@ -116,13 +117,13 @@ public class Inicial extends javax.swing.JFrame {
         }
         ////////////////////////////////////
         
-        
+        DecimalFormat df = new DecimalFormat("#,###.00");
         ///prenchimento contas a pagar
         try {        
         DefaultListModel modelPagar;
         modelPagar = new DefaultListModel();
         
-        String sql = "SELECT * FROM `contaspagar` WHERE status= 'Em Aberto' ORDER BY `vencimento` ASC";
+        String sql = "SELECT * FROM `contaspagar` WHERE vencimento=STR_TO_DATE('"+dataFormatada+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY vencimento ASC";
         
         Connection conn = ConexaoBD.Conectar();
         
@@ -131,7 +132,8 @@ public class Inicial extends javax.swing.JFrame {
              
         while(rs.next()){          
             String fornecedor = rs.getString("fornecedor");
-            String valor = rs.getString("valor"); 
+            Double v = Double.parseDouble(rs.getString("valor"));
+            String valor = df.format(v);
             modelPagar.addElement(new APagar(fornecedor,valor));
         }
         listPagar.setModel(modelPagar);
@@ -147,7 +149,7 @@ public class Inicial extends javax.swing.JFrame {
         DefaultListModel modelPagar;
         modelPagar = new DefaultListModel();
         
-        String sql = "SELECT * FROM `contasreceber` WHERE status= 'Em Aberto'";
+        String sql = "SELECT * FROM `contasreceber` WHERE datapagamento='"+dataFormatada+"' AND status= 'Em Aberto'";
         
         Connection conn = ConexaoBD.Conectar();
         
@@ -156,7 +158,8 @@ public class Inicial extends javax.swing.JFrame {
              
         while(rs.next()){          
             String formapagamento = rs.getString("formapagamento");
-            String valor = rs.getString("valor"); 
+            double v  = Double.parseDouble(rs.getString("valor"));
+            String valor = df.format(v);
             modelPagar.addElement(new AReceber(formapagamento,valor));
         }
         listReceber.setModel(modelPagar);
@@ -185,7 +188,8 @@ public class Inicial extends javax.swing.JFrame {
              
         while(rs.next()){          
             String formapagamento = rs.getString("formapagamento");
-            String valor = rs.getString("valor"); 
+            double v = Double.parseDouble(rs.getString("valor"));
+            String valor = df.format(v);
             modelPagar.addElement(new AReceber(formapagamento,valor));
         }
         listVenda.setModel(modelPagar);

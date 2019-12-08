@@ -348,24 +348,34 @@ public class PesquisaCliente extends javax.swing.JFrame {
         int row = tblProdutos.getSelectedRow();
         int id = (int) tabela.getValueAt(row, 0);
         String nome = (String) tabela.getValueAt(row, 2);
-                
-        PDVCaixa.idcliente = id;
-        PDVCaixa.cliente = nome;
-        PDVCaixa.clienteSelecionado=true;
-        PDVCaixa.habilitar();
         
-        Prazo prazo = new Prazo();
-        prazo.setVisible(true);
-        
+        if(tela.equals("CadastroContasReceber")){
+            CadastroContasReceber.fieldCliente.setText(nome);
+            CadastroContasReceber.fieldID.setText(String.valueOf(id));
+            
+            this.dispose();
+        }else{
+            PDVCaixa.idcliente = id;
+            PDVCaixa.cliente = nome;
+            PDVCaixa.clienteSelecionado=true;
+            PDVCaixa.habilitar();
+
+            Prazo prazo = new Prazo();
+            prazo.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        PDVCaixa.idcliente = 0;
-        PDVCaixa.cliente = "Cliente Não Cadastrado";
-        PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
-        PDVCaixa.comboFormaPagamento2.setSelectedItem("Dinheiro");
-        PDVCaixa.habilitar();
+        if(tela.equals("CadastroContasReceber")){
+            
+        }else{        
+            PDVCaixa.idcliente = 0;
+            PDVCaixa.cliente = "Cliente Não Cadastrado";
+            PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
+            PDVCaixa.comboFormaPagamento2.setSelectedItem("Dinheiro");
+            PDVCaixa.habilitar();
+        }
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
         

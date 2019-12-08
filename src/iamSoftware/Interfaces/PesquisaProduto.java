@@ -388,7 +388,10 @@ public class PesquisaProduto extends javax.swing.JFrame {
                 Logger.getLogger(PesquisaProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        if(tela.equals("CadastroContasReceber")){
+            CadastroContasReceber.fieldProduto.setText(nome);
+            CadastroContasReceber.fieldId.setText(String.valueOf(id));
+        }
         
         
         

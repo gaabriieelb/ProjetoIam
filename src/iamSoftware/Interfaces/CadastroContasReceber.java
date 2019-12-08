@@ -6,19 +6,27 @@
 package iamSoftware.Interfaces;
 
 import iamSoftware.Classes.ClientesData;
+import iamSoftware.Classes.CompraData;
+import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.ContasPagarData;
 import iamSoftware.Classes.NotaFiscalData;
 import java.awt.Color;
+import static java.lang.String.valueOf;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.DataFormat;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
@@ -27,7 +35,11 @@ import javax.swing.text.NumberFormatter;
  * @author ga_br
  */
 public class CadastroContasReceber extends javax.swing.JFrame {
-
+    public static String prazo;
+    public static double taxa;
+    public static String pagamentoCartao;
+    public static int idcliente;
+    public static String cliente;
     /**
      * Creates new form CadastroCliente
      */
@@ -46,34 +58,46 @@ public class CadastroContasReceber extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        fieldNumDoc = new javax.swing.JTextField();
         fieldValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         comboParcelas = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        fieldFornecedor = new javax.swing.JTextField();
+        fieldID = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         fieldVencimento = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        comboStatus1 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        fieldCliente = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProdutos = new javax.swing.JTable();
+        jButton10 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        fieldProduto = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        fieldId = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        fieldQuantidade = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setText("N° do Documento:");
-
-        fieldNumDoc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
+        fieldValor.setEditable(false);
         fieldValor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         fieldValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +113,7 @@ public class CadastroContasReceber extends javax.swing.JFrame {
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Cadastro de Contas a Pagar");
+        jLabel11.setText("Cadastro de Contas a Receber");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,22 +145,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jLabel20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel20.setText("Dados de Contas a Pagar");
-
-        jPanel3.setBackground(new java.awt.Color(245, 135, 66));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 291, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Quantidade de Parcelas:");
 
@@ -145,12 +153,22 @@ public class CadastroContasReceber extends javax.swing.JFrame {
 
         comboParcelas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         comboParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        comboParcelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboParcelasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setText("Fornecedor:");
+        jLabel3.setText("ID:");
 
-        fieldFornecedor.setEditable(false);
-        fieldFornecedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fieldID.setEditable(false);
+        fieldID.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fieldID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldIDActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -190,6 +208,126 @@ public class CadastroContasReceber extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("Forma Pagamento:");
+
+        comboStatus1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        comboStatus1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Parcelado", "Cartão" }));
+        comboStatus1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboStatus1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText("Cliente:");
+
+        fieldCliente.setEditable(false);
+        fieldCliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        tblProdutos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cód.", "Cód. de Barra", "Produto", "Quant.", "Valor Unit.", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblProdutos);
+
+        jButton10.setBackground(new java.awt.Color(255, 255, 255));
+        jButton10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.png"))); // NOI18N
+        jButton10.setText("Excluir Item");
+        jButton10.setFocusPainted(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel9.setText("Nome:");
+
+        fieldProduto.setEditable(false);
+        fieldProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        fieldProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldProdutoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel1.setText("Produto:");
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton8.setText("Consultar");
+        jButton8.setFocusPainted(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel10.setText("Cód:");
+
+        fieldId.setEditable(false);
+        fieldId.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel12.setText("Quant.:");
+
+        fieldQuantidade.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/insert.png"))); // NOI18N
+        jButton4.setText("Inserir");
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/broom.png"))); // NOI18N
+        jButton9.setText("Limpar");
+        jButton9.setFocusPainted(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel13.setText("Total R$:");
+
+        labelTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        labelTotal.setText("00,00");
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money (1).png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,38 +335,82 @@ public class CadastroContasReceber extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton8))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton9)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldNumDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(fieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fieldVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(140, 140, 140)))
-                        .addComponent(jButton7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                                .addComponent(fieldVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,44 +418,60 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel20)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(fieldNumDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(fieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jButton7)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(fieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(fieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(fieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(comboStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(fieldVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jLabel9)
+                    .addComponent(fieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton9))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelTotal)
+                                .addComponent(jLabel13))
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -284,15 +482,22 @@ public class CadastroContasReceber extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-        String numDoc = fieldNumDoc.getText();
-        String forncedor = fieldFornecedor.getText();
+                
+        idcliente = Integer.parseInt(fieldID.getText());
+        cliente = fieldCliente.getText();
         String valor = fieldValor.getText();
-        
-        String status = (String) comboStatus.getSelectedItem();
         int numParcelas = Integer.parseInt((String) comboParcelas.getSelectedItem());
-        
+        String status = (String) comboStatus.getSelectedItem();
         String dataVencimento = fieldVencimento.getText();
+        
+        String formaPagamento = String.valueOf(comboStatus1.getSelectedItem());        
+        if(formaPagamento.equals("Cartão")){
+           formaPagamento = pagamentoCartao;                  
+        }
+        
+        RegistrarVenda();
+        RegistrarItensVenda();
+        
         char[] dataArray = dataVencimento.toCharArray();
         int m1 = Integer.parseInt(String.valueOf(dataArray[3]));
         int m2 = Integer.parseInt(String.valueOf(dataArray[4]));
@@ -320,6 +525,7 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                             
                          
                 if(m3==2){
+                    
                     if(d3 == 29 || d3 == 30 || d3 == 31){                        
                         String dia1 = "28";                        
                         dataArray[0] = dia1.charAt(0);
@@ -327,36 +533,41 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                     }
                 }
                 
-                if(m3==4 || m3==6 || m3==9 || m3==11 && d3==31){                    
-                    t=true;
-                    String dia1 = "30";                        
-                    dataArray[0] = dia1.charAt(0);
-                    dataArray[1] = dia1.charAt(1);
+                if(d3==31){
+                   
+                    if(m3==4 || m3==6 || m3==9 || m3==11){                                     
+                        t=true;
+                        String dia1 = "30";                        
+                        dataArray[0] = dia1.charAt(0);
+                        dataArray[1] = dia1.charAt(1);
+                    }
                 }
                 
                 if(m3 < 10){
-                    data = String.valueOf("20"+a3+"-0"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
+                    //data = String.valueOf("20"+a3+"-0"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]); CORRETO
+                    data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+String.valueOf("/0"+m3+"/20"+a3);
+                    
                     //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-0"+m3+"-20"+a3;
 
                 }else{
-                    data = String.valueOf("20"+a3+"-"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]);
+                    //data = String.valueOf("20"+a3+"-"+m3+"-"+dataArray[0])+String.valueOf(dataArray[1]); CORRETO
+                    data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+String.valueOf("/"+m3+"/20"+a3);
+                    
                     //data = String.valueOf(dataArray[0])+String.valueOf(dataArray[1])+"-"+m3+"-20"+a3;                
                 }
 
-                contaspagar.setNumeroDocumento(numDoc);
-                contaspagar.setFornecedor(forncedor);
-                contaspagar.setValor(valor);
+                
+                //contaspagar.setFornecedor(forncedor);
+                
                 int num = i+1;
-                contaspagar.setNumeroParcela(num+"/"+numParcelas);
-                contaspagar.setVencimento(data);
-                contaspagar.setStatus(status);
+                
 
-                try {
-                    contaspagar.Cadastrar();              
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(CadastroContasReceber.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                    RegistrarContaReceber(formaPagamento, data, status);              
+                    
+                    
+                    
+                
                 if(m3==2){
                     String dia2 = String.valueOf(d1);
                     dataArray[0] = dia2.charAt(0);
@@ -364,7 +575,7 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                     dataArray[1] = dia2.charAt(0);
                 }
                 
-                if(t=true){
+                if(t==true){
                     t= false;
                     String dia1 = "31";                        
                     dataArray[0] = dia1.charAt(0);
@@ -378,22 +589,85 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                     m3 = m3+1;
                 }
             }
+            
+            CadastroContasReceber cadastroContasReceber = new CadastroContasReceber();
+            cadastroContasReceber.setVisible(true);
+            ContasReceber.Atualizar();            
+            this.dispose();
             Mensagem msg = new Mensagem("Cadastro realizado com sucesso!");
             msg.setVisible(true);
-            ContasPagar.Atualizar();
-            this.dispose();
         } 
         catch (Exception e) {
         }
         
         
         
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        PesquisaFornecedor pesquisafornecedor = new PesquisaFornecedor("cadastrocontaspagar");
-        pesquisafornecedor.setVisible(true);
+        PesquisaCliente pesquisacliente = new PesquisaCliente("CadastroContasReceber");
+        pesquisacliente.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void fieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldIDActionPerformed
+
+    private void comboStatus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboStatus1ActionPerformed
+        String status = String.valueOf(comboStatus1.getSelectedItem());
+        
+        if(status.equals("Cartão")){
+            Cartao cartao = new Cartao(3);
+            cartao.setVisible(true);                    
+        }
+    }//GEN-LAST:event_comboStatus1ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int numRow = tblProdutos.getSelectedRow();
+        tabela.removeRow(numRow);
+        //tblProdutos.setModel(tabela);
+        atualizaTotal();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void fieldProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldProdutoActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        PesquisaProduto pesquisaproduto = new PesquisaProduto("CadastroContasReceber");
+        pesquisaproduto.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String produto = fieldProduto.getText();
+        String id = fieldId.getText();
+        String quantidade = fieldQuantidade.getText();
+
+        if(produto != null && produto != "" && id != null && id != "" && quantidade != null && quantidade != ""){
+            try {
+                inserirItem(Integer.parseInt(id), produto, Double.parseDouble(quantidade));
+            } catch (SQLException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            limparTextos();
+            atualizaTotal();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        limparTextos();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void comboParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboParcelasActionPerformed
+        double soma = Double.parseDouble((String.valueOf(labelTotal.getText())));
+        
+        int parcelas = Integer.parseInt(String.valueOf(comboParcelas.getSelectedItem()));
+        Double valor = soma / parcelas;
+        
+        fieldValor.setText(valor+"");
+    }//GEN-LAST:event_comboParcelasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,23 +714,209 @@ public class CadastroContasReceber extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboParcelas;
     private javax.swing.JComboBox<String> comboStatus;
-    public static javax.swing.JTextField fieldFornecedor;
-    private javax.swing.JTextField fieldNumDoc;
+    private javax.swing.JComboBox<String> comboStatus1;
+    public static javax.swing.JTextField fieldCliente;
+    public static javax.swing.JTextField fieldID;
+    public static javax.swing.JTextField fieldId;
+    public static javax.swing.JTextField fieldProduto;
+    private javax.swing.JTextField fieldQuantidade;
     private javax.swing.JTextField fieldValor;
     private javax.swing.JFormattedTextField fieldVencimento;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JTable tblProdutos;
     // End of variables declaration//GEN-END:variables
+
+    public void atualizaTotal(){
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int numRow = tabela.getRowCount();
+        double soma = 0;
+        double valorColuna=0; 
+        
+        for(int i = 0; i < numRow; i++){
+            String convert = valueOf(tabela.getValueAt(i, 5));
+            
+            try {
+                double l = DecimalFormat.getNumberInstance().parse(convert).doubleValue();
+                valorColuna = l;
+            } catch (ParseException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //valorColuna = Double.valueOf(tabela.getValueAt(i, 5));
+            soma = soma + valorColuna;
+        }
+        
+        labelTotal.setText(String.valueOf(soma));
+        
+        int parcelas = Integer.parseInt(String.valueOf(comboParcelas.getSelectedItem()));
+        Double valor = soma / parcelas;
+        
+        fieldValor.setText(valor+"");
+    }
+    
+     public void limparTextos(){
+        fieldId.setText("");
+        fieldProduto.setText("");
+        fieldQuantidade.setText("");
+    }
+    
+    public void inserirItem(int id, String nome, double quantidade) throws SQLException{
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
+        
+        double subtotal, valorVenda;
+        
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        
+        String sql = "SELECT * FROM `produtos` WHERE id="+id;
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            Object[] dados = new Object[6];
+            dados[0] = id;
+            dados[1] = rs.getString("codigo");
+            dados[2] = nome;
+            dados[3] = quantidade;
+            dados[4] = rs.getDouble("valorVenda");
+            
+            
+            dados[4] = df.format(dados[4]); 
+            
+            valorVenda = rs.getDouble("valorVenda");
+            subtotal = quantidade * valorVenda;
+            dados[5] =  subtotal;
+            
+            dados[5] = df.format(dados[5]);
+            
+            
+            tabela.addRow(dados);
+        }
+    }
+    
+    public int pegarID() throws SQLException{
+       
+        String sql = "SELECT id FROM `compras`";
+
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        int id =0;
+        
+        while (rs.next()) {           
+           id = rs.getInt("id");          
+        }
+        
+        return id;
+    }
+    
+   
+    public void RegistrarVenda(){
+        CompraData compra = new CompraData();
+        Double valorCompra = Double.parseDouble(labelTotal.getText());
+        
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	Date dataDoSistema = new Date();		
+	String dataEmTexto = formatador.format(dataDoSistema);
+        //Registro Compra
+        compra.setTotal(valorCompra);
+        compra.setDataregistro(dataEmTexto);
+        try {
+            compra.cadastrarCompra();
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void RegistrarItensVenda(){
+        CompraData compra = new CompraData();
+        String codigoProduto;
+        String nomeProduto;
+        double quantidade;
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        int numRow = tblProdutos.getRowCount();
+        
+        int idcompra = 0;
+        try {
+            idcompra = pegarID(); //pegar id da ultima compra
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(int i =0; i < numRow; i++){
+            codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
+            nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
+            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
+            
+            compra.setIdCompra(idcompra);
+            compra.setCodigoProduto(codigoProduto);
+            compra.setProduto(nomeProduto);
+            compra.setQuantidade(quantidade);
+            
+            try {
+                compra.cadastrarItensCompra();
+            } catch (SQLException ex) {
+                Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void RegistrarContaReceber(String formapagamento, String data, String status){
+        CompraData compra = new CompraData();
+        
+        int idcompra = 0;
+        try {
+            idcompra = pegarID(); //pegar id da ultima compra
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Double valorCompra = 0.0;
+              
+        valorCompra = Double.parseDouble(fieldValor.getText());
+                   
+        compra.setIdCompra(idcompra);
+        compra.setFormaPagamento(formapagamento);
+        compra.setValor(valorCompra);
+                       
+        compra.setDataPagamento(data);
+        compra.setStatus(status);
+        compra.setIdCliente(idcliente);
+        compra.setCliente(cliente);
+            
+        try {
+            compra.cadastrarContasReceber();
+        } catch (SQLException ex) {
+            Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

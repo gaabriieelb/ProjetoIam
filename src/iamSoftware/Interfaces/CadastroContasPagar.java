@@ -321,6 +321,7 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                             
                          
                 if(m3==2){
+                    
                     if(d3 == 29 || d3 == 30 || d3 == 31){                        
                         String dia1 = "28";                        
                         dataArray[0] = dia1.charAt(0);
@@ -328,11 +329,14 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                     }
                 }
                 
-                if(m3==4 || m3==6 || m3==9 || m3==11 && d3==31){                    
-                    t=true;
-                    String dia1 = "30";                        
-                    dataArray[0] = dia1.charAt(0);
-                    dataArray[1] = dia1.charAt(1);
+                if(d3==31){
+                   
+                    if(m3==4 || m3==6 || m3==9 || m3==11){                                     
+                        t=true;
+                        String dia1 = "30";                        
+                        dataArray[0] = dia1.charAt(0);
+                        dataArray[1] = dia1.charAt(1);
+                    }
                 }
                 
                 if(m3 < 10){
@@ -365,7 +369,7 @@ public class CadastroContasPagar extends javax.swing.JFrame {
                     dataArray[1] = dia2.charAt(0);
                 }
                 
-                if(t=true){
+                if(t==true){
                     t= false;
                     String dia1 = "31";                        
                     dataArray[0] = dia1.charAt(0);

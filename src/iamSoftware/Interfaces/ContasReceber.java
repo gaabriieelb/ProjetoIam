@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -316,13 +317,13 @@ public class ContasReceber extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        ContasPagarData contaspagar = new ContasPagarData();
+        ContasReceberData contasReceberData = new ContasReceberData();
         DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
         int row = tblFornecedores.getSelectedRow();
-        String numeronota = (String) tabela.getValueAt(row, 1);
+        int id = (int) tabela.getValueAt(row, 0);
          
         try {
-            //contaspagar.Remover(numeronota);
+            contasReceberData.Remover(id);
             PreencherTabela();
             Mensagem msg = new Mensagem("Registro excluido com sucesso!");
             msg.setVisible(true);
@@ -416,7 +417,8 @@ public class ContasReceber extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        CadastroContasReceber cadastroContasReceber = new CadastroContasReceber();
+        cadastroContasReceber.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
@@ -497,14 +499,17 @@ public class ContasReceber extends javax.swing.JFrame {
         ResultSet rs = stmt.executeQuery();
         
         List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
-             
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        
         while(rs.next()){
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("formapagamento");
             dados[2] = rs.getString("cliente");
             dados[3] = rs.getString("datapagamento");
-            dados[4] = rs.getString("valor");
+            Double valor = Double.parseDouble(rs.getString("valor"));
+            dados[4] = df.format(valor);
             dados[5] = rs.getString("status");
             
             
@@ -524,14 +529,16 @@ public class ContasReceber extends javax.swing.JFrame {
         ResultSet rs = stmt.executeQuery();
         
         List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
-             
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
         while(rs.next()){
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("formapagamento");
             dados[2] = rs.getString("cliente");
             dados[3] = rs.getString("datapagamento");
-            dados[4] = rs.getString("valor");
+            Double valor = Double.parseDouble(rs.getString("valor"));
+            dados[4] = df.format(valor);
             dados[5] = rs.getString("status");       
             
             tabela.addRow(dados);
@@ -548,14 +555,15 @@ public class ContasReceber extends javax.swing.JFrame {
         ResultSet rs = stmt.executeQuery();
         
         List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
-             
+        DecimalFormat df = new DecimalFormat("#,###.00"); 
         while(rs.next()){
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("formapagamento");
             dados[2] = rs.getString("cliente");
             dados[3] = rs.getString("datapagamento");
-            dados[4] = rs.getString("valor");
+            Double valor = Double.parseDouble(rs.getString("valor"));
+            dados[4] = df.format(valor);
             dados[5] = rs.getString("status");         
             
             tabela.addRow(dados);
@@ -567,29 +575,26 @@ public class ContasReceber extends javax.swing.JFrame {
         
         tblstatic.setRowCount(0);
         
-        String sql = "SELECT * FROM `contaspagar` ORDER BY `vencimento` ASC";
+        
+        String sql = "SELECT * FROM `contasreceber`";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         
         List<ProdutosData> produtoslist = new ArrayList<ProdutosData>();
-             
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        
         while(rs.next()){
             Object[] dados = new Object[7];
             dados[0] = rs.getInt("id");
-            dados[1] = rs.getString("numerodocumento");
-            dados[2] = rs.getString("fornecedor");
-            dados[3] = rs.getString("valor");
-            dados[4] = rs.getString("numeroparcela");
-            dados[5] = rs.getString("vencimento");
-            
-            data = (String) dados[5];
-            char[] dataArray = data.toCharArray();
-            data = conveter(dataArray);
-            dados[5] = data;
-            
-            dados[6] = rs.getString("status");
+            dados[1] = rs.getString("formapagamento");
+            dados[2] = rs.getString("cliente");
+            dados[3] = rs.getString("datapagamento");
+            Double valor = Double.parseDouble(rs.getString("valor"));
+            dados[4] = df.format(valor);
+            dados[5] = rs.getString("status");
             
             
             tblstatic.addRow(dados);

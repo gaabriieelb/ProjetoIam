@@ -299,6 +299,12 @@ public class Cartao extends javax.swing.JFrame {
             PDVComanda.prazo=prazo;
             PDVComanda.taxa = taxa;
         }
+        if(tela == 3){
+            CadastroContasReceber.pagamentoCartao = forma+" "+cartao;
+            CadastroContasReceber.prazo=prazo;
+            CadastroContasReceber.taxa = taxa;
+            
+        }
         
         this.dispose();
         
