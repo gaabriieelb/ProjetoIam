@@ -614,7 +614,7 @@ public class PDVCaixa extends javax.swing.JFrame {
 
     private void comboFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamentoActionPerformed
         if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
-            PesquisaCliente pesquisaCliente = new PesquisaCliente();
+            PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
             pesquisaCliente.setVisible(true);
         }
         

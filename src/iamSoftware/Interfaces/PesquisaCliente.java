@@ -368,7 +368,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(tela.equals("CadastroContasReceber")){
-            
+            this.dispose();
         }else{        
             PDVCaixa.idcliente = 0;
             PDVCaixa.cliente = "Cliente Não Cadastrado";
