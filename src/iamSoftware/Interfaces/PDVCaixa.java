@@ -617,6 +617,10 @@ public class PDVCaixa extends javax.swing.JFrame {
             PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
             pesquisaCliente.setVisible(true);
         }
+        if(comboFormaPagamento.getSelectedItem().equals("Cheque")){
+            PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
+            pesquisaCliente.setVisible(true);
+        }
         
         if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
             Cartao cartao = new Cartao(1);
@@ -635,11 +639,12 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorPago1ActionPerformed
 
     private void comboFormaPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamento2ActionPerformed
-        if(comboFormaPagamento2.getSelectedItem().equals("À Prazo")){
-            if(cliente.equals("Cliente Não Cadastrado")){
-                comboFormaPagamento2.setSelectedItem("Dinheiro");
-                Mensagem mensagem = new Mensagem("Selecione um cliente!");
-                mensagem.setVisible(true);
+        if(comboFormaPagamento2.getSelectedItem().equals("À Prazo") || comboFormaPagamento2.getSelectedItem().equals("Cheque")){
+            if(cliente.equals("Cliente não cadastrado") || cliente==null){
+                //comboFormaPagamento2.setSelectedItem("Dinheiro");
+                
+                PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
+                pesquisaCliente.setVisible(true);
             }else{
                 Prazo prazo = new Prazo();
                 prazo.setVisible(true);
@@ -704,6 +709,9 @@ public class PDVCaixa extends javax.swing.JFrame {
         if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
                RegistrarContaReceber(1, "À Prazo", "À Prazo");  
         }
+        if(comboFormaPagamento.getSelectedItem().equals("Cheque")){
+               RegistrarContaReceber(1, "Cheque", "Cheque");  
+        }
         if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
                RegistrarContaReceber(1,pagamentoCartao, "Cartão");  
         }
@@ -735,14 +743,17 @@ public class PDVCaixa extends javax.swing.JFrame {
             //RegistrarContaReceber(1);
 
             if(comboFormaPagamento2.getSelectedItem().equals("Dinheiro")){
-                    RegistrarContaReceber(1, "Dinheiro", "Dinheiro");   
+                    RegistrarContaReceber(2, "Dinheiro", "Dinheiro");   
             }
 
             if(comboFormaPagamento2.getSelectedItem().equals("À Prazo")){
-                   RegistrarContaReceber(1, "À Prazo", "À Prazo");  
+                   RegistrarContaReceber(2, "À Prazo", "À Prazo");  
+            }
+            if(comboFormaPagamento2.getSelectedItem().equals("Cheque")){
+               RegistrarContaReceber(2, "Cheque", "Cheque");  
             }
             if(comboFormaPagamento2.getSelectedItem().equals("Cartão")){
-                   RegistrarContaReceber(1,pagamentoCartao, "Cartão");  
+                   RegistrarContaReceber(2,pagamentoCartao, "Cartão");  
             }
         }
         
@@ -1068,9 +1079,17 @@ public class PDVCaixa extends javax.swing.JFrame {
             compra.setIdCliente(idcliente);
             compra.setCliente(cliente);
         }
+        
+        if(comboPagamento.equalsIgnoreCase("Cheque")){                               
+            compra.setDataPagamento(prazo);
+            compra.setStatus("Em aberto");
+            compra.setIdCliente(idcliente);
+            compra.setCliente(cliente);
+        }
             
         try {
             compra.cadastrarContasReceber();
+            System.out.println("CADASTROU");
         } catch (SQLException ex) {
             Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
         }

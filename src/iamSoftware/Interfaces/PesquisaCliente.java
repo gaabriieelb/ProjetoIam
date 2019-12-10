@@ -354,7 +354,18 @@ public class PesquisaCliente extends javax.swing.JFrame {
             CadastroContasReceber.fieldID.setText(String.valueOf(id));
             
             this.dispose();
-        }else{
+        }
+        if(tela.equals("PDVComanda")){
+            PDVComanda.idcliente = id;
+            PDVComanda.cliente = nome;
+            PDVComanda.clienteSelecionado=true;
+            PDVComanda.habilitar();
+
+            Prazo prazo = new Prazo();
+            prazo.setVisible(true);
+        }
+        
+        else{
             PDVCaixa.idcliente = id;
             PDVCaixa.cliente = nome;
             PDVCaixa.clienteSelecionado=true;
@@ -369,7 +380,15 @@ public class PesquisaCliente extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(tela.equals("CadastroContasReceber")){
             this.dispose();
-        }else{        
+        }
+        if(tela.equals("PDVComanda")){        
+            PDVComanda.idcliente = 0;
+            PDVComanda.cliente = "Cliente Não Cadastrado";
+            PDVComanda.comboFormaPagamento.setSelectedItem("Dinheiro");
+            PDVComanda.comboFormaPagamento2.setSelectedItem("Dinheiro");
+            PDVComanda.habilitar();
+        }
+        else{        
             PDVCaixa.idcliente = 0;
             PDVCaixa.cliente = "Cliente Não Cadastrado";
             PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");

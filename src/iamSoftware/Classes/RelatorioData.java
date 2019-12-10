@@ -772,6 +772,102 @@ public class RelatorioData {
     
     }
     
+    public void gerarFaturamentoPeriodo(String dataInicial, String dataFinal) throws SQLException{
+        
+                
+        Document doc = new Document();
+        String arquivoPDF = "relatorio-faturamento-periodo.pdf";
+        DecimalFormat df = new DecimalFormat("#,###.00");       
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Relatório de Faturamento por Período");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            double dinheiro = 0;
+            double prazo = 0;
+            double credito = 0;
+            double debito = 0;
+            double cheque = 0;
+            
+            
+                
+                
+                String sql= "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataInicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+dataFinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+
+                Connection conn = ConexaoBD.Conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                
+               
+                
+                //entra for
+                while (rs.next()) {
+                    
+                    String forma = rs.getString("formapagamento");
+                    Double valor = rs.getDouble("valor");
+                    
+                    if(forma.contains("Dinheiro")){
+                        System.out.println("1");
+                        dinheiro+=valor;
+                    }
+                    if(forma.contains("Prazo")){
+                        System.out.println("2");
+                        prazo+=valor;
+                    }
+                    if(forma.contains("Crédito")){
+                        System.out.println("3");
+                        credito+=valor;
+                    }
+                    if(forma.contains("Débito")){
+                        System.out.println("4");
+                        debito+=valor;
+                    }
+                    if(forma.contains("Cheque")){
+                        System.out.println("5");
+                        cheque+=valor;
+                    }
+                    
+                }
+                
+                
+            p = new Paragraph("Dinheiro: "+dinheiro);
+            p.setAlignment(1);
+            doc.add(p);
+            
+            p = new Paragraph("Prazo: "+prazo);
+            p.setAlignment(1);
+            doc.add(p);
+            
+            p = new Paragraph("Crédito: "+credito);
+            p.setAlignment(1);
+            doc.add(p);
+            
+            p = new Paragraph("Débito: "+debito);
+            p.setAlignment(1);
+            doc.add(p);
+            
+            p = new Paragraph("Cheque: "+cheque);
+            p.setAlignment(1);
+            doc.add(p);    
+            
+            
+            doc.close();           
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+           
+        }   
+         catch (Exception e) {
+        }
+    
+    }
+    
     public void gerarRankingMaiorCompra() throws SQLException{
         
         String sql= "SELECT * FROM notas ORDER BY quantidade DESC LIMIT 10";

@@ -596,7 +596,7 @@ public class PDVComanda extends javax.swing.JFrame {
 
     private void comboFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamentoActionPerformed
         if(comboFormaPagamento.getSelectedItem().equals("À Prazo")){
-            PesquisaCliente pesquisaCliente = new PesquisaCliente();
+            PesquisaCliente pesquisaCliente = new PesquisaCliente("PDVComanda");
             pesquisaCliente.setVisible(true);
         }
         
@@ -627,8 +627,9 @@ public class PDVComanda extends javax.swing.JFrame {
         if(comboFormaPagamento2.getSelectedItem().equals("À Prazo")){
             if(cliente.equals("Cliente Não Cadastrado")){
                 comboFormaPagamento2.setSelectedItem("Dinheiro");
-                Mensagem mensagem = new Mensagem("Selecione um cliente!");
-                mensagem.setVisible(true);
+               
+                PesquisaCliente pesquisaCliente = new PesquisaCliente("PDVComanda");
+                pesquisaCliente.setVisible(true);
             }else{
                 Prazo prazo = new Prazo();
                 prazo.setVisible(true);

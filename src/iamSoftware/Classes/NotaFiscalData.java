@@ -123,7 +123,7 @@ public class NotaFiscalData {
        
         stmt = conn.prepareStatement("UPDATE notas SET numeronota='"+getNumNota()+"',dataemissao ='"+getDataEmissao()+"',dataregistro='"+getDataRegistro()+"', "
                                     + "nomefornecedor='"+getNomeFornecedor()+"', cnpj = '"+getCnpj()+"', nomeproduto ='"+getNomeProduto()+"'"
-                                    + ",quantidade='"+getQuantidade()+"',valorcompra='"+getValorCompra()+"'");
+                                    + ",quantidade='"+getQuantidade()+"',valorcompra='"+getValorCompra()+"' WHERE id="+id);
            
         stmt.executeUpdate();
         stmt.close();

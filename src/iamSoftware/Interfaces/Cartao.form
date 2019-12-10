@@ -61,9 +61,15 @@
                                   <Component id="comboFormaPagamento" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="textMensagem1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="textMensagem3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textMensagem1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="comboCartao" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="comboCartao" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="lblPagamento" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -77,8 +83,8 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="textMensagem2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblPagamento" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                  <Component id="fieldDia" min="-2" pref="23" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="textMensagem5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -109,19 +115,22 @@
                       <Component id="comboCartao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textMensagem3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lblPagamento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textMensagem2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblPagamento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="textMensagem2" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="textMensagem5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldMes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="textMensagem6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldAno" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="fieldDia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="textMensagem4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="lblTaxa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -235,13 +244,6 @@
             <Property name="text" type="java.lang.String" value="Pagamento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPagamento">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="textMensagem4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -281,6 +283,29 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fieldAno">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="textMensagem3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Prazo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPagamento">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="NN"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="fieldDia">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
