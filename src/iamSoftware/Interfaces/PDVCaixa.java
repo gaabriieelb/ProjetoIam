@@ -5,11 +5,19 @@
  */
 package iamSoftware.Interfaces;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import iamSoftware.Classes.*;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import static java.lang.String.valueOf;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -124,6 +132,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         fieldValorPago2 = new javax.swing.JTextField();
         buttonConfirmar1 = new javax.swing.JButton();
         buttonConfirmar2 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -286,6 +295,11 @@ public class PDVCaixa extends javax.swing.JFrame {
         jLabel2.setText("Quant.:");
 
         fieldQuantidade.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        fieldQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldQuantidadeActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -408,6 +422,17 @@ public class PDVCaixa extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receipt (1).png"))); // NOI18N
+        jButton11.setText("Cupom de Venda");
+        jButton11.setFocusPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -424,6 +449,8 @@ public class PDVCaixa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jButton10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,7 +522,7 @@ public class PDVCaixa extends javax.swing.JFrame {
                                         .addComponent(jButton4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton9)))
-                                .addGap(0, 39, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(10, 10, 10))))
         );
         layout.setVerticalGroup(
@@ -528,7 +555,9 @@ public class PDVCaixa extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton10)
+                        .addComponent(jButton11))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,6 +604,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         String produto = fieldProduto.getText();
         String id = fieldId.getText();
         String quantidade = fieldQuantidade.getText();
+        quantidade = quantidade.replace(",", ".");
         
         if(produto != null && produto != "" && id != null && id != "" && quantidade != null && quantidade != ""){            
             try {
@@ -777,6 +807,101 @@ public class PDVCaixa extends javax.swing.JFrame {
         MapaCaixa mapa = new MapaCaixa();
         mapa.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void fieldQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldQuantidadeActionPerformed
+        
+    }//GEN-LAST:event_fieldQuantidadeActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        //pega produto
+        CompraData compra = new CompraData();
+        String codigoProduto;
+        String nomeProduto;
+        double quantidade;
+        double valorUnit;
+        double subTotal;
+        
+        
+        DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
+        
+         
+        Document doc = new Document();
+        String arquivoPDF = "cupom-venda.pdf";
+        DecimalFormat df = new DecimalFormat("#,###.00");
+
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
+            doc.open();
+            
+            doc.setMargins(0, 0, 0, 0);
+            
+            Paragraph p = new Paragraph("Cupom Venda");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            PdfPTable table = new PdfPTable(5);
+            
+            PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Nome"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("Quantidade"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Unitário"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("Subtotal"));
+                     
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+                        
+            Double total = Double.parseDouble(labelTotal.getText());
+            
+            int numRow = tblProdutos.getRowCount();
+            int i =0;
+            for(i=0; i<numRow; i++){
+                
+                codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
+                nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
+                quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)).replace(",","."));
+                valorUnit = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,4)).replace(",","."));
+                subTotal = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,5)).replace(",","."));
+                
+                
+                cell1 = new PdfPCell(new Paragraph(codigoProduto+""));
+                cell2 = new PdfPCell(new Paragraph(nomeProduto+""));
+                cell3 = new PdfPCell(new Paragraph(quantidade+""));
+                cell4 = new PdfPCell(new Paragraph(valorUnit+""));
+                cell5 = new PdfPCell(new Paragraph(subTotal+""));                
+                   
+                table.addCell(cell1);
+                table.addCell(cell2);
+                table.addCell(cell3);
+                table.addCell(cell4);
+                table.addCell(cell5);
+                  
+                
+            }
+            
+            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 10f};
+            table.setWidths(columnWidths);
+            
+            table.setWidthPercentage(110);
+            doc.add(table);
+            
+            p = new Paragraph("Valor total: "+df.format(total)+"");
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph(" ");
+            doc.add(p);
+            
+            doc.close();
+            Desktop.getDesktop().open(new File(arquivoPDF));
+            
+            } catch (Exception e) {
+            }
+            
+    }//GEN-LAST:event_jButton11ActionPerformed
         
     
     
@@ -831,6 +956,7 @@ public class PDVCaixa extends javax.swing.JFrame {
     public static javax.swing.JTextField fieldValorPago2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -897,6 +1023,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         DecimalFormat df = new DecimalFormat("#,###.00");
 
         
+        
         double subtotal, valorVenda;
         
         
@@ -916,10 +1043,14 @@ public class PDVCaixa extends javax.swing.JFrame {
             dados[4] = rs.getDouble("valorVenda");
             
             
+            
             dados[4] = df.format(dados[4]); 
             
             valorVenda = rs.getDouble("valorVenda");
             subtotal = quantidade * valorVenda;
+            
+            dados[3] = String.valueOf(quantidade).replace(".", ",");
+            
             dados[5] =  subtotal;
             
             dados[5] = df.format(dados[5]);

@@ -113,7 +113,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -493,7 +493,8 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         String produto = fieldProduto.getText();
         String id = fieldId.getText();
         String quantidade = fieldQuantidade.getText();
-
+        quantidade = quantidade.replace(",", ".");
+        
         if(produto != null && produto != "" && id != null && id != "" && quantidade != null && quantidade != ""){
             try {
                 inserirItem(Integer.parseInt(id), produto, Double.parseDouble(quantidade));
@@ -645,9 +646,8 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
             dados[1] = nome;            
             dados[2] = rs.getDouble("valorVenda");           
             
-            dados[2] = df.format(dados[2]);
-            
-            dados[3] = quantidade;
+            dados[2] = df.format(dados[2]);            
+            dados[3] = String.valueOf(quantidade).replace(".", ",");
             
                 String sql2= "SELECT valorcompra FROM notas WHERE nomeproduto='"+nome+"'";
                 PreparedStatement stmt2 = conn.prepareStatement(sql2);
@@ -656,13 +656,13 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
                 while(rs2.next()){
                     valorcompra = rs2.getDouble("valorcompra");                
                 }
-            
+                System.out.println("VALOR COMPRA: "+valorcompra);
             
             
             subtotal = quantidade * valorcompra;
-            dados[4] =  subtotal;
-            
-            dados[4] = df.format(dados[4]);
+            dados[4] =  df.format(subtotal);
+            System.out.println("SUBTOTAL: "+subtotal);
+            //dados[4] = df.format(dados[4]);
             
             tabela.addRow(dados);
         }

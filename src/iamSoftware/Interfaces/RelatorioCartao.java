@@ -91,7 +91,12 @@ public class RelatorioCartao extends javax.swing.JFrame {
         jLabel10.setText("Período Vencimento:");
 
         comboStatus.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Em aberto", "Liquidado" }));
+        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Débito", "Crédito" }));
+        comboStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboStatusActionPerformed(evt);
+            }
+        });
 
         try {
             fieldDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -194,6 +199,10 @@ public class RelatorioCartao extends javax.swing.JFrame {
     private void fieldDataFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDataFinalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldDataFinalActionPerformed
+
+    private void comboStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboStatusActionPerformed
 
     /**
      * @param args the command line arguments

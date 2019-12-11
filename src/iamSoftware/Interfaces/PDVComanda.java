@@ -557,7 +557,7 @@ public class PDVComanda extends javax.swing.JFrame {
         String produto = fieldProduto.getText();
         String id = fieldId.getText();
         String quantidade = fieldQuantidade.getText();
-        
+        quantidade = quantidade.replace(",", ".");
         if(produto != null && produto != "" && id != null && id != "" && quantidade != null && quantidade != ""){            
             try {
                 inserirItem(Integer.parseInt(id), produto, Double.parseDouble(quantidade));
@@ -925,6 +925,9 @@ public class PDVComanda extends javax.swing.JFrame {
             
             valorVenda = rs.getDouble("valorVenda");
             subtotal = quantidade * valorVenda;
+            
+             dados[3] = String.valueOf(quantidade).replace(".", ",");
+            
             dados[5] =  subtotal;
             
             dados[5] = df.format(dados[5]);

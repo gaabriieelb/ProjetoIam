@@ -1551,16 +1551,16 @@ public class RelatorioData {
         String sql = null;
         
         if(Status.equals("Todos")){
-            sql= "SELECT * FROM `contasreceber` INNER JOIN compras ON contasreceber.idcompra=compras.id WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
-        
+           // sql= "SELECT * FROM `contasreceber` INNER JOIN compras ON contasreceber.idcompra=compras.id WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+           sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
         }
-        if(Status.equals("Em aberto")){
-            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Em Aberto' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        if(Status.equals("Crédito")){
+            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND formapagamento LIKE '%Crédito%' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
                
         }
-        if(Status.equals("Liquidado")){
-            sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
-                
+        if(Status.equals("Débito")){
+           // sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+           sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND formapagamento LIKE '%Débito%' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";     
         }
         
         Connection conn = ConexaoBD.Conectar();
@@ -1581,7 +1581,7 @@ public class RelatorioData {
             doc.add(p);
             p = new Paragraph(" ");
             doc.add(p);
-            
+            double totalDeposito = 0.0;
             PdfPTable table = new PdfPTable(6);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Data Venda"));            
@@ -1601,14 +1601,15 @@ public class RelatorioData {
                         
             //entra for
             while (rs.next()) {
-                    
-                String dataRegistro = rs.getString("dataregistro");
+                
+                int idCompra = rs.getInt("idcompra");
+                
                 Double valorVenda = Double.parseDouble(rs.getString("valor")); //ok
                 String dataDeposito = rs.getString("datapagamento");      // ok                            
                 String status = rs.getString("status");
                 String formaPagamento = rs.getString("formapagamento");
                 
-                cell1 = new PdfPCell(new Paragraph(dataRegistro+""));
+                
                 cell2 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                 cell3 = new PdfPCell(new Paragraph(dataDeposito+""));
                 cell6 = new PdfPCell(new Paragraph(status+"")); 
@@ -1639,8 +1640,18 @@ public class RelatorioData {
                         
                         Double valorDeposito = valorVenda - comissao;
                         cell4 = new PdfPCell(new Paragraph(df.format(valorDeposito)+""));
+                        
+                       totalDeposito +=valorDeposito;
                     }
                     
+                    String sql3= "SELECT * FROM `compras` WHERE id="+idCompra;                    
+                    PreparedStatement stmt3 = conn.prepareStatement(sql3);
+                    ResultSet rs3 = stmt3.executeQuery();
+                    
+                    while(rs3.next()){
+                        String dataRegistro = rs3.getString("dataregistro");
+                        cell1 = new PdfPCell(new Paragraph(dataRegistro+""));
+                    }
                     
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -1650,10 +1661,23 @@ public class RelatorioData {
                 table.addCell(cell6);
                     
                 }
-                 
+                
                 
             }
             
+            cell1 = new PdfPCell(new Paragraph("Total"));
+            cell2 = new PdfPCell(new Paragraph(""));
+            cell3 = new PdfPCell(new Paragraph(""));
+            cell4 = new PdfPCell(new Paragraph(df.format(totalDeposito)+""));
+            cell5 = new PdfPCell(new Paragraph(""));
+            cell6 = new PdfPCell(new Paragraph(""));
+                
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+            table.addCell(cell5);
+            table.addCell(cell6);
             
             float[] columnWidths = new float[]{15f, 15f, 15f, 15f, 15f, 15f};
             table.setWidths(columnWidths);
@@ -1666,6 +1690,7 @@ public class RelatorioData {
             
             
         } catch (Exception e) {
+            System.out.println(e);
         }
     }
     
