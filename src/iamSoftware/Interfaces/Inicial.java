@@ -996,8 +996,11 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGraficoActionPerformed
 
     private void btnPDVCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDVCaixaActionPerformed
-        PDVCaixa pdvcaixa = new PDVCaixa();
-        pdvcaixa.setVisible(true);
+         try {
+             ConsultaCaixa();
+         } catch (SQLException ex) {
+             Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_btnPDVCaixaActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -1110,4 +1113,39 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JList<String> listReceber;
     private javax.swing.JList<String> listVenda;
     // End of variables declaration//GEN-END:variables
+
+    public void ConsultaCaixa() throws SQLException{
+        
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	Date dataDoSistema = new Date();		
+	String dataEmTexto = formatador.format(dataDoSistema);
+        //Registro Compra
+        
+        String sql1 = "SELECT * FROM `caixa` WHERE STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y')AND STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(data, '%d/%m/%Y') ASC";
+      
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql1);
+        ResultSet rs = stmt.executeQuery();
+        
+        boolean existe = false;
+             
+        while(rs.next()){            
+            String tipo = rs.getString("tipo");
+            
+            if(tipo.equals("Abertura")){
+                existe = true;
+            }
+                             
+        }
+        
+        if(existe == false){
+            AberturaCaixa abertura = new AberturaCaixa();
+            abertura.setVisible(true);
+        }
+        if(existe == true){
+            PDVCaixa pdv = new PDVCaixa();
+            pdv.setVisible(true);
+        }
+    }
 }

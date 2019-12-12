@@ -11,6 +11,7 @@ import iamSoftware.Classes.ContasPagarData;
 import iamSoftware.Classes.FornecedorData;
 import iamSoftware.Classes.NotaFiscalData;
 import iamSoftware.Classes.ProdutosData;
+import static iamSoftware.Interfaces.ContasReceber.tblFornecedores;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +35,7 @@ public class MapaCaixa extends javax.swing.JFrame {
     public static DefaultTableModel tblstatic;
     public static String data;
     String status = "Todos";
+    Double dinheiro, recebimentos, subtotal1, subtotal2;
     /**
      * Creates new form Clientes
      */
@@ -46,7 +48,9 @@ public class MapaCaixa extends javax.swing.JFrame {
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
 	Date dataDoSistema = new Date();		
 	String dataEmTexto = formatador.format(dataDoSistema);
-        try {
+        try {            
+            Vendas(dataEmTexto);
+            CaixaInicial(dataEmTexto);
             PreencherTabela(dataEmTexto, dataEmTexto);
         } catch (SQLException ex) {
             Logger.getLogger(MapaCaixa.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,9 +73,36 @@ public class MapaCaixa extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         fieldPeriodoInicial = new javax.swing.JFormattedTextField();
-        fieldPeriodoFinal = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblCaixaInicial = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblDinheiro = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblSangria = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lblRecebimentos = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lblSuprimento = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblSubtotal = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblVendaVista = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblVendaCredito = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        lblVendaDebito = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        lblPrazo = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        lblVendaCheque = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        lblSubtotal2 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        lblFaturamento = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,14 +112,14 @@ public class MapaCaixa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cód", "Data", "Valor"
+                "Cód", "Data", "Valor", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,22 +196,95 @@ public class MapaCaixa extends javax.swing.JFrame {
             }
         });
 
-        try {
-            fieldPeriodoFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        fieldPeriodoFinal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldPeriodoFinalActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Período:");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("a");
+        lblCaixaInicial.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblCaixaInicial.setText("R$00,00");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("Resumo das Vendas Diárias:");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel7.setText("Subtotal:");
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel10.setText("Caixa Inicial:");
+
+        lblDinheiro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDinheiro.setText("R$00,00");
+
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel12.setText("Dinheiro:");
+
+        lblSangria.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblSangria.setText("R$00,00");
+
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel14.setText("Sangria:");
+
+        lblRecebimentos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblRecebimentos.setText("R$00,00");
+
+        jLabel16.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel16.setText("Recebimentos:");
+
+        lblSuprimento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblSuprimento.setText("R$00,00");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel8.setText("Suprimentos:");
+
+        lblSubtotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblSubtotal.setText("R$00,00");
+
+        jLabel20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel20.setText("Histórico Sangria e Suprimentos");
+
+        lblVendaVista.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblVendaVista.setText("R$00,00");
+
+        jLabel22.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel22.setText("Subtotal:");
+
+        jLabel23.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel23.setText("Venda à Vista:");
+
+        lblVendaCredito.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblVendaCredito.setText("R$00,00");
+
+        jLabel25.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel25.setText("Cartão de Crédito:");
+
+        lblVendaDebito.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblVendaDebito.setText("R$00,00");
+
+        jLabel27.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel27.setText("Cartão de Débito:");
+
+        lblPrazo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblPrazo.setText("R$00,00");
+
+        jLabel29.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel29.setText("Á Prazo:");
+
+        lblVendaCheque.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblVendaCheque.setText("R$00,00");
+
+        jLabel31.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel31.setText("Cheque:");
+
+        lblSubtotal2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblSubtotal2.setText("R$00,00");
+
+        jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel33.setText("Vendas Realizadas:");
+
+        jLabel34.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel34.setText("Faturamento:");
+
+        lblFaturamento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblFaturamento.setText("R$00,00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,20 +293,69 @@ public class MapaCaixa extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel16)
+                                        .addComponent(jLabel7))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblSangria)
+                                        .addComponent(lblDinheiro)
+                                        .addComponent(lblSuprimento)
+                                        .addComponent(lblRecebimentos)
+                                        .addComponent(lblSubtotal)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(16, 16, 16)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel33)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(lblCaixaInicial)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jLabel23)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblVendaVista))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel22)
+                                            .addComponent(jLabel25)
+                                            .addComponent(jLabel29)
+                                            .addComponent(jLabel31)
+                                            .addComponent(jLabel27)
+                                            .addComponent(jLabel34))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblFaturamento)
+                                            .addComponent(lblVendaCredito)
+                                            .addComponent(lblVendaDebito)
+                                            .addComponent(lblPrazo)
+                                            .addComponent(lblVendaCheque)
+                                            .addComponent(lblSubtotal2))))
+                                .addComponent(jLabel6)))
+                        .addGap(75, 75, 75)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jButton7)
+                        .addGap(123, 123, 123)
+                        .addComponent(jLabel20)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,16 +363,74 @@ public class MapaCaixa extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
                     .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                    .addComponent(jButton7)
+                    .addComponent(jLabel20))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(lblCaixaInicial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblDinheiro)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSangria)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSuprimento)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(lblRecebimentos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSubtotal)
+                            .addComponent(jLabel7))
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(lblVendaVista))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblVendaCredito)
+                            .addComponent(jLabel25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblVendaDebito)
+                            .addComponent(jLabel27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblVendaCheque)
+                            .addComponent(jLabel31))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(lblPrazo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSubtotal2)
+                            .addComponent(jLabel22))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblFaturamento)
+                            .addComponent(jLabel34)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,11 +439,14 @@ public class MapaCaixa extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
        
         String periodoInicial = fieldPeriodoInicial.getText();
-        String periodoFinal = fieldPeriodoFinal.getText();
+        String periodoFinal = periodoInicial;
         
         
         try {
+            Vendas(periodoInicial);
+            CaixaInicial(periodoInicial);
             PreencherTabela(periodoInicial, periodoFinal);
+            
         } catch (SQLException ex) {
             Logger.getLogger(MapaCaixa.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -243,10 +457,6 @@ public class MapaCaixa extends javax.swing.JFrame {
     private void fieldPeriodoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoInicialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPeriodoInicialActionPerformed
-
-    private void fieldPeriodoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoFinalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPeriodoFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,10 +575,11 @@ public class MapaCaixa extends javax.swing.JFrame {
        
              
         while(rs.next()){
-            Object[] dados = new Object[3];
+            Object[] dados = new Object[4];
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("data");
             double valor = rs.getDouble("valor");
+            dados[3] = rs.getString("tipo");
             
             dados[2] = df.format(valor);
             
@@ -381,15 +592,179 @@ public class MapaCaixa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField fieldPeriodoFinal;
     private javax.swing.JFormattedTextField fieldPeriodoInicial;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblFornecedores;
+    private javax.swing.JLabel lblCaixaInicial;
+    private javax.swing.JLabel lblDinheiro;
+    private javax.swing.JLabel lblFaturamento;
+    private javax.swing.JLabel lblPrazo;
+    private javax.swing.JLabel lblRecebimentos;
+    private javax.swing.JLabel lblSangria;
+    private javax.swing.JLabel lblSubtotal;
+    private javax.swing.JLabel lblSubtotal2;
+    private javax.swing.JLabel lblSuprimento;
+    private javax.swing.JLabel lblVendaCheque;
+    private javax.swing.JLabel lblVendaCredito;
+    private javax.swing.JLabel lblVendaDebito;
+    private javax.swing.JLabel lblVendaVista;
+    private javax.swing.JTable tblFornecedores;
     // End of variables declaration//GEN-END:variables
+
+    public void CaixaInicial(String dataEmTexto) throws SQLException{
+        
+        //SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	//Date dataDoSistema = new Date();		
+	//String dataEmTexto = formatador.format(dataDoSistema);
+        //Registro Compra
+        
+        String sql1 = "SELECT * FROM `caixa` WHERE STR_TO_DATE(data, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y')AND STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y') ORDER BY STR_TO_DATE(data, '%d/%m/%Y') ASC";
+        
+        double abertura = 0.0;
+        double sangria = 0.0;
+        double suprimento = 0.0;
+        double faturamento = 0.0;
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql1);
+        ResultSet rs = stmt.executeQuery();
+        
+        boolean existe = false;
+             
+        while(rs.next()){            
+            int id = rs.getInt("id");
+            String data = rs.getString("data");
+            double valor = rs.getDouble("valor");
+            String tipo = rs.getString("tipo");
+            
+            if(tipo.equals("Abertura")){
+                abertura = valor;
+            }
+            if(tipo.contains("Sangria")){
+                sangria = sangria + valor;
+            }
+            if(tipo.equals("Suprimento")){
+                suprimento = suprimento + valor;
+            }                 
+        }
+        
+        
+        
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        String stringAbertura = df.format(abertura);
+        String stringSangria = df.format(sangria);
+        String stringSuprimento = df.format(suprimento);
+        
+        
+        double subtotal = abertura+suprimento+dinheiro+recebimentos-sangria;
+        String stringSubtotal = df.format(subtotal);
+        
+        lblCaixaInicial.setText(stringAbertura);
+        lblSangria.setText(stringSangria);
+        lblSuprimento.setText(stringSuprimento);
+        lblSubtotal.setText(stringSubtotal);
+        
+        this.subtotal1 = subtotal;
+        
+        faturamento = this.subtotal1+this.subtotal2;
+        String stringFaturamento = df.format(faturamento);
+        lblFaturamento.setText(stringFaturamento);
+        
+    }
+    
+    public void Vendas(String dataEmTexto) throws SQLException{
+        DefaultTableModel tabela = (DefaultTableModel) tblFornecedores.getModel();
+        
+        //SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+	//Date dataDoSistema = new Date();		
+	//String dataEmTexto = formatador.format(dataDoSistema);
+        
+        String sql = "SELECT * FROM `contasreceber` WHERE STR_TO_DATE(datapagamento, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y') AND STR_TO_DATE('"+dataEmTexto+"', '%d/%m/%Y') AND status='Liquidado' ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
+        tabela.setRowCount(0);      
+        
+        double dinheiro = 0.0;
+        double prazo = 0.0;
+        double credito = 0.0;
+        double debito = 0.0;
+        double cheque = 0.0;
+        double subtotal = 0.0;
+        
+        
+        Connection conn = ConexaoBD.Conectar();           
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+                
+        DecimalFormat df = new DecimalFormat("#,###.00"); 
+        while(rs.next()){
+            
+            int id = rs.getInt("id");
+            String forma = rs.getString("formapagamento");            
+            String dataPagamento = rs.getString("datapagamento");
+            Double valor = Double.parseDouble(rs.getString("valor"));            
+            String status = rs.getString("status");         
+            
+            if(forma.equals("Dinheiro")){
+                dinheiro = dinheiro+valor;
+            }
+            if(forma.equals("À Prazo")){
+                prazo = prazo+valor;
+            }
+            if(forma.contains("Crédito")){
+                credito = credito+valor;
+            }
+            if(forma.contains("Débito")){
+                debito = debito+valor;
+            }
+            if(forma.equals("Cheque")){
+                cheque = cheque+valor;
+            }
+        }
+        
+        subtotal = dinheiro+credito+debito+cheque+prazo;
+        
+        String stringDinheiro = df.format(dinheiro);
+        String stringPrazo = df.format(prazo);
+        String stringCredito = df.format(credito);
+        String stringDebito = df.format(debito);
+        String stringCheque = df.format(cheque);
+        String stringSubtotal = df.format(subtotal);
+        
+        
+        this.dinheiro = dinheiro;
+        this.recebimentos = prazo;
+        
+        lblDinheiro.setText(stringDinheiro);
+        lblRecebimentos.setText(stringPrazo);
+        
+        lblVendaVista.setText(stringDinheiro);
+        lblVendaCredito.setText(stringCredito);
+        lblVendaDebito.setText(stringDebito);
+        lblVendaCheque.setText(stringCheque);
+        lblPrazo.setText(stringPrazo);
+        lblSubtotal2.setText(stringSubtotal);
+        
+        this.subtotal2 = subtotal;
+        
+        
+    }
 }

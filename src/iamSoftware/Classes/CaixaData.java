@@ -19,7 +19,8 @@ import java.sql.Statement;
 public class CaixaData {
     
     String data;
-    Double valor; 
+    Double valor;
+    String tipo;
 
     public String getData() {
         return data;
@@ -36,6 +37,15 @@ public class CaixaData {
     public void setValor(Double valor) {
         this.valor = valor;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
     
     public void Cadastrar() throws SQLException{
         Connection conn = ConexaoBD.Conectar();    
@@ -43,9 +53,10 @@ public class CaixaData {
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("INSERT INTO caixa (data, valor)VALUES(?,?)");
+        stmt = conn.prepareStatement("INSERT INTO caixa (data, valor, tipo)VALUES(?,?,?)");
         stmt.setString(1,getData());
-        stmt.setDouble(2,getValor());        
+        stmt.setDouble(2,getValor());
+        stmt.setString(3,getTipo());
                 
         stmt.executeUpdate();
         stmt.close();

@@ -189,6 +189,7 @@ public class Suprimento extends javax.swing.JFrame {
         //Registro Compra
         caixa.setValor(valorCompra);
         caixa.setData(dataEmTexto);
+        caixa.setTipo("Suprimento");
         try {
             caixa.Cadastrar();
         } catch (SQLException ex) {
