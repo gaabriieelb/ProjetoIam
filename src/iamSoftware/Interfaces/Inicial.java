@@ -15,6 +15,10 @@ import iamSoftware.Classes.teste;
 import static iamSoftware.Interfaces.ContasPagar.conveter;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -68,7 +72,7 @@ public class Inicial extends javax.swing.JFrame {
             btnGrafico.setEnabled(false);
         }
          
-         
+        preencheEmpresa();
          
          
         //System.out.println(jButton1.getSize());
@@ -288,9 +292,9 @@ public class Inicial extends javax.swing.JFrame {
         btnAgenda = new javax.swing.JButton();
         btnGrafico = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblCNPJ = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -569,20 +573,20 @@ public class Inicial extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(60, 65, 103));
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Empresa Teste");
+        lblNome.setBackground(new java.awt.Color(255, 255, 255));
+        lblNome.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(255, 255, 255));
+        lblNome.setText("Empresa Teste");
 
         lblData.setBackground(new java.awt.Color(255, 255, 255));
         lblData.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
         lblData.setText("12/08/2019 17:45");
 
-        jLabel13.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel13.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("01.856.98925/0001-98");
+        lblCNPJ.setBackground(new java.awt.Color(255, 255, 255));
+        lblCNPJ.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblCNPJ.setForeground(new java.awt.Color(255, 255, 255));
+        lblCNPJ.setText("01.856.98925/0001-98");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -590,9 +594,9 @@ public class Inicial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(jLabel6)
+                .addComponent(lblNome)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13)
+                .addComponent(lblCNPJ)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblData)
                 .addContainerGap())
@@ -602,8 +606,8 @@ public class Inicial extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel13)
+                    .addComponent(lblNome)
+                    .addComponent(lblCNPJ)
                     .addComponent(lblData))
                 .addContainerGap())
         );
@@ -1083,12 +1087,10 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1107,7 +1109,9 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JList<String> listCompromisso;
     private javax.swing.JList<String> listPagar;
     private javax.swing.JList<String> listReceber;
@@ -1148,4 +1152,53 @@ public class Inicial extends javax.swing.JFrame {
             pdv.setVisible(true);
         }
     }
+    
+    
+    public void preencheEmpresa(){
+        String Empresa = "";
+        String CNPJ = "";
+        
+        String path = System.getProperty("user.dir")+"/";
+         int cont = 0;
+         
+        BufferedReader buffRead = null;
+        try {
+            
+            buffRead = new BufferedReader(new FileReader(path+"dados.txt"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String linha = "";
+        while (true) {
+            if (linha != null) {
+                cont++;
+                
+                
+                
+            } else
+                break;
+            try {
+                linha = buffRead.readLine();
+                if(cont == 3){
+                   Empresa = linha; 
+                }
+                if(cont == 4){
+                   CNPJ = linha; 
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            buffRead.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        lblNome.setText(Empresa);
+        lblCNPJ.setText(CNPJ);
+    
+    }
+    
 }

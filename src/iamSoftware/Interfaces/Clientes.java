@@ -62,6 +62,14 @@ public class Clientes extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         buttonCadastrar1 = new javax.swing.JButton();
         buttonCadastrar2 = new javax.swing.JButton();
+        radioFim = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        fieldNome = new javax.swing.JTextField();
+        jButton8 = new javax.swing.JButton();
+        radioIgual = new javax.swing.JRadioButton();
+        radioContem = new javax.swing.JRadioButton();
+        radioInicio = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -188,6 +196,63 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        radioFim.setBackground(new java.awt.Color(255, 255, 255));
+        radioFim.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        radioFim.setText("Fim");
+        radioFim.setFocusPainted(false);
+        radioFim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioFimActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setText("Forma de Busca:");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel1.setText("Cliente:");
+
+        fieldNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/find.png"))); // NOI18N
+        jButton8.setFocusPainted(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        radioIgual.setBackground(new java.awt.Color(255, 255, 255));
+        radioIgual.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        radioIgual.setText("Igual");
+        radioIgual.setFocusPainted(false);
+        radioIgual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioIgualActionPerformed(evt);
+            }
+        });
+
+        radioContem.setBackground(new java.awt.Color(255, 255, 255));
+        radioContem.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        radioContem.setText("Contêm");
+        radioContem.setFocusPainted(false);
+        radioContem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioContemActionPerformed(evt);
+            }
+        });
+
+        radioInicio.setBackground(new java.awt.Color(255, 255, 255));
+        radioInicio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        radioInicio.setText("Início");
+        radioInicio.setFocusPainted(false);
+        radioInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioInicioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,7 +262,24 @@ public class Clientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(radioContem)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioIgual)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioInicio)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioFim)))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,10 +297,9 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(buttonCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,7 +308,22 @@ public class Clientes extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioIgual)
+                            .addComponent(radioContem)
+                            .addComponent(radioInicio)
+                            .addComponent(radioFim)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel1)
+                            .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );
 
@@ -285,6 +381,57 @@ public class Clientes extends javax.swing.JFrame {
         EmpresasConveniadas empresasConveniadas = new EmpresasConveniadas();
         empresasConveniadas.setVisible(true);
     }//GEN-LAST:event_buttonCadastrar2ActionPerformed
+
+    private void radioFimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFimActionPerformed
+        radioContem.setSelected(false);
+        radioIgual.setSelected(false);
+        radioInicio.setSelected(false);
+    }//GEN-LAST:event_radioFimActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        String sql ="";
+        String nome = "";
+
+        nome = fieldNome.getText();
+
+        if(radioIgual.isSelected()){
+            sql = "SELECT * FROM clientes WHERE nome LIKE '"+nome+"'";
+        }
+        if(radioContem.isSelected()){
+            sql = "SELECT * FROM clientes WHERE nome LIKE '%"+nome+"%'";
+        }
+        if(radioInicio.isSelected()){
+            sql = "SELECT * FROM clientes WHERE nome LIKE '"+nome+"%'";
+        }
+        if(radioFim.isSelected()){
+            sql = "SELECT * FROM clientes WHERE nome LIKE '%"+nome+"'";
+        }
+
+        try {
+            PreencherTabela(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void radioIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIgualActionPerformed
+        radioContem.setSelected(false);
+        radioFim.setSelected(false);
+        radioInicio.setSelected(false);
+    }//GEN-LAST:event_radioIgualActionPerformed
+
+    private void radioContemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioContemActionPerformed
+        radioIgual.setSelected(false);
+        radioFim.setSelected(false);
+        radioInicio.setSelected(false);
+    }//GEN-LAST:event_radioContemActionPerformed
+
+    private void radioInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioInicioActionPerformed
+        radioContem.setSelected(false);
+        radioFim.setSelected(false);
+        radioIgual.setSelected(false);
+    }//GEN-LAST:event_radioInicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,12 +522,41 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonCadastrar1;
     private javax.swing.JButton buttonCadastrar2;
+    public javax.swing.JTextField fieldNome;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton radioContem;
+    private javax.swing.JRadioButton radioFim;
+    private javax.swing.JRadioButton radioIgual;
+    private javax.swing.JRadioButton radioInicio;
     public static javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
+ public void PreencherTabela(String sql) throws SQLException {
+        DefaultTableModel tabela = (DefaultTableModel) tblClientes.getModel();
+
+        tabela.setRowCount(0);
+        
+        Connection conn = ConexaoBD.Conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Object[] dados = new Object[3];
+            dados[0] = rs.getInt("id");            
+            dados[1] = rs.getString("nome"); 
+            dados[2] = rs.getString("cpfcnpj");
+            
+            
+            tabela.addRow(dados);
+        }
+
+    }
+
 }

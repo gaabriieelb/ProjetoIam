@@ -1,0 +1,4 @@
+localhost
+root
+EMPRESA SHOW
+00.000.00000/0000-00
