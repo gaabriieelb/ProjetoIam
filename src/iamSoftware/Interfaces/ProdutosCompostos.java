@@ -644,9 +644,7 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
             Object[] dados = new Object[5];
             dados[0] = id;            
             dados[1] = nome;            
-            dados[2] = rs.getDouble("valorVenda");           
-            
-            dados[2] = df.format(dados[2]);            
+                      
             dados[3] = String.valueOf(quantidade).replace(".", ",");
             
                 String sql2= "SELECT valorcompra FROM notas WHERE nomeproduto='"+nome+"'";
@@ -654,14 +652,18 @@ public void inserirItem(int id, String nome, double quantidade) throws SQLExcept
                 ResultSet rs2 = stmt2.executeQuery();
                 
                 while(rs2.next()){
+                    
+                    dados[2] = rs2.getDouble("valorcompra");    
+                    dados[2] = df.format(dados[2]);  
+                    
                     valorcompra = rs2.getDouble("valorcompra");                
                 }
-                System.out.println("VALOR COMPRA: "+valorcompra);
+                //System.out.println("VALOR COMPRA: "+valorcompra);
             
             
             subtotal = quantidade * valorcompra;
             dados[4] =  df.format(subtotal);
-            System.out.println("SUBTOTAL: "+subtotal);
+            //System.out.println("SUBTOTAL: "+subtotal);
             //dados[4] = df.format(dados[4]);
             
             tabela.addRow(dados);

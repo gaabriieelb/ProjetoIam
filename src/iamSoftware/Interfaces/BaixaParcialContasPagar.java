@@ -257,7 +257,7 @@ public class BaixaParcialContasPagar extends javax.swing.JFrame {
         
         DecimalFormat df = new DecimalFormat("#,###.00");
         
-        String sql = "SELECT * FROM `contaspagar` ORDER BY `vencimento` ASC";
+        String sql = "SELECT * FROM `contaspagar` WHERE id="+id;
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
