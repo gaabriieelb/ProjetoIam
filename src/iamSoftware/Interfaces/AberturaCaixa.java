@@ -73,6 +73,11 @@ public class AberturaCaixa extends javax.swing.JFrame {
         );
 
         fieldValor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fieldValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldValorActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Valor:");
@@ -124,6 +129,10 @@ public class AberturaCaixa extends javax.swing.JFrame {
        RegistrarCaixa();       
        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void fieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldValorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +186,7 @@ public class AberturaCaixa extends javax.swing.JFrame {
 
     public void RegistrarCaixa(){
         CaixaData caixa = new CaixaData();
-        Double valorCompra = Double.parseDouble(fieldValor.getText());
+        Double valorCompra = Double.parseDouble(fieldValor.getText().replace(",", "."));
         
         //valorCompra = valorCompra*-1;
         

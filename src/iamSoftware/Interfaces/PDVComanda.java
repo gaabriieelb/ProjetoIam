@@ -652,7 +652,7 @@ public class PDVComanda extends javax.swing.JFrame {
             cliente = "Cliente não cadastrado";
         }
         
-        Double valorpago = Double.parseDouble(fieldValorPago1.getText());
+        Double valorpago = Double.parseDouble(fieldValorPago1.getText().replace(",", "."));
         Double valorCompra = Double.parseDouble(labelTotal.getText());
         
         DecimalFormat df = new DecimalFormat("#,###.00");
@@ -662,13 +662,13 @@ public class PDVComanda extends javax.swing.JFrame {
             Mensagem msg = new Mensagem("Troco: R$"+df.format(troco));
             msg.setVisible(true);
             buttonFinalizar.setEnabled(true);
-            labelValorPago1.setText(""+valorCompra);
+            labelValorPago1.setText(""+df.format(valorCompra));
         }
         if(Objects.equals(valorpago, valorCompra)){
             Mensagem msg = new Mensagem("Compra Realizada com sucesso!");
             msg.setVisible(true);
             buttonFinalizar.setEnabled(true);
-            labelValorPago1.setText(""+valorCompra);
+            labelValorPago1.setText(""+df.format(valorCompra));
         }
         if(valorpago < valorCompra){                
             Mensagem msg = new Mensagem("Selecione uma nova forma de pagamento!");
@@ -680,7 +680,7 @@ public class PDVComanda extends javax.swing.JFrame {
             lbl03.setVisible(true);
             fieldValorPago2.setVisible(true);
             buttonConfirmar2.setVisible(true);
-            labelValorPago1.setText(""+valorpago);
+            labelValorPago1.setText(""+df.format(valorpago));
         } 
         
         RegistrarVenda();
@@ -701,8 +701,8 @@ public class PDVComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonConfirmar1ActionPerformed
 
     private void buttonConfirmar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar2ActionPerformed
-        Double valorpago = Double.parseDouble(fieldValorPago2.getText());
-        Double valorCompra = Double.parseDouble(labelTotal.getText()) - Double.parseDouble(labelValorPago1.getText());
+        Double valorpago = Double.parseDouble(fieldValorPago2.getText().replace(",", "."));
+        Double valorCompra = Double.parseDouble(labelTotal.getText()) - Double.parseDouble(labelValorPago1.getText().replace(",","."));
         DecimalFormat df = new DecimalFormat("#,###.00");
         
         if(valorpago >= valorCompra){
@@ -711,13 +711,13 @@ public class PDVComanda extends javax.swing.JFrame {
                 Mensagem msg = new Mensagem("Troco: R$"+df.format(troco));
                 msg.setVisible(true);
                 buttonFinalizar.setEnabled(true);
-                labelValorPago1.setText(""+valorCompra);
+                labelValorPago1.setText(""+df.format(valorCompra));
             }
             if(Objects.equals(valorpago, valorCompra)){
                 Mensagem msg = new Mensagem("Compra Realizada com sucesso!");
                 msg.setVisible(true);
                 buttonFinalizar.setEnabled(true);
-                labelValorPago1.setText(""+valorCompra);
+                labelValorPago1.setText(""+df.format(valorCompra));
             }          
 
             //RegistrarVenda();
@@ -1023,7 +1023,7 @@ public class PDVComanda extends javax.swing.JFrame {
         for(int i =0; i < numRow; i++){
             codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
             nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
-            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
+            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)).replace(",","."));
             
             compra.setIdCompra(idcompra);
             compra.setCodigoProduto(codigoProduto);
@@ -1052,10 +1052,10 @@ public class PDVComanda extends javax.swing.JFrame {
         
         Double valorCompra = 0.0;
         if(pagamento==1){            
-            valorCompra = Double.parseDouble(labelValorPago1.getText());
+            valorCompra = Double.parseDouble(labelValorPago1.getText().replace(",","."));
         }
         if(pagamento==2){
-            Double v1 = Double.parseDouble(labelValorPago1.getText());
+            Double v1 = Double.parseDouble(labelValorPago1.getText().replace(",","."));
             Double v2 = Double.parseDouble(labelTotal.getText());
             valorCompra = v2-v1;
         }
@@ -1213,6 +1213,7 @@ public class PDVComanda extends javax.swing.JFrame {
         //Registro Compra
         caixa.setValor(valorCompra);
         caixa.setData(dataEmTexto);
+        caixa.setTipo("");
         try {
             caixa.Cadastrar();
         } catch (SQLException ex) {
