@@ -444,7 +444,7 @@ public class AgendaView extends javax.swing.JFrame {
 
             tabela.addRow(dados);
         }
-
+    conn.close();    
     }
     
     public static void atualizar() throws SQLException{
@@ -457,7 +457,7 @@ public class AgendaView extends javax.swing.JFrame {
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
-
+        
        
 
         while (rs.next()) {

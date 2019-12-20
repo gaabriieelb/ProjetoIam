@@ -518,7 +518,7 @@ public class ContasReceber extends javax.swing.JFrame {
         
         tabela.setRowCount(0);
         
-        String sql = "SELECT * FROM `contasreceber`";
+        String sql = "SELECT * FROM `contasreceber` ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -602,7 +602,7 @@ public class ContasReceber extends javax.swing.JFrame {
         tblstatic.setRowCount(0);
         
         
-        String sql = "SELECT * FROM `contasreceber`";
+        String sql = "SELECT * FROM `contasreceber` ORDER BY STR_TO_DATE(datapagamento, '%d/%m/%Y') ASC";
         
         Connection conn = ConexaoBD.Conectar();           
         PreparedStatement stmt = conn.prepareStatement(sql);

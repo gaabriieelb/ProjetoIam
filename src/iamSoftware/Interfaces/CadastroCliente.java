@@ -287,6 +287,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
         jButton6.setText("Cancelar Cadastro");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -487,7 +492,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     String celular = fieldCelular.getText();    
     String prazo = fieldPrazo.getText();
     String limiteCred = fieldLimiteCred.getText();
-    
+    limiteCred = limiteCred.replace(",", ".");
     //convenio
     String empresa = fieldEmpresa.getText();
     String cnpj = fieldCNPJ.getText();
@@ -514,22 +519,36 @@ public class CadastroCliente extends javax.swing.JFrame {
     cliente.setDataAdmissao(dataAdmissao);
     cliente.setAutorizacao(autorizacao);
     
-    try {
-            cliente.Cadastrar();
-            Clientes.Atualizar();
-            Mensagem msg = new Mensagem("Cliente cadastrado com sucesso!");
-            msg.setVisible(true);            
-            this.dispose();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
+    if(nome.equals("") || cpf_cnpj.equals("") || rua.equals("") || bairro.equals("") || numero.equals("") || cidade.equals("") || cep.equals("")
+       || email.equals("") || telefone.equals("") || celular.equals("") || prazo.equals("") || limiteCred.equals("") ){
+        
+        Mensagem msg = new Mensagem("Todos os campos obrigatórios devem ser preenchidos!");
+        msg.setVisible(true);  
+    
+    }else{
+       
+        try {
+                cliente.Cadastrar();
+                Clientes.Atualizar();
+                Mensagem msg = new Mensagem("Cliente cadastrado com sucesso!");
+                msg.setVisible(true);            
+                this.dispose();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }    
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         PesquisaEmpresaConveniada pesquisaempresa = new PesquisaEmpresaConveniada("cadastrarcliente");
         pesquisaempresa.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

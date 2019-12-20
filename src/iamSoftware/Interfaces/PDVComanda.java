@@ -625,7 +625,7 @@ public class PDVComanda extends javax.swing.JFrame {
 
     private void comboFormaPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamento2ActionPerformed
         if(comboFormaPagamento2.getSelectedItem().equals("À Prazo")){
-            if(cliente.equals("Cliente Não Cadastrado")){
+            if(cliente.equals("Consumidor")){
                 comboFormaPagamento2.setSelectedItem("Dinheiro");
                
                 PesquisaCliente pesquisaCliente = new PesquisaCliente("PDVComanda");
@@ -649,7 +649,7 @@ public class PDVComanda extends javax.swing.JFrame {
     private void buttonConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmar1ActionPerformed
         
         if(cliente==null || cliente.equals("")){
-            cliente = "Cliente não cadastrado";
+            cliente = "Consumidor";
         }
         
         Double valorpago = Double.parseDouble(fieldValorPago1.getText().replace(",", "."));

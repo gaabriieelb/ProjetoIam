@@ -44,7 +44,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         radioContem.setSelected(true);
-        radioID.setSelected(true);
+        radioNome.setSelected(true);
     }
     
     public PesquisarProduto(String tela) {
@@ -52,7 +52,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         this.setLocationRelativeTo(null);
         radioContem.setSelected(true);
-        radioID.setSelected(true);
+        radioNome.setSelected(true);
         
         
     }
@@ -96,7 +96,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Produto", "Cód.", "Valor Unit.", "Medida"
+                "Cód.", "Produto", "Cód. de Barra", "Valor de Venda", "Uni. Medida"
             }
         ) {
             Class[] types = new Class [] {

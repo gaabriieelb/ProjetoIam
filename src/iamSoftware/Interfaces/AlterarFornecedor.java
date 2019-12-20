@@ -5,7 +5,7 @@
  */
 package iamSoftware.Interfaces;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
+//import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import iamSoftware.Classes.ClientesData;
 import iamSoftware.Classes.ConexaoBD;
 import iamSoftware.Classes.FornecedorData;

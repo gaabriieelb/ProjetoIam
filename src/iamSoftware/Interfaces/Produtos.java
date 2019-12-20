@@ -123,7 +123,7 @@ public class Produtos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cód.", "Nome", "Código", "Valor de Venda", "Unidade de Medida"
+                "Cód.", "Produto", "Cód. de Barra", "Valor de Venda", "Unidade de Medida"
             }
         ) {
             Class[] types = new Class [] {

@@ -109,7 +109,7 @@ public class ProdutosCompostos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Valor de Compra", "Quantidade", "Subtotal"
+                "Cód.", "Produto", "Valor de Compra", "Quantidade", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {

@@ -136,6 +136,8 @@ public class Login extends javax.swing.JFrame {
             }
             
         } catch (SQLException ex) {
+            Mensagem msg = new Mensagem(""+ex);
+            msg.setVisible(true);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -208,6 +210,8 @@ public class Login extends javax.swing.JFrame {
             id = rs.getInt("id");
             
         }
+        stmt.close();        
+        conn.close();
         return id;
     }
     
@@ -225,6 +229,8 @@ public class Login extends javax.swing.JFrame {
             nivel = rs.getString("nivelAcesso");
             
         }
+        stmt.close();        
+        conn.close();
         return nivel;
     }
 

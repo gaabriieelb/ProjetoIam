@@ -490,7 +490,8 @@ public class Clientes extends javax.swing.JFrame {
             
             tabela.addRow(dados);
         }
-        
+        stmt.close();
+        conn.close();    
     }
     
     public static void Atualizar() throws SQLException{
@@ -515,6 +516,8 @@ public class Clientes extends javax.swing.JFrame {
             
             tblstatic.addRow(dados);
         }
+        stmt.close();
+        conn.close();
         
     }
 
@@ -556,7 +559,9 @@ public class Clientes extends javax.swing.JFrame {
             
             tabela.addRow(dados);
         }
+        stmt.close();
+        conn.close();
 
     }
-
+        
 }

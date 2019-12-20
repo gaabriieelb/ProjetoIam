@@ -62,7 +62,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         fieldNumNota = new javax.swing.JTextField();
-        fieldDataEmissao = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         fieldNomeFornecedor = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -93,6 +92,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         tblProdutos = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        fieldDataEmissao = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,13 +100,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
         jLabel1.setText("N° da Nota Fiscal:");
 
         fieldNumNota.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        fieldDataEmissao.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        fieldDataEmissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldDataEmissaoActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Data de Emissão:");
@@ -319,6 +312,12 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
             }
         });
 
+        try {
+            fieldDataEmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -333,8 +332,9 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(fieldDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fieldDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(91, 91, 91))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -453,10 +453,6 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fieldDataEmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDataEmissaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldDataEmissaoActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
     DefaultTableModel tabela = (DefaultTableModel) tblProdutos.getModel();
@@ -582,7 +578,7 @@ public class CadastroNotaFiscal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField fieldCNPJ;
-    private javax.swing.JTextField fieldDataEmissao;
+    private javax.swing.JFormattedTextField fieldDataEmissao;
     private javax.swing.JTextField fieldDataRegistro;
     public static javax.swing.JTextField fieldNomeFornecedor;
     private javax.swing.JTextField fieldNumNota;

@@ -74,7 +74,7 @@ public class RelatorioCartao extends javax.swing.JFrame {
         );
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel8.setText("Status:");
+        jLabel8.setText("Tipo:");
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

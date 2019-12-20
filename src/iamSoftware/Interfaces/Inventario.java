@@ -96,7 +96,7 @@ public class Inventario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Qtd. Comprada", "Qtd. Vendida", "Disponível", "Qtd. Contada"
+                "Produto", "Qtd. Comprada", "Qtd. Vendida", "Estoque", "Qtd. Contada"
             }
         ) {
             Class[] types = new Class [] {

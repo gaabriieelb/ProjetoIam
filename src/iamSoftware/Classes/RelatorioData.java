@@ -69,11 +69,11 @@ public class RelatorioData {
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));
             
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Nome"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Fornecedor"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("CNPJ"));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Data Emissão"));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Data Entrada"));
-            PdfPCell cell6 = new PdfPCell(new Paragraph("Numero do Documento"));
+            PdfPCell cell6 = new PdfPCell(new Paragraph("N° NF"));
             PdfPCell cell7 = new PdfPCell(new Paragraph("Valor NF"));
             
             table.addCell(cell1);
@@ -203,7 +203,7 @@ public class RelatorioData {
             
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Fonecedor"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Fornecedor"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("N° Doc."));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Vencimento"));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor"));
@@ -405,7 +405,7 @@ public class RelatorioData {
     public void gerarProdutos() throws SQLException{
         
         //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
-        String sql= "SELECT * FROM `produtos`";
+        String sql= "SELECT * FROM `produtos` WHERE codigo != 'Composto'";
         
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1373,7 +1373,7 @@ public class RelatorioData {
             PdfPTable table = new PdfPTable(4);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Data"));
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Hora"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Horário"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Local"));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Assunto"));
                   
@@ -1589,7 +1589,7 @@ public class RelatorioData {
             PdfPCell cell3 = new PdfPCell(new Paragraph("Data Depósito")); //ok
             PdfPCell cell4 = new PdfPCell(new Paragraph("Valor Depósito")); //ok
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor Comissão")); //ok
-            PdfPCell cell6 = new PdfPCell(new Paragraph("Status")); //ok
+            PdfPCell cell6 = new PdfPCell(new Paragraph("Tipo")); //ok
                        
             
             table.addCell(cell1);

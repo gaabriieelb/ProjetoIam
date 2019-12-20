@@ -383,14 +383,14 @@ public class PesquisaCliente extends javax.swing.JFrame {
         }
         if(tela.equals("PDVComanda")){        
             PDVComanda.idcliente = 0;
-            PDVComanda.cliente = "Cliente Não Cadastrado";
+            PDVComanda.cliente = "Consumidor";
             PDVComanda.comboFormaPagamento.setSelectedItem("Dinheiro");
             PDVComanda.comboFormaPagamento2.setSelectedItem("Dinheiro");
             PDVComanda.habilitar();
         }
         else{        
             PDVCaixa.idcliente = 0;
-            PDVCaixa.cliente = "Cliente Não Cadastrado";
+            PDVCaixa.cliente = "Consumidor";
             PDVCaixa.comboFormaPagamento.setSelectedItem("Dinheiro");
             PDVCaixa.comboFormaPagamento2.setSelectedItem("Dinheiro");
             PDVCaixa.habilitar();

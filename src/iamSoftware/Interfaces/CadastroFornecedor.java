@@ -396,6 +396,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     fornecedor.setCelular(celular);    
     fornecedor.setRamo(ramo);
     
+    if(nome.equals("") || cpf_cnpj.equals("") || rua.equals("") || bairro.equals("") || numero.equals("") || cidade.equals("") 
+            || cep.equals("") || email.equals("") || telefone.equals("") || celular.equals("") || ramo.equals("")){
+        Mensagem msg = new Mensagem("Todos os campos obrigatórios devem ser preenchidos!");
+        msg.setVisible(true);  
+    }else{
+    
     try {
             fornecedor.Cadastrar();
             Fornecedores.Atualizar();
@@ -406,6 +412,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

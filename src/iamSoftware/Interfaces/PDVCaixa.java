@@ -676,7 +676,7 @@ public class PDVCaixa extends javax.swing.JFrame {
 
     private void comboFormaPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamento2ActionPerformed
         if(comboFormaPagamento2.getSelectedItem().equals("À Prazo") || comboFormaPagamento2.getSelectedItem().equals("Cheque")){
-            if(cliente.equals("Cliente não cadastrado") || cliente==null){
+            if(cliente.equals("Consumidor") || cliente==null){
                 //comboFormaPagamento2.setSelectedItem("Dinheiro");
                 
                 PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
@@ -702,7 +702,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         DecimalFormat df = new DecimalFormat("#,###.00");
          
         if(cliente==null || cliente.equals("")){
-            cliente = "Cliente não cadastrado";
+            cliente = "Consumidor";
         }
         
         Double valorpago = Double.parseDouble(fieldValorPago1.getText().replace(",", "."));
