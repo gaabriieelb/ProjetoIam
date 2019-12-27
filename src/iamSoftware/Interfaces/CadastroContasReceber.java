@@ -71,8 +71,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         fieldVencimento = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
-        comboStatus = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         comboStatus1 = new javax.swing.JComboBox<>();
@@ -196,12 +194,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel6.setText("Status:");
-
-        comboStatus.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Em Aberto", "Liquidado" }));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -404,10 +396,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,8 +429,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
                         .addComponent(comboParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(comboStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
@@ -492,7 +478,7 @@ public class CadastroContasReceber extends javax.swing.JFrame {
         cliente = fieldCliente.getText();
         String valor = fieldValor.getText();
         int numParcelas = Integer.parseInt((String) comboParcelas.getSelectedItem());
-        String status = (String) comboStatus.getSelectedItem();
+        String status = "Em Aberto";
         String dataVencimento = fieldVencimento.getText();
         
         String formaPagamento = String.valueOf(comboStatus1.getSelectedItem());        
@@ -722,7 +708,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboParcelas;
-    private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JComboBox<String> comboStatus1;
     public static javax.swing.JTextField fieldCliente;
     public static javax.swing.JTextField fieldID;
@@ -748,7 +733,6 @@ public class CadastroContasReceber extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

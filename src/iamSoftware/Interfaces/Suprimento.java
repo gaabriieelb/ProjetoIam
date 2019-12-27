@@ -179,7 +179,7 @@ public class Suprimento extends javax.swing.JFrame {
 
     public void RegistrarCaixa(){
         CaixaData caixa = new CaixaData();
-        Double valorCompra = Double.parseDouble(fieldValor.getText());
+        Double valorCompra = Double.parseDouble(fieldValor.getText().replace(",","."));
         
         //valorCompra = valorCompra*-1;
         

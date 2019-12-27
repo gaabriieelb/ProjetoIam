@@ -174,14 +174,44 @@ public class Inicial extends javax.swing.JFrame {
         
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();       
-             
+        
+        double somaDinheiro = 0.0;
+        double somaDebito = 0.0;
+        double somaCredito = 0.0;
+        double somaCheque = 0.0;
         while(rs.next()){          
             String formapagamento = rs.getString("formapagamento");
             double v  = Double.parseDouble(rs.getString("valor"));
             String valor = df.format(v);
-            modelPagar.addElement(new AReceber(formapagamento,valor));
+            
+            if(formapagamento.equalsIgnoreCase("À Prazo") || formapagamento.equalsIgnoreCase("Parcelado")){
+                String cliente = rs.getString("cliente");
+                modelPagar.addElement(new AReceber(formapagamento+"("+cliente+")",valor));
+            }else{
+                if(formapagamento.contains("Dinheiro")){
+                    somaDinheiro+=v;
+                }
+                if(formapagamento.contains("Débito")){
+                    somaDebito+=v;
+                }
+                if(formapagamento.contains("Crédito")){
+                    somaCredito+=v;
+                }
+                if(formapagamento.contains("Cheque")){
+                    somaCheque+=v;
+                }
+                
+            }
+            
+            
             areceber+=v;
         }
+        
+        modelPagar.addElement(new AReceber("Crédito: ",df.format(somaCredito)));
+        modelPagar.addElement(new AReceber("Débito: ",df.format(somaDebito)));
+        modelPagar.addElement(new AReceber("Dinheiro: ",df.format(somaDinheiro)));
+        modelPagar.addElement(new AReceber("Cheque: ",df.format(somaCheque)));
+        
         String somareceber = df.format(areceber);
         lblareceber.setText(lblareceber.getText()+": "+somareceber);
         
@@ -210,14 +240,49 @@ public class Inicial extends javax.swing.JFrame {
         
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();       
-             
+        
+        double dinheiro = 0.0;
+        double prazo = 0.0;
+        double cheque = 0.0;
+        double parcelado = 0.0;
+        double credito = 0.0;
+        double debito = 0.0; 
+        
         while(rs.next()){          
             String formapagamento = rs.getString("formapagamento");
             double v = Double.parseDouble(rs.getString("valor"));
             String valor = df.format(v);
-            modelPagar.addElement(new AReceber(formapagamento,valor));
+            //modelPagar.addElement(new AReceber(formapagamento,valor));
+            
+            if(formapagamento.contains("Dinheiro")){
+                dinheiro+=v;
+            }
+            if(formapagamento.contains("À Prazo")){
+                prazo+=v;
+            }
+            if(formapagamento.contains("Cheque")){
+                cheque+=v;
+            }
+            if(formapagamento.contains("Parcelado")){
+                parcelado+=v;
+            }
+            if(formapagamento.contains("Crédito")){
+                credito+=v;
+            }            
+            if(formapagamento.contains("Débito")){
+                debito+=v;
+            }
+                        
             vendadiaria+=v;
         }
+        
+        modelPagar.addElement(new AReceber("Dinheiro: ",df.format(dinheiro)));
+        modelPagar.addElement(new AReceber("À Prazo: ",df.format(prazo)));
+        modelPagar.addElement(new AReceber("Cheque: ",df.format(cheque)));
+        modelPagar.addElement(new AReceber("Parcelado: ",df.format(parcelado)));
+        modelPagar.addElement(new AReceber("Crédito: ",df.format(credito)));
+        modelPagar.addElement(new AReceber("Débito: ",df.format(debito)));
+        
         String venda = df.format(vendadiaria);
         lblvenda.setText(lblvenda.getText()+": "+venda);
         

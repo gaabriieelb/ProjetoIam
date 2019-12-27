@@ -164,7 +164,7 @@ public class BaixaParcialContasPagar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       double valor = Double.parseDouble(fieldValor.getText());
+       double valor = Double.parseDouble(fieldValor.getText().replace(",","."));
        String data = fieldData.getText();
         try {
             BaixaParcial(id, valor, data);

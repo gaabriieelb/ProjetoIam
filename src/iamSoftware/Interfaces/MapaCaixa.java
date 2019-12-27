@@ -101,8 +101,6 @@ public class MapaCaixa extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         lblSubtotal2 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        lblFaturamento = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -244,8 +242,8 @@ public class MapaCaixa extends javax.swing.JFrame {
         lblVendaVista.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblVendaVista.setText("R$00,00");
 
-        jLabel22.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel22.setText("Subtotal:");
+        jLabel22.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel22.setText("Faturamento:");
 
         jLabel23.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel23.setText("Venda à Vista:");
@@ -279,12 +277,6 @@ public class MapaCaixa extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel33.setText("Vendas Realizadas:");
-
-        jLabel34.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel34.setText("Faturamento:");
-
-        lblFaturamento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblFaturamento.setText("R$00,00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -333,11 +325,9 @@ public class MapaCaixa extends javax.swing.JFrame {
                                             .addComponent(jLabel25)
                                             .addComponent(jLabel29)
                                             .addComponent(jLabel31)
-                                            .addComponent(jLabel27)
-                                            .addComponent(jLabel34))
+                                            .addComponent(jLabel27))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblFaturamento)
                                             .addComponent(lblVendaCredito)
                                             .addComponent(lblVendaDebito)
                                             .addComponent(lblPrazo)
@@ -369,7 +359,7 @@ public class MapaCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jButton7)
                     .addComponent(jLabel20))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel33)
@@ -422,14 +412,10 @@ public class MapaCaixa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSubtotal2)
-                            .addComponent(jLabel22))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFaturamento)
-                            .addComponent(jLabel34)))
+                            .addComponent(jLabel22)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -606,7 +592,6 @@ public class MapaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -617,7 +602,6 @@ public class MapaCaixa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCaixaInicial;
     private javax.swing.JLabel lblDinheiro;
-    private javax.swing.JLabel lblFaturamento;
     private javax.swing.JLabel lblPrazo;
     private javax.swing.JLabel lblRecebimentos;
     private javax.swing.JLabel lblSangria;
@@ -628,7 +612,7 @@ public class MapaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblVendaCredito;
     private javax.swing.JLabel lblVendaDebito;
     private javax.swing.JLabel lblVendaVista;
-    private javax.swing.JTable tblFornecedores;
+    public static javax.swing.JTable tblFornecedores;
     // End of variables declaration//GEN-END:variables
 
     public void CaixaInicial(String dataEmTexto) throws SQLException{
@@ -688,7 +672,7 @@ public class MapaCaixa extends javax.swing.JFrame {
         
         faturamento = this.subtotal1+this.subtotal2;
         String stringFaturamento = df.format(faturamento);
-        lblFaturamento.setText(stringFaturamento);
+        
         
     }
     

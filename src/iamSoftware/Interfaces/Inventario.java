@@ -96,7 +96,7 @@ public class Inventario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Qtd. Comprada", "Qtd. Vendida", "Estoque", "Qtd. Contada"
+                "Produto", "Qtd. Comprada", "Qtd. Vendida", "Saldo", "Estoque"
             }
         ) {
             Class[] types = new Class [] {
@@ -510,7 +510,8 @@ public class Inventario extends javax.swing.JFrame {
             stmt = conn.prepareStatement(sql4);
             rs = stmt.executeQuery();
             while (rs.next()) {            
-                qtd =rs.getDouble("quantidadecontada");                
+                qtd =rs.getDouble("quantidadecontada"); 
+               
             }
             contado.add(qtd);
             qtd = 0;
@@ -524,7 +525,13 @@ public class Inventario extends javax.swing.JFrame {
             dados[2] = vendido.get(j);
             double sub = quantidade.get(j) - vendido.get(j);
             dados[3] = sub;
-            dados[4] = contado.get(j);
+            
+            if(contado.get(j) == 0){
+                dados[4] = sub;
+            }else{
+                dados[4] = contado.get(j);
+            }
+             
             
             tabela.addRow(dados);
         }

@@ -288,7 +288,7 @@ public class CadastroCartao extends javax.swing.JFrame {
                             .addComponent(fieldComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +363,7 @@ public class CadastroCartao extends javax.swing.JFrame {
 
         String bandeira = fieldBandeira.getText();
         String prazo = fieldPrazo.getText();         
-        String comissao = fieldComissao.getText();        
+        String comissao = fieldComissao.getText().replace(",",".");        
        
         
         if(bandeira.equals("") || prazo.equals("") || comissao.equals(""))
@@ -450,7 +450,7 @@ public class CadastroCartao extends javax.swing.JFrame {
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("bandeira");
             dados[2] = rs.getString("prazo");            
-            dados[3] = rs.getDouble("taxacomissao");           
+            dados[3] = rs.getString("taxacomissao").replace(".",",");           
             
             tabela.addRow(dados);
         }
@@ -475,7 +475,7 @@ public class CadastroCartao extends javax.swing.JFrame {
             dados[0] = rs.getInt("id");
             dados[1] = rs.getString("bandeira");
             dados[2] = rs.getString("prazo");            
-            dados[3] = rs.getDouble("taxacomissao"); 
+            dados[3] = rs.getString("taxacomissao").replace(".",","); 
 
             tblstatic.addRow(dados);
         }

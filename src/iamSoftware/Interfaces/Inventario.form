@@ -120,8 +120,8 @@
                 <Column editable="false" title="Produto" type="java.lang.String"/>
                 <Column editable="false" title="Qtd. Comprada" type="java.lang.Double"/>
                 <Column editable="false" title="Qtd. Vendida" type="java.lang.Float"/>
-                <Column editable="false" title="Estoque" type="java.lang.Float"/>
-                <Column editable="false" title="Qtd. Contada" type="java.lang.Double"/>
+                <Column editable="false" title="Saldo" type="java.lang.Float"/>
+                <Column editable="false" title="Estoque" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

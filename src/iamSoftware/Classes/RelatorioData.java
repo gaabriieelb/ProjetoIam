@@ -148,7 +148,7 @@ public class RelatorioData {
                 sql= "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' ORDER BY vencimento ASC";
                 System.out.println(sql);
             }
-            if(Status.equals("Em Aberto")){
+            if(Status.equals("Aberto")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND status='Em Aberto' ORDER BY vencimento ASC";
                 System.out.println("entrou 02");
             }
@@ -164,7 +164,7 @@ public class RelatorioData {
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+Fornecedor+"' ORDER BY vencimento ASC";
                 System.out.println("entrou 04");
             }
-            if(Status.equals("Em Aberto")){
+            if(Status.equals("Aberto")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+Fornecedor+"' AND status='Em Aberto' ORDER BY vencimento ASC";
                 System.out.println("entrou 05");
             }
@@ -795,6 +795,7 @@ public class RelatorioData {
             double credito = 0;
             double debito = 0;
             double cheque = 0;
+            double parcelado = 0;
             
             
                 
@@ -833,6 +834,10 @@ public class RelatorioData {
                         System.out.println("5");
                         cheque+=valor;
                     }
+                    if(forma.contains("Parcelado")){
+                        System.out.println("5");
+                        parcelado+=valor;
+                    }
                     
                 }
                 
@@ -857,6 +862,14 @@ public class RelatorioData {
             p.setAlignment(1);
             doc.add(p);    
             
+            p = new Paragraph("Parcelado: "+parcelado);
+            p.setAlignment(1);
+            doc.add(p); 
+            
+            double total = dinheiro + prazo + credito + debito + cheque + parcelado;            
+            p = new Paragraph("Total: "+total);
+            p.setAlignment(1);
+            doc.add(p);
             
             doc.close();           
             Desktop.getDesktop().open(new File(arquivoPDF));
@@ -1008,7 +1021,7 @@ public class RelatorioData {
     
     public void gerarRankingMaiorContasPagar() throws SQLException{
         
-        String sql= "SELECT * FROM contaspagar ORDER BY valor DESC LIMIT 10";
+        String sql= "SELECT * FROM contaspagar ORDER BY CAST(valor as double) DESC LIMIT 10";
         
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1050,7 +1063,7 @@ public class RelatorioData {
                 char[] dataArray = vencimento.toCharArray();
                 vencimento = converter(dataArray);
                 
-                Double valorVenda = rs.getDouble("valor");
+                Double valorVenda = Double.parseDouble(rs.getString("valor").replace(",","."));
                                 
                 cell1 = new PdfPCell(new Paragraph(nome+""));
                 cell2 = new PdfPCell(new Paragraph(vencimento+""));
@@ -1082,7 +1095,7 @@ public class RelatorioData {
     
     public void gerarRankingMaiorContasReceber() throws SQLException{
         
-        String sql= "SELECT * FROM contasreceber ORDER BY valor DESC LIMIT 10";
+        String sql= "SELECT * FROM contasreceber ORDER BY CAST(valor as double) DESC LIMIT 10";
         
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1612,7 +1625,7 @@ public class RelatorioData {
                 
                 cell2 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
                 cell3 = new PdfPCell(new Paragraph(dataDeposito+""));
-                cell6 = new PdfPCell(new Paragraph(status+"")); 
+                cell6 = new PdfPCell(new Paragraph(formaPagamento+"")); 
                 
                 String credito = "Crédito ";
                 String debito = "Débito ";
