@@ -130,7 +130,7 @@ public class InserirQuantidade extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
         
-        Double quantidade = Double.parseDouble(fieldQuantidade.getText());
+        Double quantidade = Double.parseDouble(fieldQuantidade.getText().replace(",","."));
         try {
             Cadastrar(produto, quantidade);
             Inventario.GerarEstoque();

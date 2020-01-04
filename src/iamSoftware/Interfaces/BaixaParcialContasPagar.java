@@ -269,7 +269,7 @@ public class BaixaParcialContasPagar extends javax.swing.JFrame {
             
             numeroDocumento = rs.getString("numerodocumento");
             fornecedor = rs.getString("fornecedor");
-            valor = Double.parseDouble(rs.getString("valor"));
+            valor = Double.parseDouble(rs.getString("valor").replace(",","."));
             numeroParcela = rs.getString("numeroparcela");
             vencimento = rs.getString("vencimento");
             
@@ -282,7 +282,7 @@ public class BaixaParcialContasPagar extends javax.swing.JFrame {
         //atualiza cadastro atual
         double saldoDevedor= valor-novoValor;
         
-        String sql2 = "UPDATE `contaspagar` SET `valor` = '"+novoValor+"' WHERE `contaspagar`.`id` ="+id;
+        String sql2 = "UPDATE `contaspagar` SET `valor` = '"+df.format(novoValor)+"' WHERE `contaspagar`.`id` ="+id;
         stmt = conn.prepareStatement(sql2);               
         stmt.executeUpdate();
         //liquida atual com valor
@@ -295,7 +295,7 @@ public class BaixaParcialContasPagar extends javax.swing.JFrame {
         
         stmt.setString(1,numeroDocumento);
         stmt.setString(2,fornecedor);
-        stmt.setString(3,String.valueOf(saldoDevedor));
+        stmt.setString(3,String.valueOf(df.format(saldoDevedor)));
         stmt.setString(4,numeroParcela);
         stmt.setString(5,dataBanco);
         stmt.setString(6,"Em Aberto");

@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,12 +27,16 @@ public class ContasReceberData {
     public void Liquidar(int id) throws SQLException{
         //"UPDATE `contaspagar` SET `status` = 'Liquidado' WHERE `contaspagar`.`id` = 4"
         
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+        Date dataDoSistema = new Date();		
+        String dataEmTexto = formatador.format(dataDoSistema);
+        
         Connection conn = ConexaoBD.Conectar();    
         //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost/iamsoftware", "root", null);
         
         PreparedStatement stmt = null;
         
-        stmt = conn.prepareStatement("UPDATE `contasreceber` SET `status` = 'Liquidado' WHERE `contasreceber`.`id` ="+id);
+        stmt = conn.prepareStatement("UPDATE `contasreceber` SET `status` = 'Liquidado', `datapagamento` = '"+dataEmTexto+"' WHERE `contasreceber`.`id` ="+id);
                
         stmt.executeUpdate();
         stmt.close();

@@ -143,18 +143,18 @@ public class RelatorioData {
         Double valorfinal=0.0;
         String sql = null;
         
-        if(Fornecedor.equals("")){
+        if(Fornecedor.equals("") || Fornecedor.equals(null)){
             if(Status.equals("Todos")){
                 sql= "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' ORDER BY vencimento ASC";
-                System.out.println(sql);
+               
             }
             if(Status.equals("Aberto")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND status='Em Aberto' ORDER BY vencimento ASC";
-                System.out.println("entrou 02");
+                
             }
             if(Status.equals("Liquidado")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND status='Liquidado' ORDER BY vencimento ASC";
-                System.out.println("entrou 03");
+               
             }
             
             //sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y')";
@@ -162,15 +162,15 @@ public class RelatorioData {
             //sql = "SELECT * FROM notas WHERE STR_TO_DATE(dataemissao, '%d/%m/%Y') BETWEEN STR_TO_DATE('"+datainicial+"', '%d/%m/%Y') AND STR_TO_DATE('"+datafinal+"', '%d/%m/%Y') AND nomefornecedor='"+Fornecedor+"'";
             if(Status.equals("Todos")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+Fornecedor+"' ORDER BY vencimento ASC";
-                System.out.println("entrou 04");
+                
             }
             if(Status.equals("Aberto")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+Fornecedor+"' AND status='Em Aberto' ORDER BY vencimento ASC";
-                System.out.println("entrou 05");
+               
             }
             if(Status.equals("Liquidado")){
                 sql = "SELECT * FROM `contaspagar` WHERE vencimento BETWEEN '"+datainicial+"' AND '"+datafinal+"' AND fornecedor='"+Fornecedor+"' AND status='Liquidado' ORDER BY vencimento ASC";
-                System.out.println("entrou 06");
+                
             }
         }
         
@@ -178,15 +178,16 @@ public class RelatorioData {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         
-        System.out.println("passou aqui");
+       
         
         Document doc = new Document();
         String arquivoPDF = "relatorio-contas-pagar.pdf";
         
-        System.out.println("passou aqui 2");
+        
         DecimalFormat df = new DecimalFormat("#,###.00");
         
         try {
+            
             PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
             doc.open();
             
@@ -218,25 +219,28 @@ public class RelatorioData {
             
             //entra for
             while (rs.next()) {
+                
                 Object[] dados = new Object[1];
                 
-                int id = rs.getInt("id");                
-                String nome = rs.getString("fornecedor");                
-                String numDoc = rs.getString("numerodocumento");
+                int id = rs.getInt("id");    
                 
+                String nome = rs.getString("fornecedor");  
+                
+                String numDoc = rs.getString("numerodocumento");
+                 
                 dados[0]= rs.getString("vencimento");
                 String vencimento = (String) dados[0];
                 char[] dataArray = vencimento.toCharArray();
                 vencimento = converter(dataArray);
                 
-               
                 
-                Double valor = Double.parseDouble(rs.getString("valor"));                
+                
+                Double valor = Double.parseDouble(rs.getString("valor").replace(",","."));
+                
                 String status = rs.getString("status");
                 
                 valorfinal+=valor;
                 
-               
                 cell1 = new PdfPCell(new Paragraph(id+""));
                 cell2 = new PdfPCell(new Paragraph(nome+""));
                 cell3 = new PdfPCell(new Paragraph(numDoc+""));
@@ -244,8 +248,7 @@ public class RelatorioData {
                 cell5 = new PdfPCell(new Paragraph(df.format(valor)+""));
                 cell6 = new PdfPCell(new Paragraph(status+""));
                 
-                
-                
+              
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
@@ -254,7 +257,7 @@ public class RelatorioData {
                 table.addCell(cell6);
                 
             }
-            
+           
             float[] columnWidths = new float[]{10f, 20f, 20f, 20f, 20f, 10f};
             table.setWidths(columnWidths);
             
@@ -842,32 +845,32 @@ public class RelatorioData {
                 }
                 
                 
-            p = new Paragraph("Dinheiro: "+dinheiro);
+            p = new Paragraph("Dinheiro: R$"+df.format(dinheiro));
             p.setAlignment(1);
             doc.add(p);
             
-            p = new Paragraph("Prazo: "+prazo);
+            p = new Paragraph("Prazo: R$"+df.format(prazo));
             p.setAlignment(1);
             doc.add(p);
             
-            p = new Paragraph("Crédito: "+credito);
+            p = new Paragraph("Crédito: R$"+df.format(credito));
             p.setAlignment(1);
             doc.add(p);
             
-            p = new Paragraph("Débito: "+debito);
+            p = new Paragraph("Débito: R$"+df.format(debito));
             p.setAlignment(1);
             doc.add(p);
             
-            p = new Paragraph("Cheque: "+cheque);
+            p = new Paragraph("Cheque: R$"+df.format(cheque));
             p.setAlignment(1);
             doc.add(p);    
             
-            p = new Paragraph("Parcelado: "+parcelado);
+            p = new Paragraph("Parcelado: R$"+df.format(parcelado));
             p.setAlignment(1);
             doc.add(p); 
             
             double total = dinheiro + prazo + credito + debito + cheque + parcelado;            
-            p = new Paragraph("Total: "+total);
+            p = new Paragraph("Total: R$"+df.format(total));
             p.setAlignment(1);
             doc.add(p);
             

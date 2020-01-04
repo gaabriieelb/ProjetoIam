@@ -46,12 +46,14 @@ public class Cartao extends javax.swing.JFrame {
             Logger.getLogger(Cartao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        /*
         String dia = "05";
         
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
         Date dataDoSistema = new Date();		
         String dataEmTexto = formatador.format(dataDoSistema);
         char[] data = dataEmTexto.toCharArray();
+        System.out.println(data.toString());
         
         int m1 = Integer.parseInt(String.valueOf(data[3]));
         int m2 = Integer.parseInt(String.valueOf(data[4]));
@@ -75,10 +77,10 @@ public class Cartao extends javax.swing.JFrame {
         else{
             m3+=1;
             char[] dataMes = String.valueOf(m3).toCharArray();
-            data[3] = dataMes[0];
+            data[3] = dataMes[0];            
             data[4] = dataMes[1];
         }
-        
+        */
         //lblPagamento.setText(dia+"/"+m3+"/20"+data[8]+""+data[9]);
     }
     
@@ -111,13 +113,9 @@ public class Cartao extends javax.swing.JFrame {
         textMensagem2 = new javax.swing.JLabel();
         textMensagem4 = new javax.swing.JLabel();
         lblTaxa = new javax.swing.JLabel();
-        textMensagem5 = new javax.swing.JLabel();
-        fieldMes = new javax.swing.JTextField();
-        textMensagem6 = new javax.swing.JLabel();
-        fieldAno = new javax.swing.JTextField();
         textMensagem3 = new javax.swing.JLabel();
         lblPagamento = new javax.swing.JLabel();
-        fieldDia = new javax.swing.JTextField();
+        fieldPeriodoInicial = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -176,23 +174,22 @@ public class Cartao extends javax.swing.JFrame {
 
         lblTaxa.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        textMensagem5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        textMensagem5.setText("/");
-
-        fieldMes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
-        textMensagem6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        textMensagem6.setText("/");
-
-        fieldAno.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
         textMensagem3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         textMensagem3.setText("Prazo:");
 
         lblPagamento.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblPagamento.setText("NN");
 
-        fieldDia.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        try {
+            fieldPeriodoInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        fieldPeriodoInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldPeriodoInicialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -229,16 +226,8 @@ public class Cartao extends javax.swing.JFrame {
                                 .addComponent(lblTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(textMensagem2)
-                                .addGap(9, 9, 9)
-                                .addComponent(fieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textMensagem5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textMensagem6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -259,12 +248,7 @@ public class Cartao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textMensagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textMensagem5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textMensagem6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fieldPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textMensagem4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,14 +275,12 @@ public class Cartao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String dia = fieldDia.getText();
-        String mes = fieldMes.getText();
-        String ano = fieldAno.getText();
+        String data = fieldPeriodoInicial.getText();
         
         
         forma = String.valueOf(comboFormaPagamento.getSelectedItem());
         cartao = String.valueOf(comboCartao.getSelectedItem());
-        prazo = dia+"/"+mes+"/"+ano;
+        prazo = data;
         //String taxa2 = lblTaxa.getText();        
         //System.out.println(taxa2);
         taxa = Double.parseDouble(lblTaxa.getText());
@@ -352,6 +334,10 @@ public class Cartao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboCartaoActionPerformed
 
+    private void fieldPeriodoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeriodoInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldPeriodoInicialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -393,9 +379,7 @@ public class Cartao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox<String> comboCartao;
     public static javax.swing.JComboBox<String> comboFormaPagamento;
-    private javax.swing.JTextField fieldAno;
-    private javax.swing.JTextField fieldDia;
-    private javax.swing.JTextField fieldMes;
+    private javax.swing.JFormattedTextField fieldPeriodoInicial;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
@@ -406,8 +390,6 @@ public class Cartao extends javax.swing.JFrame {
     private javax.swing.JLabel textMensagem2;
     private javax.swing.JLabel textMensagem3;
     private javax.swing.JLabel textMensagem4;
-    private javax.swing.JLabel textMensagem5;
-    private javax.swing.JLabel textMensagem6;
     // End of variables declaration//GEN-END:variables
 public void PreencherTabela() throws SQLException {
         

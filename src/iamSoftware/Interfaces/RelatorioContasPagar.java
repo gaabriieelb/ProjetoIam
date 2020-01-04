@@ -221,7 +221,7 @@ public class RelatorioContasPagar extends javax.swing.JFrame {
         datafinal = converterToDataBase(periodoFinal);
         
         try {
-            relatorioData.gerarContasPagar(comboStatus ,fornecedor, datainicial, datafinal);
+            relatorioData.gerarContasPagar(comboStatus,fornecedor, datainicial, datafinal);
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioContasPagar.class.getName()).log(Level.SEVERE, null, ex);
         }

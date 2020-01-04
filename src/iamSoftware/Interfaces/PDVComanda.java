@@ -631,7 +631,7 @@ public class PDVComanda extends javax.swing.JFrame {
                 PesquisaCliente pesquisaCliente = new PesquisaCliente("PDVComanda");
                 pesquisaCliente.setVisible(true);
             }else{
-                Prazo prazo = new Prazo();
+                PrazoComanda prazo = new PrazoComanda();
                 prazo.setVisible(true);
             }
         }
@@ -1114,7 +1114,7 @@ public class PDVComanda extends javax.swing.JFrame {
             idproduto = Integer.parseInt(String.valueOf(tblProdutos.getValueAt(i,0)));
             codigoProduto = String.valueOf(tblProdutos.getValueAt(i,1));           
             nomeProduto = String.valueOf(tblProdutos.getValueAt(i,2));
-            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)));
+            quantidade = Double.parseDouble(String.valueOf(tblProdutos.getValueAt(i,3)).replace(",", "."));
             valorUnitario = (String) tblProdutos.getValueAt(i,4);
             subtotal = (String) tblProdutos.getValueAt(i,5);
             

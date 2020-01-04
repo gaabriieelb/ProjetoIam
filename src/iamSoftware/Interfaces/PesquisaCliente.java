@@ -361,7 +361,7 @@ public class PesquisaCliente extends javax.swing.JFrame {
             PDVComanda.clienteSelecionado=true;
             PDVComanda.habilitar();
 
-            Prazo prazo = new Prazo();
+            PrazoComanda prazo = new PrazoComanda();
             prazo.setVisible(true);
         }
         
