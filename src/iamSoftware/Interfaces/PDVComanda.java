@@ -161,7 +161,7 @@ public class PDVComanda extends javax.swing.JFrame {
         }
 
         comboFormaPagamento.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
+        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo" }));
         comboFormaPagamento.setOpaque(false);
         comboFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,7 +330,7 @@ public class PDVComanda extends javax.swing.JFrame {
         lbl02.setText("Tipo Pagto:");
 
         comboFormaPagamento2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        comboFormaPagamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo", "Cheque" }));
+        comboFormaPagamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "À Prazo" }));
         comboFormaPagamento2.setOpaque(false);
         comboFormaPagamento2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1057,7 +1057,7 @@ public class PDVComanda extends javax.swing.JFrame {
         if(pagamento==2){
             Double v1 = Double.parseDouble(labelValorPago1.getText().replace(",","."));
             Double v2 = Double.parseDouble(labelTotal.getText());
-            valorCompra = v2-v1;
+            valorCompra = v1;
         }
         //Registro Conta a receber             
         compra.setIdCompra(idcompra);
@@ -1071,8 +1071,8 @@ public class PDVComanda extends javax.swing.JFrame {
             String dataEmTexto = formatador.format(dataDoSistema);                
             compra.setDataPagamento(dataEmTexto);
             compra.setStatus("Liquidado");
-            compra.setIdCliente(idcliente);
-            compra.setCliente(cliente);
+            compra.setIdCliente(0);
+            compra.setCliente("Consumidor");
         }
             //à prazo
         if(comboPagamento.equalsIgnoreCase("À Prazo")){                               

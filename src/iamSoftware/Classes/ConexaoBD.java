@@ -5,6 +5,7 @@
  */
 package iamSoftware.Classes;
 
+import iamSoftware.Interfaces.Mensagem;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +16,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,9 +35,16 @@ public class ConexaoBD {
     
     public static Connection Conectar() throws SQLException{
         
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+        Date dataDoSistema = new Date();		
+        String dataEmTexto = formatador.format(dataDoSistema);
+        
        
         String servidor = "";
         String usuario = "";
+        String data = "";
+        
+        Connection conn = null;
         
         String path = System.getProperty("user.dir")+"/";
          int cont = 0;
@@ -63,6 +73,9 @@ public class ConexaoBD {
                 if(cont == 2){
                    usuario = linha; 
                 }
+                if(cont == 5){
+                    data = linha;
+                }
                 
             } catch (IOException ex) {
                 Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,9 +87,15 @@ public class ConexaoBD {
             Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        if(!data.equals(dataEmTexto)){
+            conn = DriverManager.getConnection("jdbc:mariadb://"+servidor+"/iamsoftware", usuario, null);
         
-        Connection conn = DriverManager.getConnection("jdbc:mariadb://"+servidor+"/iamsoftware", usuario, null);
+        }else{
+            Mensagem msg = new Mensagem("Sistema bloqueado");
+            msg.setVisible(true);
+        }
         return conn;
+        
     }
     
     public static void Fechar(Connection conn){

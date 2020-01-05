@@ -1439,10 +1439,14 @@ public class RelatorioData {
         //String sql= "SELECT * FROM produtos, notas WHERE produtos.nome=notas.nomeproduto";
         String sql= "SELECT * FROM `composicao` WHERE id_produto="+id;
         
+        String nomeProduto = "";
+        double valorProduto = 0.0;
+        
         Double totalVenda = 0.0;
         Double totalCompra = 0.0;
         Double valorVenda = 0.0;
         Double valorCompra = 0.0;
+        double valorReal = 0.0;
         
         Connection conn = ConexaoBD.Conectar();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1463,21 +1467,21 @@ public class RelatorioData {
             p = new Paragraph(" ");
             doc.add(p);
             
-            PdfPTable table = new PdfPTable(6);
+            PdfPTable table = new PdfPTable(5);
             
             PdfPCell cell1 = new PdfPCell(new Paragraph("Cód."));            
             PdfPCell cell2 = new PdfPCell(new Paragraph("Produto"));
             PdfPCell cell3 = new PdfPCell(new Paragraph("Quantidade"));
             PdfPCell cell4 = new PdfPCell(new Paragraph("Un. Med."));
             PdfPCell cell5 = new PdfPCell(new Paragraph("Valor de Compra"));
-            PdfPCell cell6 = new PdfPCell(new Paragraph("Valor de Venda"));
+            
                   
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
             table.addCell(cell4);
             table.addCell(cell5);
-            table.addCell(cell6);
+            
                         
             //entra for
             while (rs.next()) {
@@ -1501,11 +1505,6 @@ public class RelatorioData {
                     String medida = rs2.getString("medida");
                     cell4 = new PdfPCell(new Paragraph(medida+""));
                     
-                    valorVenda = rs2.getDouble("valorVenda");
-                    cell6 = new PdfPCell(new Paragraph(df.format(valorVenda)+""));
-                   
-                    
-                    
                     String sql3= "SELECT valorcompra FROM `notas` WHERE nomeproduto='"+nome+"'";
                     
                     PreparedStatement stmt3 = conn.prepareStatement(sql3);
@@ -1514,20 +1513,21 @@ public class RelatorioData {
                     while (rs3.next()) {
                         
                         valorCompra = rs3.getDouble("valorcompra");
-                        cell5 = new PdfPCell(new Paragraph(df.format(valorCompra)+""));
+                        valorReal = valorCompra * quantidade;
+                        cell5 = new PdfPCell(new Paragraph(df.format(valorReal)+""));
                       
                     }
                 }
                 
                 totalVenda = valorVenda + totalVenda;
-                totalCompra = valorCompra + totalCompra;
+                totalCompra = valorReal + totalCompra;
                 
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
                 table.addCell(cell4);
                 table.addCell(cell5);
-                table.addCell(cell6);
+                
             }    
                     
             
@@ -1536,21 +1536,41 @@ public class RelatorioData {
             cell3 = new PdfPCell(new Paragraph(""));
             cell4 = new PdfPCell(new Paragraph(""));
             cell5 = new PdfPCell(new Paragraph(df.format(totalCompra)+""));
-            cell6 = new PdfPCell(new Paragraph(df.format(totalVenda)+""));
+            
             
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
             table.addCell(cell4);
             table.addCell(cell5);
-            table.addCell(cell6);
-    
             
-            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f, 20f};
+            
+            String sql4= "SELECT * FROM `produtos` WHERE id="+id;
+                    
+            PreparedStatement stmt4 = conn.prepareStatement(sql4);
+            ResultSet rs4 = stmt4.executeQuery();
+                
+            while (rs4.next()) {
+                        
+                nomeProduto = rs4.getString("nome");
+                valorProduto = rs4.getDouble("valorVenda");
+                
+            }
+            
+            
+            
+            float[] columnWidths = new float[]{20f, 20f, 20f, 20f, 20f};
             table.setWidths(columnWidths);
             
             table.setWidthPercentage(110);
             doc.add(table);
+            
+            p = new Paragraph("Produto: "+nomeProduto);
+            p.setAlignment(1);
+            doc.add(p);
+            p = new Paragraph("Valor de Venda: R$"+df.format(valorProduto));
+            p.setAlignment(1);
+            doc.add(p);
             
             doc.close();           
             Desktop.getDesktop().open(new File(arquivoPDF));

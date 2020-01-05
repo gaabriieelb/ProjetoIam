@@ -175,21 +175,23 @@ public class Inicial extends javax.swing.JFrame {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();       
         
-        double somaDinheiro = 0.0;
+        //double somaDinheiro = 0.0;
         double somaDebito = 0.0;
         double somaCredito = 0.0;
         double somaCheque = 0.0;
+        double somaPrazo = 0.0;
+        double somaParcelado = 0.0;
         while(rs.next()){          
             String formapagamento = rs.getString("formapagamento");
             double v  = Double.parseDouble(rs.getString("valor"));
             String valor = df.format(v);
             
-            if(formapagamento.equalsIgnoreCase("À Prazo") || formapagamento.equalsIgnoreCase("Parcelado")){
-                String cliente = rs.getString("cliente");
-                modelPagar.addElement(new AReceber(formapagamento+"("+cliente+")",valor));
-            }else{
-                if(formapagamento.contains("Dinheiro")){
-                    somaDinheiro+=v;
+            
+                if(formapagamento.contains("À Prazo")){
+                    somaPrazo+=v;
+                }
+                if(formapagamento.contains("Parcelado")){
+                    somaParcelado+=v;
                 }
                 if(formapagamento.contains("Débito")){
                     somaDebito+=v;
@@ -201,7 +203,7 @@ public class Inicial extends javax.swing.JFrame {
                     somaCheque+=v;
                 }
                 
-            }
+            
             
             
             areceber+=v;
@@ -209,7 +211,8 @@ public class Inicial extends javax.swing.JFrame {
         
         modelPagar.addElement(new AReceber("Crédito: ",df.format(somaCredito)));
         modelPagar.addElement(new AReceber("Débito: ",df.format(somaDebito)));
-        modelPagar.addElement(new AReceber("Dinheiro: ",df.format(somaDinheiro)));
+        modelPagar.addElement(new AReceber("À Prazo: ",df.format(somaPrazo)));
+        modelPagar.addElement(new AReceber("Parcelado: ",df.format(somaParcelado)));
         modelPagar.addElement(new AReceber("Cheque: ",df.format(somaCheque)));
         
         String somareceber = df.format(areceber);

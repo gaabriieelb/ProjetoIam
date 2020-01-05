@@ -653,10 +653,10 @@ public class PDVCaixa extends javax.swing.JFrame {
             PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
             pesquisaCliente.setVisible(true);
         }
-        if(comboFormaPagamento.getSelectedItem().equals("Cheque")){
-            PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
-            pesquisaCliente.setVisible(true);
-        }
+        //if(comboFormaPagamento.getSelectedItem().equals("Cheque")){
+        //    PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
+        //    pesquisaCliente.setVisible(true);
+        //}
         
         if(comboFormaPagamento.getSelectedItem().equals("Cartão")){
             Cartao cartao = new Cartao(1);
@@ -675,8 +675,8 @@ public class PDVCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorPago1ActionPerformed
 
     private void comboFormaPagamento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFormaPagamento2ActionPerformed
-        if(comboFormaPagamento2.getSelectedItem().equals("À Prazo") || comboFormaPagamento2.getSelectedItem().equals("Cheque")){
-            if(cliente.equals("Consumidor") || cliente==null){
+        if(comboFormaPagamento2.getSelectedItem().equals("À Prazo")){
+            if(cliente.equals("Consumidor") || cliente==null || cliente.equals("")){
                 //comboFormaPagamento2.setSelectedItem("Dinheiro");
                 
                 PesquisaCliente pesquisaCliente = new PesquisaCliente("teste");
@@ -1194,7 +1194,7 @@ public class PDVCaixa extends javax.swing.JFrame {
         if(pagamento==2){
             Double v1 = Double.parseDouble(labelValorPago1.getText().replace(",","."));
             Double v2 = Double.parseDouble(labelTotal.getText());
-            valorCompra = v2-v1;
+            valorCompra = v1;
         }
         //Registro Conta a receber             
         compra.setIdCompra(idcompra);
@@ -1208,8 +1208,8 @@ public class PDVCaixa extends javax.swing.JFrame {
             String dataEmTexto = formatador.format(dataDoSistema);                
             compra.setDataPagamento(dataEmTexto);
             compra.setStatus("Liquidado");
-            compra.setIdCliente(idcliente);
-            compra.setCliente(cliente);
+            compra.setIdCliente(0);
+            compra.setCliente("Consumidor");
         }
             //à prazo
         if(comboPagamento.equalsIgnoreCase("À Prazo")){                               
@@ -1227,10 +1227,13 @@ public class PDVCaixa extends javax.swing.JFrame {
         }
         
         if(comboPagamento.equalsIgnoreCase("Cheque")){                               
-            compra.setDataPagamento(prazo);
-            compra.setStatus("Em aberto");
-            compra.setIdCliente(idcliente);
-            compra.setCliente(cliente);
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 		 
+            Date dataDoSistema = new Date();		
+            String dataEmTexto = formatador.format(dataDoSistema);                
+            compra.setDataPagamento(dataEmTexto);
+            compra.setStatus("Liquidado");
+            compra.setIdCliente(0);
+            compra.setCliente("Consumidor");
         }
             
         try {

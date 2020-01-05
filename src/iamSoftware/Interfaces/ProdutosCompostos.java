@@ -498,6 +498,9 @@ public class ProdutosCompostos extends javax.swing.JFrame {
         if(produto != null && produto != "" && id != null && id != "" && quantidade != null && quantidade != ""){
             try {
                 inserirItem(Integer.parseInt(id), produto, Double.parseDouble(quantidade));
+                fieldProduto.setText("");
+                fieldId.setText("");
+                fieldQuantidade.setText("");
             } catch (SQLException ex) {
                 Logger.getLogger(PDVCaixa.class.getName()).log(Level.SEVERE, null, ex);
             }
